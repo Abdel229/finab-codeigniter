@@ -23,12 +23,15 @@
     </form>
 
     <script>
+        var counter = 0;
+
         function addInput() {
             var container = document.getElementById("inputsContainer");
             var input = document.createElement("input");
             input.type = "file";
-            input.name = "photos[]";
+            input.name = "photos[" + counter + "]";
             container.appendChild(input);
+            counter++; // Incrémenter le compteur pour le prochain champ input
         }
 
         function removeInput() {
@@ -36,8 +39,10 @@
             var inputs = container.getElementsByTagName("input");
             if (inputs.length > 0) {
                 container.removeChild(inputs[inputs.length - 1]);
+                counter--; // Décrémenter le compteur après la suppression du champ input
             }
         }
+
     </script>
 </body>
 </html>

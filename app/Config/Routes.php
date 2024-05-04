@@ -13,4 +13,6 @@ $routes->get('show/(:num)', 'ArticleController::show/$1');
 
 
 $routes->get('/create_gallery', 'GalleriesController::index');
+$routes->get('/fetchCategories', 'GalleriesController::fetchCategories');
 $routes->post('/galleries/store', 'GalleriesController::store');
+$routes->post('gallery/showImagesByCategory', 'GalleriesController::showImagesByCategory');
