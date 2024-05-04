@@ -110,6 +110,90 @@ class ArticleController extends BaseController
         // Charger la vue correspondante
         return view('formulaire/show', $data);
     }
+    public function update($id)
+    {
+        // Récupérer les données du formulaire
+        $articleData = [
+            'title' => $this->request->getPost('title'),
+            'img' => $this->request->getPost('img'),
+            'description' => $this->request->getPost('description'),
+            // Autres champs d'article
+        ];
+
+        // Mettre à jour l'article
+        $articlesModel = new ArticlesModel();
+        $articlesModel->update($id, $articleData);
+
+        // Récupérer les données des liens YouTube
+        $linksData = $this->request->getPost('youtube_links');
+
+        // Mettre à jour les liens YouTube associés à l'article
+        $articleLinksModel = new ArticleLinksModel();
+        $articleLinksModel->where('article_id', $id)->delete(); // Supprimer d'abord tous les liens existants pour cet article
+        foreach ($linksData as $link) {
+            $articleLinksModel->insert([
+                'link' => $link,
+                'article_id' => $id,
+                // Autres champs de lien YouTube
+            ]);
+        }
+
+        // Rediriger avec un message de succès
+        return redirect()->to('/articles')->with('success', 'Article updated successfully.');
+    }
+    public function delete($id)
+    {
+        // Statut pour marquer comme supprimé (3 dans votre cas)
+        $deletedStatus = 3;
+
+        // Mettre à jour le statut de l'article dans la base de données
+        $articleModel = new ArticlesModel();
+        $data = [
+            'status_id' => $deletedStatus
+        ];
+
+        if ($articleModel->update($id, $data)) {
+            // Redirection avec un message de succès si la mise à jour réussit
+            return redirect()->to('/articles')->with('success', 'Article marked as deleted successfully.');
+        } else {
+            // Redirection avec un message d'erreur si la mise à jour échoue
+            return redirect()->to('/articles')->with('error', 'Failed to mark article as deleted.');
+        }
+    }
+    public function form_update($id_article)
+    {
+        // Charger le modèle de l'article
+        $articleModel = new ArticlesModel();
+        // Récupérer les données de l'article avec l'ID spécifié
+        $article = $articleModel->find($id_article);
+
+        if (!$article) {
+            // Gérer le cas où l'article n'est pas trouvé
+            return redirect()->to('/articles')->with('error', 'Article not found.');
+        }
+
+        // Charger le modèle des liens des articles
+        $articleLinksModel = new ArticleLinksModel();
+        // Récupérer les liens correspondant à l'article avec l'ID spécifié
+        $articleLinks = $articleLinksModel->where('article_id', $id_article)->findAll();
+
+        // Charger le modèle de la catégorie d'articles
+        $articleCategoryModel = new ArticlesCategoryModel();
+        // Récupérer la catégorie correspondant à l'article avec l'ID spécifié
+        $articleCategory = $articleCategoryModel->find($article['category_id']);
+
+        if (!$articleCategory) {
+            // Gérer le cas où la catégorie n'est pas trouvée
+            return redirect()->to('/articles')->with('error', 'Category not found.');
+        }
+
+        // Charger la vue du formulaire avec les données récupérées
+        return view('formulaire/articles_form', [
+            'article' => $article,
+            'articleLinks' => $articleLinks,
+            'articleCategory' => $articleCategory
+        ]);
+    }
 
 
 }
