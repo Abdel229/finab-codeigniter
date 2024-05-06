@@ -1,7 +1,7 @@
 <?php
-  echo view('partials/doc_header');
-  echo view('partials/header');
-  
+echo view('partials/doc_header');
+echo view('partials/header');
+
 ?>
 <div class="wrapper">
   <main class="main">
@@ -9,7 +9,7 @@
       <div class="container">
         <div class="banner__content">
           <div class="banner__blackImg wow animate__animated animate__backInDown">
-            <img src="<?= base_url('images/svg/finab_head.svg')?>"  class="finab-head" alt="finab-head">
+            <img src="<?= base_url('images/svg/finab_head.svg') ?>" class="finab-head" alt="finab-head">
           </div>
           <h1 class="home-title wow animate__animated animate__fadeInLeft">FINAB 2024</h1>
           <div class="home-subtitle">Identité et multiculturalisme : impacts sur les industries culturelles créatives en Afrique</div>
@@ -32,35 +32,29 @@
         <div class="discover__content">
           <div class="discover__top">
             <div class="discover__top__left">
-              <h2 class="wow animate__animated animate__fadeInLeft" data-wow-delay="0.1s">VENEZ DÉCOUVRIR LA CRÉATIVITÉ CULTURELLE  ET ARTISTIQUE AFRICAINE</h2>
+              <h2 class="wow animate__animated animate__fadeInLeft" data-wow-delay="0.1s">VENEZ DÉCOUVRIR LA CRÉATIVITÉ CULTURELLE ET ARTISTIQUE AFRICAINE</h2>
               <p class="wow animate__animated animate__backInUp" data-wow-delay="0.3s">La scène béninoise est prête pour une deuxième édition du Festival International des Arts du Bénin, autour de la riche thématique de l'identité et du multiculturalisme : impacts sur les industries culturelles créatives en Afrique. Du 23 au 28 avril 2024, les projecteurs seront braqués sur artistes conviés aux festivités, offrant ainsi une découverte de la richesse et la diversité des expressions artistiques du continent durant cette semaine d’immersion.</p>
-              <p  class="wow animate__animated animate__backInUp" data-wow-delay="0.5s">Cette édition spéciale promet une palette d'activités variées, que nous avons conçues pour susciter la réflexion, nourrir les débats et célébrer toutes les expressions des identités africaines avec originalité et créativité. Cette deuxième édition du Festival International des Arts du Bénin s'annonce comme une véritable célébration de la diversité, de la créativité et de la résilience africaines, tout en offrant un espace unique pour tisser des liens, partager des expériences et imaginer un avenir culturel plus inclusif et dynamique pour le continent.</p>
-              <p  class="wow animate__animated animate__backInUp" data-wow-delay="0.7s">Ensemble, nous pouvons faire du Festival International des Arts du Bénin un symbole de l'unité, de la créativité et du progrès pour le Bénin et pour le  continent africain. </p>
+              <p class="wow animate__animated animate__backInUp" data-wow-delay="0.5s">Cette édition spéciale promet une palette d'activités variées, que nous avons conçues pour susciter la réflexion, nourrir les débats et célébrer toutes les expressions des identités africaines avec originalité et créativité. Cette deuxième édition du Festival International des Arts du Bénin s'annonce comme une véritable célébration de la diversité, de la créativité et de la résilience africaines, tout en offrant un espace unique pour tisser des liens, partager des expériences et imaginer un avenir culturel plus inclusif et dynamique pour le continent.</p>
+              <p class="wow animate__animated animate__backInUp" data-wow-delay="0.7s">Ensemble, nous pouvons faire du Festival International des Arts du Bénin un symbole de l'unité, de la créativité et du progrès pour le Bénin et pour le continent africain. </p>
             </div>
             <div class="discover__top__right wow animate__animated animate__backInRight">
               <div class="video-box-link" id="ytplayer">
-                <iframe width="560" height="315" 
-                  src="https://www.youtube.com/embed/5uH3KJXKLlI?si=YgkoTKjjdBcduKuG" 
-                  title="YouTube video player" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                  referrerpolicy="strict-origin-when-cross-origin" 
-                  allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/5uH3KJXKLlI?si=YgkoTKjjdBcduKuG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 <span class="video-box-link-btn"></span>
               </div>
-              
+
             </div>
           </div>
           <div class="discover__bottom">
             <div class="discover__bottom__left wow animate__animated animate__flipInY">
               <div class="discover__bottom__left__img">
-                <img src="<?= base_url('images/pdg.png')?>" alt="pdg">
+                <img src="<?= base_url('images/pdg.png') ?>" alt="pdg">
               </div>
               <p>Ulrich Adjovi</p>
               <span>Promoteur du FINAB.</span>
             </div>
             <div class="discover__bottom__right wow animate__animated animate__fadeInRight">
-              <img src="<?= base_url('images/groupeempire-logo.png')?>" alt="groupeempire">
+              <img src="<?= base_url('images/groupeempire-logo.png') ?>" alt="groupeempire">
             </div>
           </div>
         </div>
@@ -101,7 +95,7 @@
           <div class="distinction__list js-distinction">
             <div class="distinction__item">
               <div class="distinction__item-img-box">
-                <img src="<?= base_url('images/artistes-dist/artiste-dist-03.png')?>" alt="distinction_img">
+                <img src="<?= base_url('images/artistes-dist/artiste-dist-03.png') ?>" alt="distinction_img">
               </div>
               <div class="distinction__infos">
                 <span>Dominique ZINKPÈ </span>
@@ -111,7 +105,7 @@
             </div>
             <div class="distinction__item">
               <div class="distinction__item-img-box">
-                <img src="<?= base_url('images/artistes-dist/artiste-dist-04.png')?>" alt="distinction_img">
+                <img src="<?= base_url('images/artistes-dist/artiste-dist-04.png') ?>" alt="distinction_img">
               </div>
               <div class="distinction__infos">
                 <span>Carole Lokossou</span>
@@ -121,7 +115,7 @@
             </div>
             <div class="distinction__item">
               <div class="distinction__item-img-box">
-                <img src="<?= base_url('images/artistes-dist/artiste-dist-02.png')?>" alt="distinction_img">
+                <img src="<?= base_url('images/artistes-dist/artiste-dist-02.png') ?>" alt="distinction_img">
               </div>
               <div class="distinction__infos">
                 <span>Florisse ADJANOHOUN</span>
@@ -131,7 +125,7 @@
             </div>
             <div class="distinction__item">
               <div class="distinction__item-img-box">
-                <img src="<?= base_url('images/artistes-dist/artiste-dist-01.png')?>" alt="distinction_img">
+                <img src="<?= base_url('images/artistes-dist/artiste-dist-01.png') ?>" alt="distinction_img">
               </div>
               <div class="distinction__infos">
                 <span>Vincent ahehehinnou</span>
@@ -141,7 +135,7 @@
             </div>
             <div class="distinction__item">
               <div class="distinction__item-img-box">
-                <img src="<?= base_url('images/artistes-dist/artiste-dist-05.png')?>" alt="distinction_img">
+                <img src="<?= base_url('images/artistes-dist/artiste-dist-05.png') ?>" alt="distinction_img">
               </div>
               <div class="distinction__infos">
                 <span>José Pliya pour Jean Pliya</span>
@@ -153,6 +147,23 @@
         </div>
       </div>
     </section>
+    <section class="gallerie">
+      <div class="container">
+        <div class="gallerie__content">
+          <h2>Découvrez notre gallerie d'images pour le FInAB 2024</h2>
+          <p class="gallerie__subText">Les manifestations artistiques empreintes d'exclusivité dévoileront un panorama envoûtant d'artistes, tant locaux qu'internationaux</p>
+          <div class="gallerie__images-grid">
+            <?php foreach ($galleries as $gallery) : ?>
+              <div class="distinction__list talent__list">
+                  <a href="<?= base_url($gallery['image']['img']) ?>" class="distinction__item" data-fancybox="gallery">
+                    <img src="<?= base_url($gallery['image']['img']) ?>" alt="distinction_img">
+                  </a>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="talent">
       <div class="container">
         <div class="talent__content">
@@ -160,25 +171,25 @@
           <p class="talent__subText">Les manifestations artistiques empreintes d'exclusivité dévoileront un panorama envoûtant d'artistes, tant locaux qu'internationaux</p>
           <div class="distinction__list talent__list js-distinction">
             <a href="<?= base_url('images/artistes-prestation/AP-01.png') ?>" class="distinction__item" data-fancybox="gallery">
-              <img src="<?= base_url('images/artistes-prestation/AP-01.png')?>" alt="distinction_img">
+              <img src="<?= base_url('images/artistes-prestation/AP-01.png') ?>" alt="distinction_img">
             </a>
             <a href="<?= base_url('images/artistes-prestation/AP-02.png') ?>" class="distinction__item" data-fancybox="gallery">
-              <img src="<?= base_url('images/artistes-prestation/AP-02.png')?>" alt="distinction_img">
+              <img src="<?= base_url('images/artistes-prestation/AP-02.png') ?>" alt="distinction_img">
             </a>
             <a href="<?= base_url('images/artistes-prestation/AP-03.png') ?>" class="distinction__item" data-fancybox="gallery">
-              <img src="<?= base_url('images/artistes-prestation/AP-03.png')?>" alt="distinction_img">
+              <img src="<?= base_url('images/artistes-prestation/AP-03.png') ?>" alt="distinction_img">
             </a>
             <a href="<?= base_url('images/artistes-prestation/AP-04.png') ?>" class="distinction__item" data-fancybox="gallery">
-              <img src="<?= base_url('images/artistes-prestation/AP-04.png')?>" alt="distinction_img">
+              <img src="<?= base_url('images/artistes-prestation/AP-04.png') ?>" alt="distinction_img">
             </a>
             <a href="<?= base_url('images/artistes-prestation/AP-05.png') ?>" class="distinction__item" data-fancybox="gallery">
-              <img src="<?= base_url('images/artistes-prestation/AP-05.png')?>" alt="distinction_img">
+              <img src="<?= base_url('images/artistes-prestation/AP-05.png') ?>" alt="distinction_img">
             </a>
             <a href="<?= base_url('images/artistes-prestation/AP-06.png') ?>" class="distinction__item" data-fancybox="gallery">
-              <img src="<?= base_url('images/artistes-prestation/AP-06.png')?>" alt="distinction_img">
+              <img src="<?= base_url('images/artistes-prestation/AP-06.png') ?>" alt="distinction_img">
             </a>
             <a href="<?= base_url('images/artistes-prestation/AP-07.png') ?>" class="distinction__item" data-fancybox="gallery">
-              <img src="<?= base_url('images/artistes-prestation/AP-07.png')?>" alt="distinction_img">
+              <img src="<?= base_url('images/artistes-prestation/AP-07.png') ?>" alt="distinction_img">
             </a>
           </div>
         </div>
@@ -190,121 +201,124 @@
           <h2>Nos partenaires</h2>
           <div class="partner__list js-partner">
             <div class="partner__item">
-              <img src="<?= base_url('images/p1.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p1.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p2.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p2.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p3.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p3.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p4.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p4.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p5.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p5.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p6.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p6.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p7.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p7.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p8.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p8.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p9.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p9.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p10.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p10.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p11.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p11.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p12.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p12.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p13.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p13.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p14.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p14.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p15.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p15.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p16.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p16.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p17.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p17.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p18.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p18.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p19.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p19.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p20.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p20.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p21.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p21.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p22.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p22.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p23.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p23.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p24.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p24.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p25.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p25.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p26.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p26.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p27.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p27.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p28.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p28.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p29.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p29.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p30.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p30.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p31.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p31.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p32.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p32.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p33.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p33.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p34.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p34.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p35.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p35.svg') ?>" alt="partner">
             </div>
             <div class="partner__item">
-              <img src="<?= base_url('images/p36.svg')?>" alt="partner">
+              <img src="<?= base_url('images/p36.svg') ?>" alt="partner">
             </div>
           </div>
         </div>
       </div>
     </section>
-    <?php echo view('sections/last-events');?>
+    <?php echo view('sections/last-events'); ?>
   </main>
 </div>
+<script>
+  console.log(<?= json_encode($galleries) ?>)
+</script>
 <?php
-  echo view('partials/footer');
-  echo view('partials/doc_footer');
+echo view('partials/footer');
+echo view('partials/doc_footer');
 ?>

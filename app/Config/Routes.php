@@ -9,6 +9,7 @@ $routes->get('/', 'Home::index');
 $routes->get('/programmation', 'Home::programmation');
 $routes->get('/partners', 'Home::partners');
 $routes->get('/actualite', 'Home::actualite');
+$routes->get('/single-actualite/(:num)', 'Home::singleActualite/$1');
 $routes->get('/media', 'Home::media');
 $routes->get('/contact', 'Home::contact');
 
@@ -30,8 +31,13 @@ $routes->group('/latest', function (RouteCollection $routes) {
 
 $routes->group('/admin', function (RouteCollection $routes) {
     $routes->get('/','Admin::index');
-});
+    $routes->get('galeries','Admin::galeries');
+    $routes->get('categories','ArticlesCategoryController::index');
+    $routes->get('categories-gallerie','GalleriesCategoryController::index');
 
+
+
+});
 
 /**
  * ***************
@@ -40,13 +46,18 @@ $routes->group('/admin', function (RouteCollection $routes) {
  */
 
 $routes->group('/articles',function(RouteCollection $routes) {
-    $routes->get('/', 'ArticleController::index');
-    $routes->post('da/store', 'ArticleController::store');
+    // $routes->get('/', 'ArticleController::index');
+    $routes->match(['get','post'],'store', 'ArticleController::store');
     $routes->get('show/(:num)', 'ArticleController::show/$1');
+    $routes->match(['GET','POST'],'update/(:num)', 'ArticleController::update/$1');
+    $routes->get('delete/(:num)', 'ArticleController::delete/$1');
 });
 
-
-
+$routes->group('/galleries',function(RouteCollection $routes) {
+    // $routes->get('/', 'ArticleController::index');
+    $routes->match(['get','post'],'store', 'GalleriesController::store');
+    $routes->get('show/(:num)', 'GalleriesController::show/$1');
+});
 
 $routes->get('/create_gallery', 'GalleriesController::index');
 $routes->get('/fetchCategories', 'GalleriesController::fetchCategories');
@@ -56,14 +67,19 @@ $routes->post('gallery/showImagesByCategory', 'GalleriesController::showImagesBy
 
 
 $routes->get('/create_article_categories', 'ArticlesCategoryController::index');
-$routes->post('/article_categorie/store', 'ArticlesCategoryController::store');
+$routes->match(['GET','POST'],'/article_categorie/store', 'ArticlesCategoryController::store');
 $routes->get('article_category/edit', 'ArticlesCategoryController::edit/$1');
-$routes->post('/categories/update/(:num)', 'ArticlesCategoryController::update/$1');
+$routes->match(['GET','POST'],'/categories/update/(:num)', 'ArticlesCategoryController::update/$1');
 $routes->get('/categories/delete/(:num)', 'ArticlesCategoryController::delete/$1');
 
 
 $routes->get('/create_gallery_categories', 'GalleriesCategoryController::index');
-$routes->post('/gallery_categorie/store', 'GalleriesCategoryController::store');
-$routes->get('gallery_category/edit', 'GalleriesCategoryController::edit/$1');
-$routes->post('/galleries_category/update/(:num)', 'GalleriesCategoryController::update/$1');
+$routes->match(['get','post'],'/gallery_categorie/store', 'GalleriesCategoryController::store');
+$routes->match(['get','post'],'/galleries_category/update/(:num)', 'GalleriesCategoryController::update/$1');
 $routes->get('/galleries_category/delete/(:num)', 'GalleriesCategoryController::delete/$1');
+
+$routes->group('auth', function (RouteCollection $routes) {
+    $routes->match(['get','post'],'login','AuthController::login');
+    $routes->match(['get','post'],'register','AuthController::register');
+    $routes->get('logout','AuthController::logout');
+});

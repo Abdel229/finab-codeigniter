@@ -12,9 +12,9 @@ class ArticlesCategoryController extends BaseController
     public function index()
     {
         $categoryModel = new ArticlesCategoryModel();
-        $categories = $categoryModel->findAll();
+        $categories = $categoryModel->where('status_id',2)->findAll();
 
-        return view('categories/index', ['categories' => $categories]);
+        return view('dashboard/article_category', ['categories' => $categories]);
     }
 
     public function create()
@@ -52,22 +52,28 @@ class ArticlesCategoryController extends BaseController
 
     public function update($id)
     {
-        $categoryModel = new ArticlesCategoryModel();
+        $method = $this->request->getMethod();
+        if ($method === 'GET') {
+            $categoryModel = new ArticlesCategoryModel();
+            $category = $categoryModel->find($id);
+            return view('dashboard/update_article_category', ['category' => $category]);
+        } else if ($method === 'POST') {
+            $categoryModel = new ArticlesCategoryModel();
 
-        // Récupérer les données du formulaire
-        $data = [
-            'name' => $this->request->getPost('name'),
-            'status_id' => $this->request->getPost('status_id')
-        ];
+            // Récupérer les données du formulaire
+            $data = [
+                'name' => $this->request->getPost('name'),
+            ];
 
-        // Mettre à jour la catégorie dans la base de données
-        if (!$categoryModel->update($id, $data)) {
-            // En cas d'échec de mise à jour, rediriger avec un message d'erreur
-            return redirect()->back()->withInput()->with('error', 'Failed to update category.');
+            // Mettre à jour la catégorie dans la base de données
+            if (!$categoryModel->update($id, $data)) {
+                // En cas d'échec de mise à jour, rediriger avec un message d'erreur
+                return redirect()->back()->withInput()->with('error', 'Failed to update category.');
+            }
+
+            // Redirection avec un message de succès si la mise à jour réussit
+            return redirect()->to('/admin/categories')->with('success', 'Category updated successfully.');
         }
-
-        // Redirection avec un message de succès si la mise à jour réussit
-        return redirect()->to('/categories')->with('success', 'Category updated successfully.');
     }
 
     public function delete($id)
@@ -86,6 +92,6 @@ class ArticlesCategoryController extends BaseController
         }
 
         // Redirection avec un message de succès si la suppression réussit
-        return redirect()->to('/categories')->with('success', 'Category deleted successfully.');
+        return redirect()->to('/admin/catgories')->with('success', 'Category deleted successfully.');
     }
 }

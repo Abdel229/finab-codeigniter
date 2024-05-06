@@ -743,7 +743,44 @@ a.banner__programme-btn {
   color: #FF910E;
   text-transform: uppercase;
 }
+.gallerie{
+  border-bottom: 2px solid #FF910E;
+}
 
+.gallerie__content {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  background-image: url(../../images/design.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.gallerie__content h2 {
+  display: inline-block;
+  max-width: 684px;
+}
+.gallerie__content h2:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%);
+  height: 1px;
+  width: 30%;
+  background-color: #FF910E;
+}
+.gallerie__subText {
+  display: inline-block;
+  max-width: 623px;
+  margin-top: 40px;
+}
+.gallerie__images-grid{
+  display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 10px;
+}
 .talent {
   border-bottom: 2px solid #FF910E;
 }

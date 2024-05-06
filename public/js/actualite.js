@@ -1,4 +1,9 @@
-import news from BASE_URL + "data/news.js";
+// get news data
+
+let elementForData=document.querySelector('#actualite_content');
+const news=JSON.parse(elementForData.dataset.newsData)
+
+console.log(news);
 
 const actuality = () => {
     const articlesPerPage = 12;
@@ -24,7 +29,6 @@ const actuality = () => {
             imgContainer.appendChild(img);
             articleElement.appendChild(imgContainer);
 
-            const textContainer = document.createElement('p');
             textContainer.className = 'single_new_text';
             textContainer.textContent = article.titre
             articleElement.appendChild(textContainer);

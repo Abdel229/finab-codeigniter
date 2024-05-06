@@ -11,7 +11,7 @@ class ArticleController extends BaseController
     // Méthode pour afficher une liste d'articles
     public function index()
     {
-        $articleCategoryModel = new ArticlesCategoryModel();
+        $articleCategoryModel = new ArticlesModel();
         $articles_category = $articleCategoryModel->findAll();
         return view('formulaire/articles_form', ["articlescategory" => $articles_category]);
     }
@@ -19,69 +19,88 @@ class ArticleController extends BaseController
     // Méthode pour traiter la soumission du formulaire de création
     public function store()
     {
-        // Récupérer les données du formulaire
-        $title = $this->request->getPost('title');
-        $description = $this->request->getPost('description');
-        $date_pub = $this->request->getPost('date_pub');
-        $categoryName = $this->request->getPost('category'); // Nom de la catégorie
+        $method = $this->request->getMethod('true');
 
-        // Vérifier que tous les champs sont remplis
-        if (empty($title) || empty($description) || empty($date_pub) || empty($categoryName)) {
-            // Rediriger avec un message d'erreur
-            return redirect()->back()->withInput()->with('error', 'Veuillez remplir tous les champs du formulaire.');
-        }
+        if ($method === 'GET') {
+            $categoryModel = new ArticlesCategoryModel();
+            $category = $categoryModel->findAll();
+            return view('dashboard/new_article', ['categories' => $category]);
+        } elseif ($method === 'POST') {
+            // Définir les règles de validation
+            $rules = [
+                'title' => 'required|max_length[255]',
+                'description' => 'required',
+                'date_pub' => 'required|date',
+                'category' => 'required',
+                'img' => 'uploaded[img]',
+            ];
 
-        // Récupérer l'ID de la catégorie en fonction de son nom
-        $articlesCategoryModel = new ArticlesCategoryModel();
-        $category = $articlesCategoryModel->where('name', $categoryName)->first();
-
-        // Vérifier si la catégorie existe
-        if (!$category) {
-            // Rediriger avec un message d'erreur si la catégorie n'existe pas
-            return redirect()->back()->withInput()->with('error', 'La catégorie sélectionnée n\'existe pas.');
-        }
-
-        // Traiter l'image
-        $img = $this->request->getFile('img');
-        if ($img->isValid() && !$img->hasMoved()) {
-            // Déplacer l'image vers le dossier de destination
-            $newName = $img->getRandomName();
-            $img->move(ROOTPATH . 'public/uploads', $newName);
-
-            // Enregistrer le lien de l'image dans la base de données
-            $imgPath = 'uploads/' . $newName;
-        }
-
-        // Enregistrer les données de l'article dans la table articles
-        $articleModel = new ArticlesModel();
-        $articleData = [
-            'title' => $title,
-            'img' => $imgPath,
-            'description' => $description,
-            'date_pub' => $date_pub,
-            'category_id' => $category['id'], // Utiliser l'ID de la catégorie récupérée
-            'status_id' => 2 // Par exemple, 2 est l'ID du statut
-        ];
-        $articleModel->insert($articleData);
-
-        // Enregistrer les liens dans la table article_links
-        $links = [];
-        for ($i = 1; $i <= 7; $i++) {
-            $link = $this->request->getPost("lien$i");
-            if (!empty($link)) {
-                $links[] = [
-                    'link' => $link,
-                    'article_id' =>$articleModel->getInsertID(),
-                    'status_id' =>2
-                ];
+            // Vérifier si la validation échoue
+            if (!$this->validate($rules)) {
+                session()->setFlashdata('errors', $this->validator->getErrors());
+                return redirect()->back()->withInput();
             }
-        }
-        $articleLinksModel = new ArticleLinksModel();
-        $articleLinksModel->insertBatch($links);
 
-        // Rediriger l'utilisateur vers une autre page ou afficher un message de succès
-        return redirect()->to('/')->with('success', 'Article ajouté avec succès !');
+            // Récupérer les données du formulaire
+            $title = $this->request->getPost('title');
+            $description = $this->request->getPost('description');
+            $date_pub = $this->request->getPost('date_pub');
+            $categoryName = $this->request->getPost('category'); // Nom de la catégorie
+
+            // Récupérer l'ID de la catégorie en fonction de son nom
+            $articlesCategoryModel = new ArticlesCategoryModel();
+            $category = $articlesCategoryModel->where('name', $categoryName)->first();
+
+            // Vérifier si la catégorie existe
+            if (!$category) {
+                // Rediriger avec un message d'erreur si la catégorie n'existe pas
+                return redirect()->back()->withInput()->with('error', 'La catégorie sélectionnée n\'existe pas.');
+            }
+
+            // Traiter l'image
+            $img = $this->request->getFile('img');
+            if ($img->isValid() && !$img->hasMoved()) {
+                // Déplacer l'image vers le dossier de destination
+                $newName = $img->getRandomName();
+                $img->move(ROOTPATH . 'public/uploads', $newName);
+
+                // Enregistrer le lien de l'image dans la base de données
+                $imgPath = 'uploads/' . $newName;
+            }
+
+            // Enregistrer les données de l'article dans la table articles
+            $articleModel = new ArticlesModel();
+            $articleData = [
+                'title' => $title,
+                'img' => $imgPath,
+                'description' => $description,
+                'date_pub' => $date_pub,
+                'category_id' => $category['id'], // Utiliser l'ID de la catégorie récupérée
+                'status_id' => 2 // Par exemple, 2 est l'ID du statut
+            ];
+            $articleModel->insert($articleData);
+
+            // Enregistrer les liens dans la table article_links
+            $links = [];
+            for ($i = 1; $i <= 7; $i++) {
+                $link = $this->request->getPost("lien$i");
+                if (!empty($link)) {
+                    $links[] = [
+                        'link' => $link,
+                        'article_id' => $articleModel->getInsertID(),
+                        'status_id' => 2
+                    ];
+                }
+            }
+            $articleLinksModel = new ArticleLinksModel();
+            $articleLinksModel->insertBatch($links);
+
+            // Rediriger l'utilisateur vers une autre page ou afficher un message de succès
+            return redirect()->to('/admin')->with('success', 'Article ajouté avec succès!');
+        }
     }
+
+
     public function show($id)
     {
         // Charger le modèle des articles
@@ -112,54 +131,60 @@ class ArticleController extends BaseController
     }
     public function update($id)
     {
-        // Récupérer les données du formulaire
-        $articleData = [
-            'title' => $this->request->getPost('title'),
-            'img' => $this->request->getPost('img'),
-            'description' => $this->request->getPost('description'),
-            // Autres champs d'article
-        ];
+        $method = $this->request->getMethod();
+        // dd($this->request->getPost());
+        if ($method === 'GET') {
+            $articleModel = new ArticlesModel();
+            $article = $articleModel->find($id);
+            $categoryModel = new ArticlesCategoryModel();
+            $category = $categoryModel->findAll();
+            return view('dashboard/update_article', ['article' => $article, 'categories' => $category]);
+        } else if ($method === 'POST') {
+            // Définir les règles de validation
+            $rules = [
+                'title' => 'required',
+                'img' => 'required',
+                'description' => 'required',
+                // Ajoutez ici d'autres règles de validation si nécessaire
+            ];
+           
+            // Vérifier si la validation échoue
+            if (!$this->validate($rules)) {
+                session()->setFlashdata('errors', $this->validator->getErrors());
+                return redirect()->back()->withInput();
+            }
 
-        // Mettre à jour l'article
-        $articlesModel = new ArticlesModel();
-        $articlesModel->update($id, $articleData);
+            // Récupérer les données du formulaire
+            $articleData = [
+                'title' => $this->request->getPost('title'),
+                'img' => $this->request->getPost('img'),
+                'description' => $this->request->getPost('description'),
+                // Autres champs d'article
+            ];
 
-        // Récupérer les données des liens YouTube
-        $linksData = $this->request->getPost('youtube_links');
+            // Mettre à jour l'article
+            $articlesModel = new ArticlesModel();
+            $articlesModel->update($id, $articleData);
 
-        // Mettre à jour les liens YouTube associés à l'article
-        $articleLinksModel = new ArticleLinksModel();
-        $articleLinksModel->where('article_id', $id)->delete(); // Supprimer d'abord tous les liens existants pour cet article
-        foreach ($linksData as $link) {
-            $articleLinksModel->insert([
-                'link' => $link,
-                'article_id' => $id,
-                // Autres champs de lien YouTube
-            ]);
+            // Récupérer les données des liens YouTube
+            $linksData = $this->request->getPost('youtube_links');
+
+            // Mettre à jour les liens YouTube associés à l'article
+            $articleLinksModel = new ArticleLinksModel();
+            $articleLinksModel->where('article_id', $id)->delete(); // Supprimer d'abord tous les liens existants pour cet article
+            foreach ($linksData as $link) {
+                $articleLinksModel->insert([
+                    'link' => $link,
+                    'article_id' => $id,
+                    // Autres champs de lien YouTube
+                ]);
+            }
+
+            // Rediriger avec un message de succès
+            return redirect()->to('/articles')->with('success', 'Article updated successfully.');
         }
-
-        // Rediriger avec un message de succès
-        return redirect()->to('/articles')->with('success', 'Article updated successfully.');
     }
-    public function delete($id)
-    {
-        // Statut pour marquer comme supprimé (3 dans votre cas)
-        $deletedStatus = 3;
 
-        // Mettre à jour le statut de l'article dans la base de données
-        $articleModel = new ArticlesModel();
-        $data = [
-            'status_id' => $deletedStatus
-        ];
-
-        if ($articleModel->update($id, $data)) {
-            // Redirection avec un message de succès si la mise à jour réussit
-            return redirect()->to('/articles')->with('success', 'Article marked as deleted successfully.');
-        } else {
-            // Redirection avec un message d'erreur si la mise à jour échoue
-            return redirect()->to('/articles')->with('error', 'Failed to mark article as deleted.');
-        }
-    }
     public function form_update($id_article)
     {
         // Charger le modèle de l'article
@@ -195,5 +220,16 @@ class ArticleController extends BaseController
         ]);
     }
 
+    public function delete($id){
+        $articleModel = new ArticlesModel();
+        $article = $articleModel->find($id);
 
+        if (!$article) {
+            return redirect()->to('/articles')->with('error', 'Article not found.');
+        }
+
+        $articleModel->update($id, ['status_id' => 3]);
+
+        return redirect()->to('/admin')->with('message', 'Article deleted.');
+    }
 }
