@@ -82,18 +82,24 @@ class ArticleController extends BaseController
 
             // Enregistrer les liens dans la table article_links
             $links = [];
-            for ($i = 1; $i <= 7; $i++) {
-                $link = $this->request->getPost("lien$i");
-                if (!empty($link)) {
+            foreach ($_POST as $key => $value) {
+                // Vérifier si la clé correspond à un lien
+                if (strpos($key, 'lien') === 0 && !empty($value)) {
+                    // Extraire le numéro de lien de la clé
+                    $linkNumber = substr($key, 4);
+
+                    // Ajouter le lien au tableau des liens
                     $links[] = [
-                        'link' => $link,
+                        'link' => $value,
                         'article_id' => $articleModel->getInsertID(),
-                        'status_id' => 2
+                        'status_id' => 2 // Statut par défaut pour les nouveaux liens
                     ];
                 }
             }
+
             $articleLinksModel = new ArticleLinksModel();
             $articleLinksModel->insertBatch($links);
+
 
             // Rediriger l'utilisateur vers une autre page ou afficher un message de succès
             return redirect()->to('/admin')->with('success', 'Article ajouté avec succès!');
@@ -136,15 +142,18 @@ class ArticleController extends BaseController
         if ($method === 'GET') {
             $articleModel = new ArticlesModel();
             $article = $articleModel->find($id);
+            // dd($article);
             $categoryModel = new ArticlesCategoryModel();
             $category = $categoryModel->findAll();
             return view('dashboard/update_article', ['article' => $article, 'categories' => $category]);
         } else if ($method === 'POST') {
             // Définir les règles de validation
+            // dd($this->request->getFile('new_img')) ;
             $rules = [
                 'title' => 'required',
-                'img' => 'required',
+                // 'new_img' => 'uploaded[img]',
                 'description' => 'required',
+                'category' => 'required'
                 // Ajoutez ici d'autres règles de validation si nécessaire
             ];
            
@@ -153,14 +162,31 @@ class ArticleController extends BaseController
                 session()->setFlashdata('errors', $this->validator->getErrors());
                 return redirect()->back()->withInput();
             }
-
+            
+            $categoryModel = new ArticlesCategoryModel();
+            $category = $categoryModel->where('name',$this->request->getPost('category'))->first();
             // Récupérer les données du formulaire
             $articleData = [
                 'title' => $this->request->getPost('title'),
                 'img' => $this->request->getPost('img'),
                 'description' => $this->request->getPost('description'),
+                'category_id' => $category['id']
                 // Autres champs d'article
             ];
+            // Vérifier si une nouvelle image a été fournie
+            if ($newImageFile = $this->request->getFile('new_img')) {
+                // Déplacer la nouvelle image vers le dossier de destination
+                $newImageName = $newImageFile->getRandomName();
+                $newImageFile->move(ROOTPATH . 'public/uploads', $newImageName);
+
+                // Mettre à jour le chemin de l'image dans les données de l'article
+                $articleData['img'] = 'uploads/' . $newImageName;
+
+                // Supprimer l'ancienne image si nécessaire
+                // if (!empty($article['img'])) {
+                //     unlink(ROOTPATH . 'public/' . $article['img']);
+                // }
+            }
 
             // Mettre à jour l'article
             $articlesModel = new ArticlesModel();
@@ -169,7 +195,7 @@ class ArticleController extends BaseController
             // Récupérer les données des liens YouTube
             $linksData = $this->request->getPost('youtube_links');
 
-            // Mettre à jour les liens YouTube associés à l'article
+            // // Mettre à jour les liens YouTube associés à l'article
             $articleLinksModel = new ArticleLinksModel();
             $articleLinksModel->where('article_id', $id)->delete(); // Supprimer d'abord tous les liens existants pour cet article
             foreach ($linksData as $link) {
@@ -181,7 +207,7 @@ class ArticleController extends BaseController
             }
 
             // Rediriger avec un message de succès
-            return redirect()->to('/articles')->with('success', 'Article updated successfully.');
+            return redirect()->to('/admin')->with('success', 'Article updated successfully.');
         }
     }
 

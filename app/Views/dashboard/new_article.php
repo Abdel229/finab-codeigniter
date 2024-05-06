@@ -39,11 +39,56 @@
                 <?php endforeach; ?>
             </select>
         </div>
+        <div class="form-group">
+            <div id="links-container">
+                <!-- Les champs d'entrée pour les liens seront ajoutés ici -->
+            </div>
+            <button type="button" id="add-link">Ajouter un lien</button>
+            <button type="button" id="remove-link">Supprimer un lien</button>
+
+        </div>
         <button type="submit" class="submit-button">Créer l'article</button>
     </form>
     <!-- Le reste du contenu reste inchangé -->
 </div>
 </div>
     <script src="<?=base_url('js/admin.js')?>"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const linksContainer = document.getElementById('links-container');
+            const addLinkButton = document.getElementById('add-link');
+            const removeLinkButton = document.getElementById('remove-link');
+
+            let linkCounter = 1;
+
+            addLinkButton.addEventListener('click', function() {
+                const newInput = document.createElement('input');
+                newInput.type = 'text';
+                newInput.name = 'lien' + linkCounter;
+                newInput.id = 'lien' + linkCounter;
+                const newLabel = document.createElement('label');
+                newLabel.htmlFor = 'lien' + linkCounter;
+                newLabel.textContent = 'Lien ' + linkCounter;
+
+                linksContainer.appendChild(newLabel);
+                linksContainer.appendChild(newInput);
+                linksContainer.appendChild(document.createElement('br'));
+
+                linkCounter++;
+            });
+
+            removeLinkButton.addEventListener('click', function() {
+                if (linkCounter > 1) {
+                    linkCounter--;
+                    const lastInput = document.getElementById('lien' + linkCounter);
+                    const lastLabel = lastInput.previousSibling;
+                    linksContainer.removeChild(lastInput);
+                    linksContainer.removeChild(lastLabel);
+                    linksContainer.removeChild(linksContainer.lastElementChild); // Remove <br>
+                }
+            });
+        });
+
+    </script>
 </body>
 </html>

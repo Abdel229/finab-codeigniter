@@ -54,9 +54,11 @@ $routes->group('/articles',function(RouteCollection $routes) {
 });
 
 $routes->group('/galleries',function(RouteCollection $routes) {
-    // $routes->get('/', 'ArticleController::index');
+    $routes->get('/', 'GalleriesController::index');
     $routes->match(['get','post'],'store', 'GalleriesController::store');
+    $routes->match(['GET','POST'],'update/(:num)', 'GalleriesController::updateGallery/$1');
     $routes->get('show/(:num)', 'GalleriesController::show/$1');
+    $routes->get('delete/(:num)', 'GalleriesController::deleteGallery/$1');
 });
 
 $routes->get('/create_gallery', 'GalleriesController::index');

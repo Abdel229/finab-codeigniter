@@ -153,14 +153,16 @@ echo view('partials/header');
           <h2>Découvrez notre gallerie d'images pour le FInAB 2024</h2>
           <p class="gallerie__subText">Les manifestations artistiques empreintes d'exclusivité dévoileront un panorama envoûtant d'artistes, tant locaux qu'internationaux</p>
           <div class="gallerie__images-grid">
-            <?php foreach ($galleries as $gallery) : ?>
-              <div class="distinction__list talent__list">
-                  <a href="<?= base_url($gallery['image']['img']) ?>" class="distinction__item" data-fancybox="gallery">
-                    <img src="<?= base_url($gallery['image']['img']) ?>" alt="distinction_img">
-                  </a>
-              </div>
-            <?php endforeach; ?>
-          </div>
+    <?php foreach ($galleries as $gallery) :?>
+        <div class="gallerie__item" data-fancybox="gallery">
+            <a href="<?= base_url($gallery['image']['img'])?>" class="gallerie__link">
+                <img src="<?= base_url($gallery['image']['img'])?>" alt="gallerie_img" style="height: auto;">
+                <div class="image-text"><?=$gallery['category']['name']?></div>
+            </a>
+        </div>
+    <?php endforeach;?>
+</div>
+
         </div>
       </div>
     </section>

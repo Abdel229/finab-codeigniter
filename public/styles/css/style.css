@@ -775,12 +775,64 @@ a.banner__programme-btn {
   max-width: 623px;
   margin-top: 40px;
 }
-.gallerie__images-grid{
+.gallerie__images-grid {
   display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, auto);
-    gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  padding: 10px;
 }
+
+.gallerie__item {
+  position: relative;
+  overflow: hidden;
+}
+
+.gallerie__link {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.gallerie__link img {
+  width: 100%;
+  height: auto;
+}
+
+.image-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallerie__link:hover img {
+  transform: scale(1.1);
+}
+
+.gallerie__link:hover.image-text {
+  opacity: 1;
+}
+
+/* Media query pour tablettes */
+@media (max-width: 768px) {
+.gallerie__images-grid {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Media query pour smartphones */
+@media (max-width: 480px) {
+.gallerie__images-grid {
+      grid-template-columns: repeat(1, 1fr);
+  }
+}
+
 .talent {
   border-bottom: 2px solid #FF910E;
 }
@@ -1174,3 +1226,60 @@ a.banner__programme-btn {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+  padding: 5px;
+}
+
+.grid-item {
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+}
+
+.grid-item img {
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.category-container {
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.category-container h2 {
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.grid-item img:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.grid-item img:active {
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+/* Media query pour tablettes */
+@media (max-width: 768px) {
+ .grid-container {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Media query pour smartphones */
+@media (max-width: 480px) {
+ .grid-container {
+      grid-template-columns: repeat(1, 1fr);
+  }
+}

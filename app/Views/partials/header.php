@@ -12,6 +12,9 @@
             <li class="header__menu-list-item">
               <a href="/latest">FinAB-2023</a>
             </li>
+            <li class="header__menu-list-item">
+              <a href="/galleries">Galleries</a>
+            </li>
           </ul>
         </li>
         <li class="header__menu__item"><a href="<?=base_url('programmation')?>" class="<?=($_SERVER['REQUEST_URI']=="/programme.php")?'active':'';?>">Programmation</a></li>

@@ -24,22 +24,25 @@
         </div>
         <div class="form-group">
             <label for="publication-date">Date de publication</label>
-            <input type="date" id="publication-date" value="<?=$article['date_pub']?>" name="date_pub" required>
+            <input type="date" id="publication-date" value="<?=$article['date_pub']?>" name="date_pub" readonly>
         </div>
         <div class="form-group">
-            <label for="image">Image</label>
-            <input type="file" id="image" name="img" required>
+            <label for="image">Image actuelle</label><br>
+            <img src="<?=base_url($article['img'])?>" alt="Image actuelle" ><br>
+            <label for="new-image">Nouvelle image (optionnel)</label>
+            <input type="file" id="new-image" name="new_img" value="">
         </div>
         <div class="form-group">
             <label for="category">Catégorie</label>
             <select id="category" name="category" required>
                 <?php foreach($categories as $category): ?>
-                <option value="<?=$category['name']?>" <?php $category['id']===$article['category_id'] ? 'selected' : '' ?>><?=$category['name']?></option>
+                <option value="<?=$category['name']?>" <?php echo ($category['id']===$article['category_id']) ? 'selected' : ''; ?>><?=$category['name']?></option>
                 <?php endforeach; ?>
             </select>
         </div>
         <button type="submit" class="submit-button">Metre à jour l'article</button>
     </form>
+
     <!-- Le reste du contenu reste inchangé -->
 </div>
 </div>

@@ -319,3 +319,54 @@ body {
 .file__input {
     margin-bottom: 10px;
 }
+
+
+.galleries__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.galleries__table th,.galleries__table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.galleries__table th {
+    background-color: #f2f2f2;
+}
+
+.galleries__table td {
+    text-align: left;
+}
+
+.galleries__table-actions {
+    text-align: center;
+}
+
+.galleries__table-action {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.galleries__table-action--update {
+    background-color: #4CAF50;
+}
+
+.galleries__table-action--delete {
+    background-color: #f44336;
+}
+
+.galleries__table-action:hover {
+    background-color: #45a049; /* Pour.update */
+    background-color: #c62828; /* Pour.delete */
+}
+
+.galleries__table img {
+    width: 50px;
+    height: auto;
+    object-fit: cover;
+}

@@ -18,11 +18,20 @@ class Admin extends BaseController
 
     public function galeries(): string
     {
-        $galeryModel=new GalleriesModel();
-        $galery=$galeryModel->where('status_id',2)->findAll();
+        $categoryModel = new GalleriesCategoryModel();
+        $categories = $categoryModel->findAll(6);
 
-        $galeryCategoryModel=new GalleriesCategoryModel();
-        $galeriesCategory=$galeryCategoryModel->where('status_id',2)->findAll();
-        return view('dashboard/galeries',["galeries"=>$galery,'galeriesCategory'=>$galeriesCategory]);
+        $data = [];
+        foreach ($categories as $category) {
+            $imagesModel = new GalleriesModel();
+            $image = $imagesModel->where('category_id', $category['id'])->findAll(1);
+
+            $data[] = [
+                'category' => $category,
+                'image' => $image[0]
+            ];
+        }
+
+        return view('dashboard/galeries',['galleries'=>$data]);
     }
 }
