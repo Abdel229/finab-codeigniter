@@ -46,7 +46,7 @@
                         </div>
                         <div class="fnb-form__item">
                             <label for="publication-date">Date de publication</label>
-                            <input type="date" id="publication-date" name="date_pub" required>
+                            <input type="date" id="publication-date" name="date_pub">
                         </div>
                         <div class="fnb-form__item">
                             <label for="image">Image</label>

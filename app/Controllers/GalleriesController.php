@@ -281,10 +281,10 @@ public function updateGallery($id)
         ];
         if ($galleryModel->update($id, $data)) {
             // Rediriger avec un message de succès si la suppression réussit
-            return redirect()->to('/')->with('success', 'Galerie supprimée avec succès.');
+            return redirect()->to('/admin')->with('success', 'Galerie supprimée avec succès.');
         } else {
             // Rediriger avec un message d'erreur si la suppression échoue
-            return redirect()->to('/')->with('error', 'Échec de la suppression de la galerie.');
+            return redirect()->to('/admin')->with('error', 'Échec de la suppression de la galerie.');
         }
     }
     public function delete($id)

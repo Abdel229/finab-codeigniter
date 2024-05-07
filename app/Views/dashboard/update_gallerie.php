@@ -51,7 +51,6 @@
                             </div>
                         </div>
                         <div class="fnb-form__item fnb-form__item-action">
-                        <button type="button" id="addMore" class="btn btn-add">Plus</button>
                         <button type="submit" class="btn btn-submit">Mettre à jour</button>
                         </div>
                     </form>

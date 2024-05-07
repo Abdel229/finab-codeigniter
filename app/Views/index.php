@@ -112,8 +112,8 @@ if (isset($_SESSION['user_id'])) {
               </div>
               <div class="distinction__infos">
                 <span>Carole Lokossou</span>
-                <span>Cinéma</span>
                 <span><i>BÉnin</i></span>
+                <span>Cinéma</span>
               </div>
             </div>
             <div class="distinction__item">

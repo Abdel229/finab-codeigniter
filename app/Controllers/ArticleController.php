@@ -181,7 +181,7 @@ class ArticleController extends BaseController
             if ($newImageFile = $this->request->getFile('new_img')) {
                 // Déplacer la nouvelle image vers le dossier de destination
                 $newImageName = $newImageFile->getRandomName();
-                $newImageFile->move(ROOTPATH . 'public/uploads', $newImageName);
+                $newImageFile->move(ROOTPATH . 'public\uploads', $newImageName);
 
                 // Mettre à jour le chemin de l'image dans les données de l'article
                 $articleData['img'] = 'uploads/' . $newImageName;
@@ -202,13 +202,16 @@ class ArticleController extends BaseController
             // // Mettre à jour les liens YouTube associés à l'article
             $articleLinksModel = new ArticleLinksModel();
             $articleLinksModel->where('article_id', $id)->delete(); // Supprimer d'abord tous les liens existants pour cet article
-            foreach ($linksData as $link) {
-                $articleLinksModel->insert([
-                    'link' => $link,
-                    'article_id' => $id,
-                    // Autres champs de lien YouTube
-                ]);
+            if($linksData){
+                foreach ($linksData as $link) {
+                    $articleLinksModel->insert([
+                        'link' => $link,
+                        'article_id' => $id,
+                        // Autres champs de lien YouTube
+                    ]);
+                }
             }
+  
 
             // Rediriger avec un message de succès
             return redirect()->to('/admin')->with('success', 'Article updated successfully.');
