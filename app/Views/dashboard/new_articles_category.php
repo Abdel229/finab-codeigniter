@@ -37,12 +37,15 @@
 
                 <div class="dashboard__main__box">
                     <?= view('sections/error') ?>
-                    <form class="article-form" method="post" enctype="multipart/form-data" action="<?= base_url('article_categorie/store/') ?>">
-                        <div class="form-group">
+                    <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?= base_url('article_categorie/store/') ?>">
+                        <div class="fnb-form__item">
                             <label for="title">Titre de la catégorie</label>
                             <input type="text" id="title" name="name" required>
                         </div>
+                        <div class="fnb-form__item fnb-form__item-action">
                         <button type="submit" class="submit-button">Nouvelle catégorie</button>
+
+                        </div>
                     </form>
                     <!-- Le reste du contenu reste inchangé -->
                 </div>

@@ -37,12 +37,14 @@
 
                 <div class="dashboard__main__box">
                     <?= view('sections/error') ?>
-                    <form class="article-form" method="post" enctype="multipart/form-data" action="<?= base_url('categories/update/' . $category['id']) ?>">
-                        <div class="form-group">
+                    <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?= base_url('categories/update/' . $category['id']) ?>">
+                        <div class="fnb-form__item">
                             <label for="title">Titre de l'article</label>
                             <input type="text" id="title" name="name" value="<?= $category['name'] ?>" required>
                         </div>
+                        <div class="fnb-form__item fnb-form__item-action">
                         <button type="submit" class="submit-button">Mettre à jour la catégorie</button>
+                        </div>
                     </form>
                     <!-- Le reste du contenu reste inchangé -->
                 </div>

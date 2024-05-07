@@ -14,6 +14,10 @@ class AuthController extends BaseController
 
     public function login()
     {
+        if(session()->has('user_id')){
+            return redirect()->to(base_url('/admin'));
+        }
+
         $method=$this->request->getMethod();
         if($method==='GET'){
             return view('auth/login');
@@ -52,6 +56,9 @@ class AuthController extends BaseController
 
     public function register()
     {
+        if(session()->has('user_id')){
+            return redirect()->to(base_url('/admin'));
+        }
         $method = $this->request->getMethod('true');
         if ($method === 'GET') {
             return view('auth/register');

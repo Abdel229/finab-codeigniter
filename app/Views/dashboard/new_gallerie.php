@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord</title>
-    <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
+    <link rel="stylesheet" href="<?= base_url('styles/css/icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
 </head>
 
@@ -22,7 +22,7 @@
                     </a>
                     <ul class="dashboard__nav__dropdown" id="dropdownProfil">
                         <li>
-                            <a href="<?=base_url('/auth/logout')?>">
+                            <a href="<?= base_url('/auth/logout') ?>">
                                 <i class="icon icon-logout"></i>
                                 <span>Déconnexion</span>
                             </a>
@@ -36,12 +36,12 @@
                     <p>Nouvelle gallerie</p>
                 </div>
                 <div class="dashboard__main__box">
-                    <form action="<?=base_url('galleries/store')?>" method="post" enctype="multipart/form-data" class="form">
-                        <div class="form-group">
+                    <form class="fnb-form" action="<?= base_url('galleries/store') ?>" method="post" enctype="multipart/form-data" class="form">
+                        <div class="fnb-form__item">
                             <label for="category_id">Catégorie :</label>
                             <select name="category_id" id="category_id" class="form-input">
                                 <option value="">Choisir une catégorie</option>
-                                <?php foreach ($categories as $category): ?>
+                                <?php foreach ($categories as $category) : ?>
                                     <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -53,10 +53,12 @@
                                 <input type="file" name="photos[]" required class="form-input">
                             </div>
                         </div>
+                        <div class="fnb-form__item fnb-form__item-action">
+                            <button type="button" id="addMore" class="submit-button">Plus</button>
 
-                        <button type="button" id="addMore" class="btn btn-add">Plus</button>
+                            <button type="submit" class="submit-button">Mettre à jour</button>
+                        </div>
 
-                        <button type="submit" class="btn btn-submit">Mettre à jour</button>
                     </form>
                 </div>
 

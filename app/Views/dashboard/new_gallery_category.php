@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New article</title>
-    <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
+    <link rel="stylesheet" href="<?= base_url('styles/css/icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
 </head>
 
@@ -37,19 +37,22 @@
 
                 <div class="dashboard__main__box">
                     <?= view('sections/error') ?>
-                    <form class="article-form fnb-form" method="post" enctype="multipart/form-data" action="<?= base_url('gallery_categorie/store') ?>">
-                        <div class="form-group">
+                    <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?= base_url('gallery_categorie/store') ?>">
+                        <div class="fnb-form__item">
                             <label for="title">Titre de la catégorie</label>
                             <input type="text" id="title" name="name" required>
                         </div>
-                        <button type="submit" class="submit-button">Créer la catégorie</button>
+                        <div class="fnb-form__item fnb-form__item-action">
+                            <button type="submit" class="submit-button">Créer la catégorie</button>
+
+                        </div>
                     </form>
                     <!-- Le reste du contenu reste inchangé -->
                 </div>
             </div>
         </div>
     </div>
-        <script src="<?= base_url('js/admin.js') ?>"></script>
+    <script src="<?= base_url('js/admin.js') ?>"></script>
 </body>
 
 </html>

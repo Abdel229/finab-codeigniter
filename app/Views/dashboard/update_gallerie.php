@@ -37,21 +37,19 @@
                     <p>Mise à jour d'image</p>
                 </div>
                 <div class="dashboard__main__box">
-                    <form action="/votre-chemin-de-mise-a-jour" method="post" enctype="multipart/form-data" class="form">
-                        <div class="form-group">
+                    <form action="<?=base_url('galleries/update'. $category_single['id'])?>" method="post" enctype="multipart/form-data" class="fnb-form">
+                        <div class="fnb-form__item">
                             <label for="title">Titre :</label>
                             <input type="text" id="title" name="title" required class="form-input">
                         </div>
 
-                        <div id="fileInputs" class="file-inputs">
-                            <div class="fileInput">
+                        <div id="fileInputs" class="fnb-form__item">
                                 <input type="file" name="photos[]" required class="form-input">
-                            </div>
                         </div>
-
+                        <div class="fnb-form__item fnb-form__item-action">
                         <button type="button" id="addMore" class="btn btn-add">Plus</button>
-
                         <button type="submit" class="btn btn-submit">Mettre à jour</button>
+                        </div>
                     </form>
                 </div>
             </div>

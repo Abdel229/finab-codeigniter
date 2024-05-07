@@ -33,9 +33,7 @@
                     <i class="icon icon-plus"></i>
                     <p>Nouveau article</p>
                 </div>
-
                 <div class="dashboard__main__box">
-                
                     <?=view('sections/error')?>
                     <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?=base_url('articles/store')?>">
                         <div class="fnb-form__item">
