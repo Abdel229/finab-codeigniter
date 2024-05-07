@@ -185,3 +185,10 @@
 .icon-logout {
   -webkit-mask-image: url('./../../../images/svg/icon-logout.svg');
 }
+
+/*
+* icon-category
+*/
+.icon-category {
+  -webkit-mask-image: url('./../../../images/svg/icon-category.svg');
+}

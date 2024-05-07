@@ -83,6 +83,9 @@
             let linkCounter = 1;
 
             function addLink() {
+                // conteneur du lien et du bouton delete
+                const divContainer=document.createElement('div');
+                divContainer.style="display:flex;"
                 const newInput = document.createElement('input');
                 newInput.type = 'text';
                 newInput.name = 'lien' + linkCounter;
@@ -91,24 +94,33 @@
                 newLabel.htmlFor = 'lien' + linkCounter;
                 newLabel.textContent = 'Lien ' + linkCounter;
 
-                const removeLinkButton = document.createElement('button');
-                removeLinkButton.type = 'button';
-                removeLinkButton.textContent = 'Supprimer ce lien';
+                const removeLinkButton = document.createElement('i');
+                removeLinkButton.classList.add('icon', 'icon-delete');
+                removeLinkButton.style='margin-left:10px;cursor:pointer;background-color:red;'
                 removeLinkButton.addEventListener('click', function() {
-                    linksContainer.removeChild(newInput);
-                    linksContainer.removeChild(newLabel);
-                    linksContainer.removeChild(removeLinkButton);
+                linksContainer.removeChild(newLabel);
+                    linksContainer.removeChild(divContainer);
                 });
-
+                
                 linksContainer.appendChild(newLabel);
-                linksContainer.appendChild(newInput);
-                linksContainer.appendChild(removeLinkButton);
-
+                divContainer.appendChild(newInput);
+                divContainer.appendChild(removeLinkButton);
+                linksContainer.appendChild(divContainer);
                 linkCounter++;
             }
             const addLinkButton = document.createElement('button');
             addLinkButton.type = 'button';
-            addLinkButton.textContent = 'Ajouter un lien';
+            addLinkButton.style='display:flex;align-items:center;justify-content:center;background-color:#D67608;border:none;padding:6px 20px;border-radius:8px;color:#fff;cursor:pointer;'
+
+            const icon = document.createElement('i');
+            icon.classList.add('icon');
+            icon.classList.add('icon-plus');
+            icon.style='margin-right:8px;background-color:#fff;'
+            addLinkButton.appendChild(icon);
+
+            const textNode = document.createTextNode('Ajouter un lien');
+            addLinkButton.appendChild(textNode);
+
             addLinkButton.addEventListener('click', addLink);
             linksContainer.appendChild(addLinkButton);
         });

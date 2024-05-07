@@ -1,7 +1,10 @@
 <?php
 echo view('partials/doc_header');
 echo view('partials/header');
-
+if (isset($_SESSION['user_id'])) {
+  $session = session();
+  $session->destroy();
+}
 ?>
 <div class="wrapper">
   <main class="main">

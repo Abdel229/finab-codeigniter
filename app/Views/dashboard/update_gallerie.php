@@ -43,7 +43,12 @@
                         </div>
 
                         <div id="fileInputs" class="fnb-form__item">
-                            <input type="file" name="photos[]" required class="form-input">
+                        <div style="display: flex;">
+                                <input type="file" name="photos[]" required class="form-input">
+                                <div id="addMore" style="display:flex; align-items: center; justify-content: center; margin-left: 10px; padding:5px; background-color:#FF8800; border-radius: 4px; cursor: pointer;">
+                                    <i class="icon icon-plus" style="color:#fff;"></i>
+                                </div>
+                            </div>
                         </div>
                         <div class="fnb-form__item fnb-form__item-action">
                         <button type="button" id="addMore" class="btn btn-add">Plus</button>
@@ -56,31 +61,55 @@
     </div>
     <script src="<?= base_url('js/admin.js') ?>"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const wrapper = document.querySelector('#fileInputs');
-            const addBtn = document.querySelector('#addMore');
-            let x = 1;
+            document.addEventListener('DOMContentLoaded', () => {
+                const wrapper = document.querySelector('#fileInputs');
+                const addBtn = document.querySelector('#addMore');
+                let x = 1;
 
-            addBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                wrapper.innerHTML += `
-                    <div class="fileInput">
-                        <input type="file" name="photos[]" required>
-                        <button class="remove_field" data-index="${x}">Supprimer</button>
-                    </div>`;
-                x++;
-            });
+                addBtn.addEventListener('click', (e) => {
+                    console.log(x);
+                    const div = document.createElement('div');
+                    div.classList.add('fileInput');
+                    div.style.display = 'flex';
+                    div.style.marginTop = '10px';
 
-            // Gérez l'événement click pour le wrapper
-            wrapper.addEventListener('click', (e) => {
-                if (e.target.classList.contains('remove_field')) {
-                    e.preventDefault();
-                    e.target.parentElement.remove();
-                    x--;
-                }
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.required = true;
+                    input.name = 'photos[]';
+
+                    const removeBtn = document.createElement('div');
+                    removeBtn.style.display = 'flex';
+                    removeBtn.style.alignItems = 'center';
+                    removeBtn.style.justifyContent = 'center';
+                    removeBtn.style.marginLeft = '10px';
+                    removeBtn.style.padding = '5px';
+                    removeBtn.style.backgroundColor = 'red';
+                    removeBtn.style.borderRadius = '4px';
+                    removeBtn.style.cursor = 'pointer';
+                    removeBtn.dataset.index = x;
+                    removeBtn.classList.add('remove_field');
+
+                    const removeBtnIcon = document.createElement('i');
+                    removeBtnIcon.classList.add('icon', 'icon-delete', 'remove-field');
+                    removeBtnIcon.dataset.index = x;
+                    removeBtnIcon.style.color = '#fff';
+
+                    removeBtn.appendChild(removeBtnIcon);
+                    div.appendChild(input);
+                    div.appendChild(removeBtn);
+                    wrapper.appendChild(div);
+                    x++;
+                });
+                wrapper.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('remove_field')) {
+                        e.preventDefault();
+                        e.target.parentElement.remove();
+                        x--;
+                    }
+                });
             });
-        });
-    </script>
+        </script>
 
 </body>
 

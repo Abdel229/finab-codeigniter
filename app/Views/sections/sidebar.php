@@ -17,10 +17,16 @@
                 </a>
             </li>
             <li class="aside__bottom__item">
-                <a href="<?=base_url('/admin/categories')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/admin/categories")?"active":"");?>">Catégories article</a>
+                <a href="<?=base_url('/admin/categories')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/admin/categories") || $_SERVER['REQUEST_URI']=="/article_categorie/store")?"active":"";?>">
+                <i class="icon icon-category"></i>
+                Catégories article
+            </a>
             </li>
             <li class="aside__bottom__item">
-                <a href="<?=base_url('/admin/categories-gallerie')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/admin/categories-gallerie" || $_SERVER['REQUEST_URI']=="/gallery_categorie/store")?"active":"");?>">Catégories gallerie</a>
+                <a href="<?=base_url('/admin/categories-gallerie')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/admin/categories-gallerie" || $_SERVER['REQUEST_URI']=="/gallery_categorie/store")?"active":"");?>">
+                <i class="icon icon-category"></i>
+                Catégories gallerie
+            </a>
             </li>
         </ul>
     </div>
