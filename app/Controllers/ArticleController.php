@@ -144,8 +144,13 @@ class ArticleController extends BaseController
             $article = $articleModel->find($id);
             // dd($article);
             $categoryModel = new ArticlesCategoryModel();
-            $category = $categoryModel->findAll();
-            return view('dashboard/update_article', ['article' => $article, 'categories' => $category]);
+            $category = $categoryModel-> where('status_id',2)->findAll();
+
+            // recuperation des liens 
+            $LinksModel = new ArticleLinksModel();
+            $links = $LinksModel->where('article_id', $id)->findAll();
+            // dd($links);
+            return view('dashboard/update_article', ['article' => $article, 'categories' => $category,'links'=>$links]);
         } else if ($method === 'POST') {
             // Définir les règles de validation
             // dd($this->request->getFile('new_img')) ;

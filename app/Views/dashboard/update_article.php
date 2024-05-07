@@ -65,13 +65,65 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <div id="links-container">
+                                <!-- Les champs d'entrée pour les liens seront ajoutés ici -->
+
+                                <?php 
+                                    $id=1;
+                                foreach($links as $link): ?>
+                                    <input type="text" name="lien<?=$id ?>" value="<?= $link['link'] ?>" required><br>
+                                    
+                                <?php $id++; endforeach ?>
+                            </div>
+                        </div>
                         <button type="submit" class="submit-button">Metre à jour l'article</button>
                     </form>
 
                     <!-- Le reste du contenu reste inchangé -->
                 </div>
             </div>
-            <script src="<?= base_url('js/admin.js') ?>"></script>
+        </div>
+    </div>    
+    <script src="<?= base_url('js/admin.js') ?>"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const linksContainer = document.getElementById('links-container');
+
+            let linkCounter =  <?= $id ?>;
+
+            function addLink() {
+                const newInput = document.createElement('input');
+                newInput.type = 'text';
+                newInput.name = 'lien' + linkCounter;
+                newInput.id = 'lien' + linkCounter;
+                const newLabel = document.createElement('label');
+                newLabel.htmlFor = 'lien' + linkCounter;
+                newLabel.textContent = 'Lien ' + linkCounter;
+
+                const removeLinkButton = document.createElement('button');
+                removeLinkButton.type = 'button';
+                removeLinkButton.textContent = 'Supprimer ce lien';
+                removeLinkButton.addEventListener('click', function() {
+                    linksContainer.removeChild(newInput);
+                    linksContainer.removeChild(newLabel);
+                    linksContainer.removeChild(removeLinkButton);
+                });
+
+                linksContainer.appendChild(newLabel);
+                linksContainer.appendChild(newInput);
+                linksContainer.appendChild(removeLinkButton);
+
+                linkCounter++;
+            }
+            const addLinkButton = document.createElement('button');
+            addLinkButton.type = 'button';
+            addLinkButton.textContent = 'Ajouter un lien';
+            addLinkButton.addEventListener('click', addLink);
+            linksContainer.appendChild(addLinkButton);
+        });
+    </script>
 </body>
 
 </html>

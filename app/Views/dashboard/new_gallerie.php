@@ -69,20 +69,21 @@
         <script src="<?= base_url('js/admin.js') ?>"></script>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                const maxInputs = 10; // Maximum number of inputs
                 const wrapper = document.querySelector('#fileInputs');
                 const addBtn = document.querySelector('#addMore');
                 let x = 1;
-                let fieldCount = 1;
 
                 addBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    if (x < maxInputs) {
-                        x++;
-                        wrapper.innerHTML += '<div class="fileInput"><input type="file" name="photos[]" required></div>';
-                    }
+                    wrapper.innerHTML += `
+                        <div class="fileInput">
+                            <input type="file" name="photos[]" required>
+                            <button class="remove_field" data-index="${x}">Supprimer</button>
+                        </div>`;
+                    x++;
                 });
 
+                // Gérez l'événement click pour le wrapper
                 wrapper.addEventListener('click', (e) => {
                     if (e.target.classList.contains('remove_field')) {
                         e.preventDefault();
@@ -92,6 +93,7 @@
                 });
             });
         </script>
+
 </body>
 
 </html>
