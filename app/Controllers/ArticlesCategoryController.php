@@ -98,6 +98,6 @@ class ArticlesCategoryController extends BaseController
         }
 
         // Redirection avec un message de succès si la suppression réussit
-        return redirect()->to('/admin/catgories')->with('success', 'Category deleted successfully.');
+        return redirect()->to('/admin/categories')->with('success', 'Category deleted successfully.');
     }
 }
