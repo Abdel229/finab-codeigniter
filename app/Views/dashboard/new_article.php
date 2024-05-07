@@ -65,8 +65,6 @@
                             <div id="links-container">
                                 <!-- Les champs d'entrée pour les liens seront ajoutés ici -->
                             </div>
-                            <button type="button" id="add-link">Ajouter un lien</button>
-                            <button type="button" id="remove-link">Supprimer un lien</button>
 
                         </div>
                         <div class="fnb-form__item fnb-form__item-action">
@@ -81,12 +79,10 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const linksContainer = document.getElementById('links-container');
-            const addLinkButton = document.getElementById('add-link');
-            const removeLinkButton = document.getElementById('remove-link');
 
             let linkCounter = 1;
 
-            addLinkButton.addEventListener('click', function() {
+            function addLink() {
                 const newInput = document.createElement('input');
                 newInput.type = 'text';
                 newInput.name = 'lien' + linkCounter;
@@ -95,25 +91,27 @@
                 newLabel.htmlFor = 'lien' + linkCounter;
                 newLabel.textContent = 'Lien ' + linkCounter;
 
+                const removeLinkButton = document.createElement('button');
+                removeLinkButton.type = 'button';
+                removeLinkButton.textContent = 'Supprimer ce lien';
+                removeLinkButton.addEventListener('click', function() {
+                    linksContainer.removeChild(newInput);
+                    linksContainer.removeChild(newLabel);
+                    linksContainer.removeChild(removeLinkButton);
+                });
+
                 linksContainer.appendChild(newLabel);
                 linksContainer.appendChild(newInput);
-                linksContainer.appendChild(document.createElement('br'));
+                linksContainer.appendChild(removeLinkButton);
 
                 linkCounter++;
-            });
-
-            removeLinkButton.addEventListener('click', function() {
-                if (linkCounter > 1) {
-                    linkCounter--;
-                    const lastInput = document.getElementById('lien' + linkCounter);
-                    const lastLabel = lastInput.previousSibling;
-                    linksContainer.removeChild(lastInput);
-                    linksContainer.removeChild(lastLabel);
-                    linksContainer.removeChild(linksContainer.lastElementChild); // Remove <br>
-                }
-            });
+            }
+            const addLinkButton = document.createElement('button');
+            addLinkButton.type = 'button';
+            addLinkButton.textContent = 'Ajouter un lien';
+            addLinkButton.addEventListener('click', addLink);
+            linksContainer.appendChild(addLinkButton);
         });
-
     </script>
 </body>
 </html>
