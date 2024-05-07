@@ -11,7 +11,11 @@ class Admin extends BaseController
     public function index(): string
     {
         $articleModel=new ArticlesModel();
-        $articles_category=$articleModel->where('status_id',2)->findAll();
+        $articles_category = $articleModel->join('articles_category', 'articles.category_id = articles_category.id')
+        ->select('articles.*') // Sélectionnez uniquement les colonnes de la table des articles
+        ->where(['articles.status_id' => 2, 'articles_category.status_id' => 2]) // Filtrez en fonction des conditions requises
+        ->findAll();
+
         return view('dashboard/index', ["articles" => $articles_category]);
     }
 

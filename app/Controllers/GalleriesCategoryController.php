@@ -11,7 +11,7 @@ class GalleriesCategoryController extends BaseController
     public function index()
     {
         $model = new GalleriesCategoryModel();
-        $data['categories'] = $model->findAll();
+        $data['categories'] = $model->where('status_id',2)->findAll();
 
         return view('dashboard/gallerie_category', $data);
     }

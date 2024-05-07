@@ -33,25 +33,28 @@
                     </div>
                 </div>
 
-                <button type="button" id="addMore" class="btn btn-add">Plus</button>
+                <button type="button" id="addMore" class="btn btn-add">Ajouter plus de photos</button>
+                <button type="button" id="removeMore" class="btn btn-add">Diminuer plus de photos</button>
 
-                <button type="submit" class="btn btn-submit">Mettre à jour</button>
+                <button type="submit" class="btn btn-submit">Ajouter la galerie</button>
             </form>
 
             <script src="<?= base_url('js/admin.js') ?>"></script>
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
-                    const maxInputs = 10; // Maximum number of inputs
                     const wrapper = document.querySelector('#fileInputs');
                     const addBtn = document.querySelector('#addMore');
-                    let x = 1;
-                    let fieldCount = 1;
+                    const removeBtn = document.querySelector('#removeMore');
 
                     addBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        if (x < maxInputs) {
-                            x++;
-                            wrapper.innerHTML += '<div class="fileInput"><input type="file" name="photos[]" required></div>';
+                        wrapper.innerHTML += '<div class="fileInput"><input type="file" name="photos[]" required></div>';
+                    });
+
+                    removeBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (wrapper.children.length > 1) { // Assure qu'il y a au moins une entrée
+                            wrapper.removeChild(wrapper.lastElementChild); // Supprime la dernière entrée
                         }
                     });
 
@@ -59,11 +62,11 @@
                         if (e.target.classList.contains('remove_field')) {
                             e.preventDefault();
                             e.target.parentElement.remove();
-                            x--;
                         }
                     });
                 });
             </script>
+
 </body>
 
 </html>

@@ -19,7 +19,7 @@
 * icon-phone
 */
 .icon-phone {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-phone.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-phone.svg');
 }
 
 
@@ -27,7 +27,7 @@
 * icon-email
 */
 .icon-email {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-email.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-email.svg');
 }
 
 
@@ -36,96 +36,96 @@
 * icon-calendar
 */
 .icon-calendar {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-calendar.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-calendar.svg');
 }
 
 /*
 * icon-facebook
 */
 .icon-facebook {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-facebook.svg');
+  -webkit-mask-image: url('../../images/svg/icon-facebook.svg');
 }
 
 /*
 * icon-instagram
 */
 .icon-instagram {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-instagram.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-instagram.svg');
 }
 
 /*
 * icon-twitter
 */
 .icon-twitter {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-twitter.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-twitter.svg');
 }
 
 /*
 * icon-youtube
 */
 .icon-youtube {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-youtube.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-youtube.svg');
 }
 
 /*
 * icon-linkedin
 */
 .icon-linkedin {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-linkedin.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-linkedin.svg');
 }
 
 /*
 * icon-angle-arrown-bottom
 */
 .icon-angle-arrown-bottom {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-angle-arrown-bottom.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-angle-arrown-bottom.svg');
 }
 
 /*
 * icon-search
 */
 .icon-search {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-search.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-search.svg');
 }
 
 /*
 * icon-left
 */
 .icon-left {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-left.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-left.svg');
 }
 
 /*
 * icon-right
 */
 .icon-right {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-right.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-right.svg');
 }
 
 /*
 * icon-facebook-circle
 */
 .icon-facebook-circle {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-facebook-circle.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-facebook-circle.svg');
 }
 
 /*
 * icon-twitter-x
 */
 .icon-twitter-x {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-twitter-x.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-twitter-x.svg');
 }
 
 /*
 * icon-whatsapp
 */
 .icon-whatsapp {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-whatsapp.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-whatsapp.svg');
 }
 
 /*
 * icon-outline-plus
 */
 .icon-outline-plus {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-outline-plus.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-outline-plus.svg');
 }
