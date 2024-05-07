@@ -160,6 +160,7 @@ img{
 .dashboard__main{
   padding:15px;
   background-color: #fbfbfb;
+  min-height: calc(100vh - 65px);
 }
 .dashboard__main__title{
   display: flex;
@@ -237,9 +238,48 @@ img{
 .fnb-form{
   max-width: 650px;
   margin:0 auto;
+  padding: 15px;
+  border:2px solid #8b8888;
+  border-radius: 8px;
 }
-
-
+.fnb-form__item {
+  margin-bottom: 20px;
+}
+.fnb-form__item label{
+  display: block;
+}
+.fnb-form__item input,.fnb-form__item select{
+  border:2px solid #8b8888;  
+  width: 100%;
+  border-radius:6px;
+  height: 40px;
+}
+.fnb-form__item select{
+  background-color: #fff;
+}
+.fnb-form__item textarea{
+  border:2px solid #8b8888;  
+  width: 100%;
+  border-radius:6px;
+  height: 120px;
+  padding-left: 10px;
+}
+.fnb-form__item textarea:focus{
+  outline:none;
+}
+.fnb-form__item .submit-button{
+  padding:6px 25px;
+  color:#fff;
+  background-color: #ff8800;
+  border-radius: 6px;
+  cursor: pointer;
+  border:none;
+}
+.fnb-form__item-action{
+  text-align: center;
+  margin-top:25px;
+}
+/**end*/
 
 
 .content {
@@ -447,7 +487,7 @@ img{
 }
 
 
-.submit-button {
+/*.submit-button {
     background-color: #F1902E;
     color: white;
     border: none;
@@ -462,7 +502,7 @@ img{
 .submit-button:hover {
     background-color: #E07F5F;
 }
-
+*/
 
 /* Block: Form */
 .form {

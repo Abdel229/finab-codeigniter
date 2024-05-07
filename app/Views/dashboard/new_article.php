@@ -37,24 +37,24 @@
                 <div class="dashboard__main__box">
                 
                     <?=view('sections/error')?>
-                    <form class="article-form fnb-form" method="post" enctype="multipart/form-data" action="<?=base_url('articles/store')?>">
-                        <div class="form-group">
+                    <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?=base_url('articles/store')?>">
+                        <div class="fnb-form__item">
                             <label for="title">Titre de l'article</label>
                             <input type="text" id="title" name="title" required>
                         </div>
-                        <div class="form-group">
+                        <div class="fnb-form__item">
                             <label for="description">Description de l'article</label>
                             <textarea id="description" name="description" required></textarea>
                         </div>
-                        <div class="form-group">
+                        <div class="fnb-form__item">
                             <label for="publication-date">Date de publication</label>
                             <input type="date" id="publication-date" name="date_pub" required>
                         </div>
-                        <div class="form-group">
+                        <div class="fnb-form__item">
                             <label for="image">Image</label>
                             <input type="file" id="image" name="img">
                         </div>
-                        <div class="form-group">
+                        <div class="fnb-form__item">
                             <label for="category">Catégorie</label>
                             <select id="category" name="category" required>
                                 <option value="">Sélectionnez une catégorie</option>
@@ -63,7 +63,7 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="fnb-form__item">
                             <div id="links-container">
                                 <!-- Les champs d'entrée pour les liens seront ajoutés ici -->
                             </div>
@@ -71,7 +71,9 @@
                             <button type="button" id="remove-link">Supprimer un lien</button>
 
                         </div>
-                        <button type="submit" class="submit-button">Créer l'article</button>
+                        <div class="fnb-form__item fnb-form__item-action">
+                            <button type="submit" class="submit-button">Créer l'article</button>
+                        </div>
                     </form>
                 </div>
             <!-- Le reste du contenu reste inchangé -->

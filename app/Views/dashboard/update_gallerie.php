@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord</title>
+    <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
 </head>
 
@@ -12,7 +13,7 @@
     <div class="dashboard">
         <?= view('sections/sidebar') ?>
 
-        <div class="content">
+        <div class="dashboard__right">
             <nav class="dashboard__nav">
                 <a href="#"><i class="icon icon-menu"></i></a>
                 <div class="dashboard__nav__profil">
@@ -29,25 +30,31 @@
                     </ul>
                 </div>
             </nav>
-            <h2>Mise à jour de la galerie</h2>
 
-            <form action="/votre-chemin-de-mise-a-jour" method="post" enctype="multipart/form-data" class="form">
-                <div class="form-group">
-                    <label for="title">Titre :</label>
-                    <input type="text" id="title" name="title" required class="form-input">
+            <div class="dashboard__main">
+                <div class="dashboard__main__title">
+                    <i class="icon icon-edit"></i>
+                    <p>Mise à jour d'image</p>
                 </div>
+                <div class="dashboard__main__box">
+                    <form action="/votre-chemin-de-mise-a-jour" method="post" enctype="multipart/form-data" class="form">
+                        <div class="form-group">
+                            <label for="title">Titre :</label>
+                            <input type="text" id="title" name="title" required class="form-input">
+                        </div>
 
-                <div id="fileInputs" class="file-inputs">
-                    <div class="fileInput">
-                        <input type="file" name="photos[]" required class="form-input">
-                    </div>
+                        <div id="fileInputs" class="file-inputs">
+                            <div class="fileInput">
+                                <input type="file" name="photos[]" required class="form-input">
+                            </div>
+                        </div>
+
+                        <button type="button" id="addMore" class="btn btn-add">Plus</button>
+
+                        <button type="submit" class="btn btn-submit">Mettre à jour</button>
+                    </form>
                 </div>
-
-                <button type="button" id="addMore" class="btn btn-add">Plus</button>
-
-                <button type="submit" class="btn btn-submit">Mettre à jour</button>
-            </form>
-
+            </div>
 
             <script src="<?= base_url('js/admin.js') ?>"></script>
             <script>
@@ -75,6 +82,7 @@
                     });
                 });
             </script>
+        </div>
 
 </body>
 
