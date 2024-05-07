@@ -1,10 +1,27 @@
-<div class="sidebar">
-            <h2 class="sidebar__title">Navigation</h2>
-            <div class="sidebar__menu">
-                <a href="<?=base_url('/admin')?>" class="sidebar__button sidebar__button--articles">Gestion des articles</a>
-                <a href="<?=base_url('/admin/galeries')?>" class="sidebar__button sidebar__button--galeries">Gestion des galeries</a>
-                <a href="<?=base_url('/admin/categories')?>" class="sidebar__button sidebar__button--categories">Gestion des catégories</a>
-                <a href="<?=base_url('/admin/categories-gallerie')?>" class="sidebar__button sidebar__button--categories">Gestion des catégories gallerie</a>
-
-            </div>
-        </div>
+<aside class="dashboard__left aside">
+    <div class="aside__top">
+        <img src="<?=base_url('2023/img/logo/logo.png')?>" alt="logo">
+    </div>
+    <div class="aside__bottom">
+        <ul class="aside__bottom__list">
+            <li class="aside__bottom__item">
+                <a href="<?=base_url('/admin')?>" class="aside__bottom__item__link active">
+                    <i class="icon icon-article"></i>
+                    Articles
+                </a>
+            </li>
+            <li class="aside__bottom__item">
+                <a href="<?=base_url('/admin/galeries')?>" class="aside__bottom__item__link">
+                    <i class="icon icon-gallery"></i>
+                    Galeries
+                </a>
+            </li>
+            <li class="aside__bottom__item">
+                <a href="<?=base_url('/admin/categories')?>" class="aside__bottom__item__link">Catégories article</a>
+            </li>
+            <li class="aside__bottom__item">
+                <a href="<?=base_url('/admin/categories-gallerie')?>" class="aside__bottom__item__link">Catégories gallerie</a>
+            </li>
+        </ul>
+    </div>
+</aside>

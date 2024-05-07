@@ -129,3 +129,59 @@
 .icon-outline-plus {
   -webkit-mask-image: url('./../../../assets/images/svg/icon-outline-plus.svg');
 }
+
+/*
+* icon-article
+*/
+.icon-article {
+  -webkit-mask-image: url('./../../../images/svg/icon-article.svg');
+}
+
+/*
+* icon-gallery
+*/
+.icon-gallery {
+  -webkit-mask-image: url('./../../../images/svg/icon-gallery.svg');
+}
+
+/*
+* icon-menu
+*/
+.icon-menu {
+  -webkit-mask-image: url('./../../../images/svg/icon-menu.svg');
+}
+
+/*
+* icon-user
+*/
+.icon-user {
+  -webkit-mask-image: url('./../../../images/svg/icon-user.svg');
+}
+
+/*
+* icon-plus
+*/
+.icon-plus {
+  -webkit-mask-image: url('./../../../images/svg/icon-plus.svg');
+}
+
+/*
+* icon-edit
+*/
+.icon-edit {
+  -webkit-mask-image: url('./../../../images/svg/icon-edit.svg');
+}
+
+/*
+* icon-delete
+*/
+.icon-delete {
+  -webkit-mask-image: url('./../../../images/svg/icon-delete.svg');
+}
+
+/*
+* icon-logout
+*/
+.icon-logout {
+  -webkit-mask-image: url('./../../../images/svg/icon-logout.svg');
+}
