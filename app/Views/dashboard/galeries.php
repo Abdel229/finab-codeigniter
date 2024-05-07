@@ -59,8 +59,8 @@ if (!$session->get('user_id')) {
                             <?php foreach($galleries as $gallerie): ?>
                                 <tr data-article="galerie_<?=$gallerie['category']['id']?>">
                                     <td ><?= $gallerie['category']['name'] ?></td>
-                                    <td style=' width: 100px;'><img src="<?=base_url($gallerie['image']['img'])?>" alt="Exemple" style="<?= $gallerie['category']['name'] ?>"></td>
-                                    <td>
+                                    <td style=' width: 200px;'><img style=' width: 60px;height:60px;object-fit:cover' src="<?=base_url($gallerie['image']['img'])?>" alt="Exemple" style="<?= $gallerie['category']['name'] ?>"></td>
+                                    <td style="width:80px;">
                                         <div class="fnb-actions">
                                             <a href="<?=base_url('galleries/update/'.$gallerie['category']['id'])?>" class="fnb-actions__edit" title="MOdifier">
                                                 <i class="icon icon-edit"></i>

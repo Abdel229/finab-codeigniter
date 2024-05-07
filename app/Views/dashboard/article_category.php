@@ -30,7 +30,7 @@
             </nav>
             <div class="dashboard__main">
                 <div class="dashboard__main__title">
-                    <i class="icon icon-article"></i>
+                    <i class="icon icon-gallery"></i>
                     <p>Galleries</p>
                 </div>
                 <div class="dashboard__main__action">
