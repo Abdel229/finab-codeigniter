@@ -26,7 +26,7 @@ if (!$session->get('user_id')) {
                     </a>
                     <ul class="dashboard__nav__dropdown" id="dropdownProfil">
                         <li>
-                            <a href="#">
+                            <a href="<?=base_url('/auth/logout')?>">
                                 <i class="icon icon-logout"></i>
                                 <span>Déconnexion</span>
                             </a>

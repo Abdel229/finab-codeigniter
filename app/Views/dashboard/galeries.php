@@ -12,42 +12,72 @@ if (!$session->get('user_id')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord</title>
-    <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
+    <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
+    <link rel="stylesheet" href="<?=base_url('styles/css/admin/dashboard.css')?>">
 </head>
 
 <body>
-    <div class="container">
+    <div class="dashboard">
         <?= view('sections/sidebar') ?>
-        <div class="content">
-            <div class="content__header">
-                <h1 class="content__title">Tableau de Bord des galeries</h1>
-                <a href="<?= base_url('galleries/store') ?>" class="content__button content__button--add">Ajouter une nouvelle gallerie</a>
+        <div class="dashboard__right">
+            <nav class="dashboard__nav">
+                <a href="#"><i class="icon icon-menu"></i></a>
+                <div class="dashboard__nav__profil">
+                    <a href="#" class="dashboard__nav__profilBtn" id="profilBtn">
+                        <span><i class="icon icon-user"></i></span>
+                    </a>
+                    <ul class="dashboard__nav__dropdown" id="dropdownProfil">
+                        <li>
+                            <a href="<?=base_url('/auth/logout')?>">
+                                <i class="icon icon-logout"></i>
+                                <span>Déconnexion</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="dashboard__main">
+                <div class="dashboard__main__title">
+                    <i class="icon icon-article"></i>
+                    <p>Galleries</p>
+                </div>
+                <div class="dashboard__main__action">
+                    <a href="<?=base_url('galleries/store')?>" class="btn-action">
+                        <i class="icon icon-plus"></i>
+                        <span>Ajouter</span>
+                    </a>
+                </div>
+                <div class="dashboard__main__box">
+                    <table class="fnb-table">
+                        <thead>
+                            <th>Nom</th>
+                            <th>Image</th>
+                            <th>Action</th>
+                        </thead>
+                        <tbody>
+                           
+                            <?php foreach($galleries as $gallerie): ?>
+                                <tr data-article="galerie_<?=$gallerie['category']['id']?>">
+                                    <td ><?= $gallerie['category']['name'] ?></td>
+                                    <td style=' width: 100px;'><img src="<?=base_url($gallerie['image']['img'])?>" alt="Exemple" style="<?= $gallerie['category']['name'] ?>"></td>
+                                    <td>
+                                        <div class="fnb-actions">
+                                            <a href="<?=base_url('galleries/update/'.$gallerie['category']['id'])?>" class="fnb-actions__edit" title="MOdifier">
+                                                <i class="icon icon-edit"></i>
+                                            </a>
+                                            <a href="<?=base_url('galleries/delete/'.$gallerie['category']['id'])?>" class="fnb-actions__delete" title="Supprimer">
+                                                <i class="icon icon-delete"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <table class="galleries__table">
-    <thead>
-        <tr>
-            <th class="galleries__table-header">Nom</th>
-            <th class="galleries__table-header">Image</th>
-            <th class="galleries__table-header">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach($galleries as $gallerie): ?>
-        <tr class="galleries__table-row">
-            <td class="galleries__table-cell"><?= $gallerie['category']['name'] ?></td>
-            <td class="galleries__table-cell"><img src="<?=base_url($gallerie['image']['img'])?>" alt="Exemple" style="<?= $gallerie['category']['name'] ?>: 50px;"></td>
-            <td class="galleries__table-actions">
-                <a href="<?=base_url('galleries/update/'.$gallerie['category']['id'])?>" class="galleries__table-action galleries__table-action--update">Mettre à jour</a>
-                <a href="<?=base_url('galleries/delete/'.$gallerie['category']['id'])?>" class="galleries__table-action galleries__table-action--delete">Supprimer</a>
-            </td>
-        </tr>
-        <?php endforeach;?>
-    </tbody>
-</table>
-            <!-- Plus d'articles peuvent être ajoutés ici -->
         </div>
         <!-- Le reste du contenu reste inchangé -->
-    </div>
     </div>
     <script src="<?= base_url('js/admin.js') ?>"></script>
 </body>
