@@ -38,6 +38,10 @@ input:focus, select:focus {
   outline: none;
 }
 
+input{
+  padding-left: 10px !important;
+}
+
 img{
   width: 100%;
   height: auto;
@@ -229,6 +233,11 @@ img{
   background-color: red;
 }
 
+
+.fnb-form{
+  max-width: 650px;
+  margin:0 auto;
+}
 
 
 

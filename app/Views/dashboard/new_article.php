@@ -37,7 +37,7 @@
                 <div class="dashboard__main__box">
                 
                     <?=view('sections/error')?>
-                    <form class="article-form" method="post" enctype="multipart/form-data" action="<?=base_url('articles/store')?>">
+                    <form class="article-form fnb-form" method="post" enctype="multipart/form-data" action="<?=base_url('articles/store')?>">
                         <div class="form-group">
                             <label for="title">Titre de l'article</label>
                             <input type="text" id="title" name="title" required>
