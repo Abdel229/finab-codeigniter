@@ -9,10 +9,26 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="dashboard">
         <?= view('sections/sidebar') ?>
 
         <div class="content">
+        <nav class="dashboard__nav">
+                <a href="#"><i class="icon icon-menu"></i></a>
+                <div class="dashboard__nav__profil">
+                    <a href="#" class="dashboard__nav__profilBtn" id="profilBtn">
+                        <span><i class="icon icon-user"></i></span>
+                    </a>
+                    <ul class="dashboard__nav__dropdown" id="dropdownProfil">
+                        <li>
+                            <a href="<?=base_url('/auth/logout')?>">
+                                <i class="icon icon-logout"></i>
+                                <span>Déconnexion</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav> 
             <h2>Nouvelle galerie</h2>
 
             <form action="<?=base_url('galleries/store')?>" method="post" enctype="multipart/form-data" class="form">

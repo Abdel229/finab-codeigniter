@@ -22,7 +22,7 @@ class GalleriesController extends BaseController
             $images = $imagesModel->where('category_id', $category['id'])->findAll();
 
             $data[] = [
-                'categor' => $category,
+                'category' => $category,
                 'images' => $images
             ];
         }

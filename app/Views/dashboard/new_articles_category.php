@@ -37,12 +37,12 @@
 
                     <div class="dashboard__main__box">
                         <?= view('sections/error') ?>
-                        <form class="article-form" method="post" enctype="multipart/form-data" action="<?= base_url('categories/update/' . $category['id']) ?>">
+                        <form class="article-form" method="post" enctype="multipart/form-data" action="<?= base_url('article_categorie/store/') ?>">
                             <div class="form-group">
-                                <label for="title">Titre de l'article</label>
-                                <input type="text" id="title" name="name" value="<?= $category['name'] ?>" required>
+                                <label for="title">Titre de la catégorie</label>
+                                <input type="text" id="title" name="name" required>
                             </div>
-                            <button type="submit" class="submit-button">Mettre à jour la catégorie</button>
+                            <button type="submit" class="submit-button">Nouvelle catégorie</button>
                         </form>
                         <!-- Le reste du contenu reste inchangé -->
                     </div>
@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    <script src="<?= base_url('js/admin.js') ?>"></script>
+                <script src="<?= base_url('js/admin.js') ?>"></script>
 </body>
 
 </html>

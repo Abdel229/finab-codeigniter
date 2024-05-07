@@ -24,22 +24,28 @@ class ArticlesCategoryController extends BaseController
 
     public function store()
     {
-        $categoryModel = new ArticlesCategoryModel();
+        $method=$this->request->getMethod();
+        if($method==='GET'){
+            return view('dashboard/new_articles_category');
+        }else if ($method==='POST') {
+            $categoryModel = new ArticlesCategoryModel();
 
-        // Récupérer les données du formulaire
-        $data = [
-            'name' => $this->request->getPost('name'),
-            'status_id' => 2
-        ];
-
-        // Valider les données
-        if (!$categoryModel->save($data)) {
-            // En cas d'échec de validation, rediriger avec un message d'erreur
-            return redirect()->back()->withInput()->with('error', 'Failed to create category.');
+            // Récupérer les données du formulaire
+            $data = [
+                'name' => $this->request->getPost('name'),
+                'status_id' => 2
+            ];
+    
+            // Valider les données
+            if (!$categoryModel->save($data)) {
+                session()->setFlashdata('errors', ['Failed to create category']);
+                return redirect()->back()->withInput();
+            }
+    
+            // Redirection avec un message de succès si la catégorie est enregistrée avec succès
+            return redirect()->to('/admin/categories')->with('success', 'Category created successfully.');
         }
-
-        // Redirection avec un message de succès si la catégorie est enregistrée avec succès
-        return redirect()->to('/categories')->with('success', 'Category created successfully.');
+      
     }
 
     public function edit($id)
