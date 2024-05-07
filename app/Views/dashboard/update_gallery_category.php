@@ -29,11 +29,10 @@
                     </ul>
                 </div>
             </nav>
-            <div class="content">
                 <div class="dashboard__main">
                     <div class="dashboard__main__title">
                         <i class="icon icon-plus"></i>
-                        <p>Nouvelle catégorie</p>
+                        <p>Modifier la catégorie</p>
                     </div>
 
                     <div class="dashboard__main__box">
@@ -44,14 +43,13 @@
                                 <input type="text" id="title" name="name" value="<?= $category['name'] ?>" required>
                             </div>
                             <div class="fnb-form__item fnb-form__item-action">
-                                <button type="submit" class="submit-button">Mettre à jour la catégorie</button>
+                                <button type="submit" class="submit-button">Modifier la catégorie</button>
 
                             </div>
                         </form>
                         <!-- Le reste du contenu reste inchangé -->
                     </div>
                 </div>
-            </div>
         </div>
     </div>
     <script src="<?= base_url('js/admin.js') ?>"></script>

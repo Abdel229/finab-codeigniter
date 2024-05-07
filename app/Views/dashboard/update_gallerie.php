@@ -12,7 +12,6 @@
 <body>
     <div class="dashboard">
         <?= view('sections/sidebar') ?>
-
         <div class="dashboard__right">
             <nav class="dashboard__nav">
                 <a href="#"><i class="icon icon-menu"></i></a>

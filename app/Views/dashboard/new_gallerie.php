@@ -48,10 +48,8 @@
 
                         </div>
 
-                        <div id="fileInputs" class="file-inputs">
-                            <div class="fileInput">
+                        <div id="fileInputs" class="fnb-form__item">
                                 <input type="file" name="photos[]" required class="form-input">
-                            </div>
                         </div>
                         <div class="fnb-form__item fnb-form__item-action">
                             <button type="button" id="addMore" class="submit-button">Plus</button>

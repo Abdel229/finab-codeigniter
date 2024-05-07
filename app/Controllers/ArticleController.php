@@ -30,7 +30,7 @@ class ArticleController extends BaseController
             $rules = [
                 'title' => 'required|max_length[255]',
                 'description' => 'required',
-                'date_pub' => 'required|date',
+                'date_pub' => 'date',
                 'category' => 'required',
                 'img' => 'uploaded[img]',
             ];
@@ -44,9 +44,8 @@ class ArticleController extends BaseController
             // Récupérer les données du formulaire
             $title = $this->request->getPost('title');
             $description = $this->request->getPost('description');
-            $date_pub = $this->request->getPost('date_pub');
+            $date_pub = $this->request->getPost('date_pub')?$this->request->getPost('date_pub'):date('Y-m-d');
             $categoryName = $this->request->getPost('category'); // Nom de la catégorie
-
             // Récupérer l'ID de la catégorie en fonction de son nom
             $articlesCategoryModel = new ArticlesCategoryModel();
             $category = $articlesCategoryModel->where('name', $categoryName)->first();
