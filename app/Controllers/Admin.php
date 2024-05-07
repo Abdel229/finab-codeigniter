@@ -19,16 +19,17 @@ class Admin extends BaseController
     public function galeries(): string
     {
         $categoryModel = new GalleriesCategoryModel();
-        $categories = $categoryModel->findAll(6);
-
+        $categories = $categoryModel->where('status_id', '2')->findAll();
         $data = [];
         foreach ($categories as $category) {
             $imagesModel = new GalleriesModel();
-            $image = $imagesModel->where('category_id', $category['id'])->findAll(1);
-
+            $image = $imagesModel->where('category_id', $category['id'])->first();
+            if(!$image){
+                continue;
+            }
             $data[] = [
                 'category' => $category,
-                'image' => $image[0]
+                'image' => $image
             ];
         }
 

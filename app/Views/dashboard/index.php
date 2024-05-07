@@ -53,7 +53,8 @@ if (!$session->get('user_id')) {
                             <th>Action</th>
                         </thead>
                         <tbody>
-                            <?php foreach($articles as $article): ?>
+                            <?php if(count($articles) > 0):?>
+                                <?php foreach($articles as $article): ?>
                                 <tr data-article="article_<?=$article['id']?>">
                                     <td><?=$article['created_at']?></td>
                                     <td><?=$article['title']?></td>
@@ -69,6 +70,11 @@ if (!$session->get('user_id')) {
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="3" style="text-align:center;">Aucune information disponible</td>
+                                </tr>
+                           <?php endif;?>
                         </tbody>
                     </table>
                 </div>

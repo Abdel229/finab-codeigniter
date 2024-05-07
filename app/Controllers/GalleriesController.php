@@ -19,8 +19,7 @@ class GalleriesController extends BaseController
         $data = [];
         foreach ($categories as $category) {
             $imagesModel = new GalleriesModel();
-            $images = $imagesModel->where('category_id', $category['id'])->findAll();
-
+            $images = $imagesModel->where('category_id', $category['id'])->where('status_id',2)->findAll();
             $data[] = [
                 'category' => $category,
                 'images' => $images
@@ -274,17 +273,14 @@ public function updateGallery($id)
 
     public function deleteGallery($id)
     {
-        // Mettre à jour le statut de la galerie à "Supprimée" (statut_id = 3)
-        $galleryModel = new GalleriesModel();
+        $galleryModel = new GalleriesCategoryModel();
         $data = [
             'status_id' => 3
         ];
         if ($galleryModel->update($id, $data)) {
-            // Rediriger avec un message de succès si la suppression réussit
-            return redirect()->to('/admin')->with('success', 'Galerie supprimée avec succès.');
+            return redirect()->to('/admin/galeries')->with('success', 'Galerie supprimée avec succès.');
         } else {
-            // Rediriger avec un message d'erreur si la suppression échoue
-            return redirect()->to('/admin')->with('error', 'Échec de la suppression de la galerie.');
+            return redirect()->to('/admin/galeries')->with('error', 'Échec de la suppression de la galerie.');
         }
     }
     public function delete($id)

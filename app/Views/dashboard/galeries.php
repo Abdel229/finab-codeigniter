@@ -12,8 +12,8 @@ if (!$session->get('user_id')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord</title>
-    <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
-    <link rel="stylesheet" href="<?=base_url('styles/css/admin/dashboard.css')?>">
+    <link rel="stylesheet" href="<?= base_url('styles/css/icons.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
 </head>
 
 <body>
@@ -28,7 +28,7 @@ if (!$session->get('user_id')) {
                     </a>
                     <ul class="dashboard__nav__dropdown" id="dropdownProfil">
                         <li>
-                            <a href="<?=base_url('/auth/logout')?>">
+                            <a href="<?= base_url('/auth/logout') ?>">
                                 <i class="icon icon-logout"></i>
                                 <span>Déconnexion</span>
                             </a>
@@ -42,7 +42,7 @@ if (!$session->get('user_id')) {
                     <p>Galleries</p>
                 </div>
                 <div class="dashboard__main__action">
-                    <a href="<?=base_url('galleries/store')?>" class="btn-action">
+                    <a href="<?= base_url('galleries/store') ?>" class="btn-action">
                         <i class="icon icon-plus"></i>
                         <span>Ajouter</span>
                     </a>
@@ -55,23 +55,28 @@ if (!$session->get('user_id')) {
                             <th>Action</th>
                         </thead>
                         <tbody>
-                           
-                            <?php foreach($galleries as $gallerie): ?>
-                                <tr data-article="galerie_<?=$gallerie['category']['id']?>">
-                                    <td ><?= $gallerie['category']['name'] ?></td>
-                                    <td style=' width: 200px;'><img style=' width: 60px;height:60px;object-fit:cover' src="<?=base_url($gallerie['image']['img'])?>" alt="Exemple" style="<?= $gallerie['category']['name'] ?>"></td>
-                                    <td style="width:80px;">
-                                        <div class="fnb-actions">
-                                            <a href="<?=base_url('galleries/update/'.$gallerie['category']['id'])?>" class="fnb-actions__edit" title="MOdifier">
-                                                <i class="icon icon-edit"></i>
-                                            </a>
-                                            <a href="<?=base_url('galleries/delete/'.$gallerie['category']['id'])?>" class="fnb-actions__delete" title="Supprimer">
-                                                <i class="icon icon-delete"></i>
-                                            </a>
-                                        </div>
-                                    </td>
+                            <?php if (count($galleries) > 0) : ?>
+                                <?php foreach ($galleries as $gallerie) : ?>
+                                    <tr data-article="galerie_<?= $gallerie['category']['id'] ?>">
+                                        <td><?= $gallerie['category']['name'] ?></td>
+                                        <td style=' width: 200px;'><img style=' width: 60px;height:60px;object-fit:cover' src="<?= base_url($gallerie['image']['img']) ?>" alt="Exemple" style="<?= $gallerie['category']['name'] ?>"></td>
+                                        <td style="width:80px;">
+                                            <div class="fnb-actions">
+                                                <a href="<?= base_url('galleries/update/' . $gallerie['category']['id']) ?>" class="fnb-actions__edit" title="MOdifier">
+                                                    <i class="icon icon-edit"></i>
+                                                </a>
+                                                <a href="<?= base_url('galleries/delete/' . $gallerie['category']['id']) ?>" class="fnb-actions__delete" title="Supprimer">
+                                                    <i class="icon icon-delete"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <tr>
+                                    <td colspan="3" style="text-align:center;">Aucune information disponible</td>
                                 </tr>
-                            <?php endforeach;?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

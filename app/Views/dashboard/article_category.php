@@ -29,8 +29,8 @@
             </nav>
             <div class="dashboard__main">
                 <div class="dashboard__main__title">
-                    <i class="icon icon-gallery"></i>
-                    <p>Galleries</p>
+                    <i class="icon icon-category"></i>
+                    <p>Article Catégorie</p>
                 </div>
                 <div class="dashboard__main__action">
                     <a href="<?=base_url('article_categorie/store')?>" class="btn-action">
@@ -45,7 +45,7 @@
                             <th>Action</th>
                         </thead>
                         <tbody>
-                           
+                           <?php if(count($categories)>0):?>
                             <?php foreach($categories as $category): ?>
                                 <tr data-article="galerie_<?=$category['id']?>">
                                     <td ><?= $category['name'] ?></td>
@@ -61,6 +61,11 @@
                                     </td>
                                 </tr>
                             <?php endforeach;?>
+                            <?php else : ?>
+                                <tr>
+                                    <td colspan="3" style="text-align:center;">Aucune information disponible</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

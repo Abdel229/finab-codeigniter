@@ -23,7 +23,7 @@ class ArticleController extends BaseController
 
         if ($method === 'GET') {
             $categoryModel = new ArticlesCategoryModel();
-            $category = $categoryModel->findAll();
+            $category = $categoryModel->where('status_id',2)->findAll();
             return view('dashboard/new_article', ['categories' => $category]);
         } elseif ($method === 'POST') {
             // Définir les règles de validation
