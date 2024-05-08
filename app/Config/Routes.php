@@ -59,6 +59,7 @@ $routes->group('/galleries',function(RouteCollection $routes) {
     $routes->match(['GET','POST'],'update/(:num)', 'GalleriesController::updateGallery/$1');
     $routes->get('show/(:num)', 'GalleriesController::show/$1');
     $routes->get('delete/(:num)', 'GalleriesController::deleteGallery/$1');
+    $routes->get('delete_image/(:num)', 'GalleriesController::delete/$1');
 });
 
 $routes->get('/create_gallery', 'GalleriesController::index');

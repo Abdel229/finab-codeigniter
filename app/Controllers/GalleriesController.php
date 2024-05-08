@@ -20,6 +20,9 @@ class GalleriesController extends BaseController
         foreach ($categories as $category) {
             $imagesModel = new GalleriesModel();
             $images = $imagesModel->where('category_id', $category['id'])->where('status_id',2)->findAll();
+            if(!$images){
+                continue;
+            }
             $data[] = [
                 'category' => $category,
                 'images' => $images
@@ -33,7 +36,7 @@ class GalleriesController extends BaseController
         $method = $this->request->getMethod();
         if ($method === 'GET') {
             $gallerieCategoryModel = new GalleriesCategoryModel();
-            $gallerieCategory = $gallerieCategoryModel->findAll();
+            $gallerieCategory = $gallerieCategoryModel->where('status_id',2)->findAll();
             return view('dashboard/new_gallerie', ['categories' => $gallerieCategory]);
         } else if ($method === 'POST') {
             // Récupérer les photos envoyées par le formulaire
@@ -112,13 +115,14 @@ class GalleriesController extends BaseController
         foreach ($categories as $category) {
             $imagesModel = new GalleriesModel();
             $image = $imagesModel->where('category_id', $category['id'])->findAll(1);
-
+            if(!$image){
+                continue;
+            }
             $data[] = [
                 'category' => $category,
                 'image' => $image[0]
             ];
         }
-
         return $data;
     }
     public function galleries_photo()
@@ -180,13 +184,13 @@ class GalleriesController extends BaseController
         }
     }
 
-public function updateGallery($id)
+    public function updateGallery($id)
     {
         
         $method = $this->request->getMethod();
         if ($method === 'GET') {
             $galleryModel = new GalleriesModel();
-            $galleries = $galleryModel->where('category_id', $id)->findAll();
+            $galleries = $galleryModel->where('category_id', $id)->where('status_id',2)->findAll();
             $categoryModel = new GalleriesCategoryModel();
             $categories = $categoryModel->findAll();
             $category = $categoryModel->where('id', $id)->first();
@@ -209,42 +213,41 @@ public function updateGallery($id)
             $photos = $this->request->getFiles();
             $galleryModel = new GalleriesModel();
             $galleries = $galleryModel->findAll();
-
-            // Parcourir les images existantes et les mettre à jour si nécessaire
             foreach ($galleries as $gallery) {
-                // Vérifier si l'input correspondant à cette photo a été rempli
                 $inputName = 'input_' . $gallery['id'];
                 if (!empty($this->request->getPost($inputName))) {
-                    // Mettre à jour les données de la galerie
                     $galleryModel->update($gallery['id'], [
                         'name' => $this->request->getPost($inputName),
                         'category_id' => $category['id'] // Assurez-vous d'avoir $category défini au préalable
                     ]);
                 }
 
-                // Vérifier si une nouvelle image a été téléchargée pour cette galerie
-                $photo = $photos['photos'][$gallery['id']] ?? null;
-                if ($photo && $photo->isValid() && !$photo->hasMoved()) {
-                    // Générer un nouveau nom de fichier unique
-                    $newName = $photo->getRandomName();
+                // // Vérifier si une nouvelle image a été téléchargée pour cette galerie
+                // $photos = $photos['photos'];
+                // dd($photos);
+                // foreach($photos as $photo){
 
-                    // Déplacer le fichier vers le dossier de destination
-                    $photo->move(ROOTPATH . 'public/uploads_galleries', $newName);
+                // }
+                // if ($photo && $photo->isValid() && !$photo->hasMoved()) {
+                //     // Générer un nouveau nom de fichier unique
+                //     $newName = $photo->getRandomName();
 
-                    // Mettre à jour le chemin de l'image dans la base de données
-                    $galleryModel->update($gallery['id'], [
-                        'img' => 'uploads_galleries/' . $newName,
-                        'status_id' => 2
-                    ]);
-                }
+                //     // Déplacer le fichier vers le dossier de destination
+                //     $photo->move(ROOTPATH . 'public/uploads_galleries', $newName);
+
+                //     // Mettre à jour le chemin de l'image dans la base de données
+                //     $galleryModel->update($gallery['id'], [
+                //         'img' => 'uploads_galleries/' . $newName,
+                //         'status_id' => 2
+                //     ]);
+                // }
             }
-
             // Enregistrer les nouvelles photos
             foreach ($photos['photos'] as $index => $photo) {
                 // Vérifier si l'input correspondant à cette photo a été rempli
-                $inputName = 'input_' . $index;
-                if (!empty($this->request->getPost($inputName))) {
-                    if ($photo->isValid() && !$photo->hasMoved()) {
+                // $inputName = 'input_' . $index;
+                // if (!empty($this->request->getPost($inputName))) {
+                //     if ($photo->isValid() && !$photo->hasMoved()) {
                         // Générer un nouveau nom de fichier unique
                         $newName = $photo->getRandomName();
 
@@ -259,13 +262,13 @@ public function updateGallery($id)
                             'status_id' => 2
                         ]);
                     }
-                }
-            }
+            //     }
+            // }
 
 
         
             // Rediriger l'utilisateur ou afficher un message de confirmation
-            return redirect()->to('/galleries')->with('success', 'Galerie mise à jour avec succès.');
+            return redirect()->to('/admin/galeries')->with('success', 'Galerie mise à jour avec succès.');
         }
         
     }
@@ -292,7 +295,7 @@ public function updateGallery($id)
         ];
         if ($galleryModel->update($id, $data)) {
             // Rediriger avec un message de succès si la suppression réussit
-            return redirect()->to('/')->with('success', 'Galerie supprimée avec succès.');
+            return redirect()->back();
         } else {
             // Rediriger avec un message d'erreur si la suppression échoue
             return redirect()->to('/')->with('error', 'Échec de la suppression de la galerie.');

@@ -70,7 +70,7 @@
                             <div id="links-container">
                                 <!-- Les champs d'entrée pour les liens seront ajoutés ici -->
 
-                                <?php 
+                                <?php
                                     $id=1;
                                 foreach($links as $link): ?>
                                     <input type="text" name="lien<?=$id ?>" value="<?= $link['link'] ?>" required><br>

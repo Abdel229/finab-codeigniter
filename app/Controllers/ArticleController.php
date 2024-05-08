@@ -148,7 +148,6 @@ class ArticleController extends BaseController
             // recuperation des liens 
             $LinksModel = new ArticleLinksModel();
             $links = $LinksModel->where('article_id', $id)->findAll();
-            // dd($links);
             return view('dashboard/update_article', ['article' => $article, 'categories' => $category,'links'=>$links]);
         } else if ($method === 'POST') {
             // Définir les règles de validation
@@ -157,6 +156,7 @@ class ArticleController extends BaseController
                 'title' => 'required',
                 // 'new_img' => 'uploaded[img]',
                 'description' => 'required',
+                // 'lien' => 'required',
                 'category' => 'required'
                 // Ajoutez ici d'autres règles de validation si nécessaire
             ];
@@ -178,10 +178,13 @@ class ArticleController extends BaseController
                 // Autres champs d'article
             ];
             // Vérifier si une nouvelle image a été fournie
-            if ($newImageFile = $this->request->getFile('new_img')) {
+            $newImageFile = $this->request->getFile('new_img');
+
+            // Vérifier si un fichier a été téléchargé et s'il n'a pas été déplacé
+            if ($newImageFile->isValid() && !$newImageFile->hasMoved()) {
                 // Déplacer la nouvelle image vers le dossier de destination
                 $newImageName = $newImageFile->getRandomName();
-                $newImageFile->move(ROOTPATH . 'public\uploads', $newImageName);
+                $newImageFile->move(ROOTPATH . 'public/uploads', $newImageName);
 
                 // Mettre à jour le chemin de l'image dans les données de l'article
                 $articleData['img'] = 'uploads/' . $newImageName;
@@ -195,23 +198,42 @@ class ArticleController extends BaseController
             // Mettre à jour l'article
             $articlesModel = new ArticlesModel();
             $articlesModel->update($id, $articleData);
+            $LinksModel = new ArticleLinksModel();
+            $linksData = [];
+            foreach ($_POST as $key => $value) {
+                // Vérifier si la clé correspond à un lien
+                if (strpos($key, 'lien') === 0 && !empty($value)) {
+                    // Extraire le numéro de lien de la clé
+                    $linkNumber = substr($key, 4);
 
-            // Récupérer les données des liens YouTube
-            $linksData = $this->request->getPost('youtube_links');
+                    // Vérifier si le lien existe déjà dans la base de données
+                    $existingLink = $LinksModel->where('article_id', $id)
+                                                        ->where('link', $value)
+                                                        ->first();
 
-            // // Mettre à jour les liens YouTube associés à l'article
-            $articleLinksModel = new ArticleLinksModel();
-            $articleLinksModel->where('article_id', $id)->delete(); // Supprimer d'abord tous les liens existants pour cet article
-            if($linksData){
-                foreach ($linksData as $link) {
-                    $articleLinksModel->insert([
-                        'link' => $link,
-                        'article_id' => $id,
-                        // Autres champs de lien YouTube
-                    ]);
+                    // Si le lien existe déjà, mettez à jour ses données
+                    if ($existingLink !== null) {
+                        $LinksModel->update($existingLink['id'], [
+                            'link' => $value,
+                            // Mettez à jour d'autres champs au besoin
+                        ]);
+                    } else {
+                        // Si le lien n'existe pas, ajoutez-le aux données à insérer
+                        $linksData[] = [
+                            'link' => $value,
+                            'article_id' => $id,
+                            'status_id' => 2 // Statut par défaut pour les nouveaux liens
+                        ];
+                    }
                 }
             }
-  
+
+            // Insérer les nouveaux liens
+            if (!empty($linksData)) {
+                $LinksModel->insertBatch($linksData);
+            }
+
+
 
             // Rediriger avec un message de succès
             return redirect()->to('/admin')->with('success', 'Article updated successfully.');

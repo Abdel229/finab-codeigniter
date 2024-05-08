@@ -11,19 +11,19 @@
                 </a>
             </li>
             <li class="aside__bottom__item">
-                <a href="<?=base_url('/admin/galeries')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/admin/galeries" || $_SERVER['REQUEST_URI']=="/galleries/store")?"active":"");?>">
+                <a href="<?=base_url('/admin/galeries')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/admin/galeries" || $_SERVER['REQUEST_URI']=="/galleries/store" || strpos($_SERVER['REQUEST_URI'],'galleries/update'))?"active":"");?>">
                     <i class="icon icon-gallery"></i>
                     Galeries
                 </a>
             </li>
             <li class="aside__bottom__item">
-                <a href="<?=base_url('/admin/categories')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/admin/categories") || strpos($_SERVER['REQUEST_URI'],'article_categorie'))?"active":"";?>">
+                <a href="<?=base_url('/admin/categories')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/admin/categories") || strpos($_SERVER['REQUEST_URI'],'article_categorie') || strpos($_SERVER['REQUEST_URI'],'categories/update'))?"active":"";?>">
                 <i class="icon icon-category"></i>
                 Catégories article
             </a>
             </li>
             <li class="aside__bottom__item">
-                <a href="<?=base_url('/admin/categories-gallerie')?>" class="aside__bottom__item__link <?=((strpos($_SERVER['REQUEST_URI'],'galleries_category'))?"active":"");?>">
+                <a href="<?=base_url('/admin/categories-gallerie')?>" class="aside__bottom__item__link <?=((($_SERVER['REQUEST_URI']=="/admin/categories-gallerie") || strpos($_SERVER['REQUEST_URI'],'galleries_category'))?"active":"");?>">
                 <i class="icon icon-category"></i>
                 Catégories gallerie
             </a>
