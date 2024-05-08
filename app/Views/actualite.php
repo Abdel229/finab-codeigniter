@@ -50,10 +50,10 @@ echo view('partials/header');
                   <div class="single_new_img">
                     <img src="<?=base_url($actualite['img'])?>" alt="Image de l'article">
                   </div>
-                  <p class="single_new_text">Titre de l'article</p>
+                  <p class="single_new_text"><?= $actualite['title']?></p>
                   <div class="single_new_date">
                     <i class="icon icon-calendar"></i>
-                    <p class="single_new_date_p">2023-04-01</p>
+                    <p class="single_new_date_p"><?= $actualite['date_pub']?></p>
                   </div>
                 </a>
               <?php endforeach; ?>

@@ -59,7 +59,7 @@
                         </div>
                         <div class="fnb-form__item fnb-form__item-action">
 
-                            <button type="submit" class="submit-button">Mettre à jour</button>
+                            <button type="submit" class="submit-button">Ajouter</button>
                         </div>
 
                     </form>

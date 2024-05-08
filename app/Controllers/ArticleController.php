@@ -12,7 +12,7 @@ class ArticleController extends BaseController
     public function index()
     {
         $articleCategoryModel = new ArticlesModel();
-        $articles_category = $articleCategoryModel->findAll();
+        $articles_category = $articleCategoryModel->where('status_id',2)->findAll();
         return view('formulaire/articles_form', ["articlescategory" => $articles_category]);
     }
 

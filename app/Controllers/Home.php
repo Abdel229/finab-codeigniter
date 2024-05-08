@@ -28,7 +28,7 @@ class Home extends BaseController
     public function actualite(): string
     {
         $actualiteModel=new ArticlesModel();
-        $actualite=$actualiteModel->findAll();
+        $actualite=$actualiteModel->where('status_id',2)->findAll();
         return view('actualite',['actualites'=>$actualite]);
     }
 
@@ -36,15 +36,14 @@ class Home extends BaseController
               $articleModel = new ArticlesModel();
 
               $article = $articleModel->find($id);
-              $randomArticles = $articleModel->orderBy('RAND()')->limit(3)->findAll();
+              $randomArticles = $articleModel->where('status_id',2)->orderBy('RAND()')->limit(3)->findAll();
               if (!$article) {
                   return redirect()->to('/')->with('error', 'Article non trouvé.');
               }
       
               $articleLinksModel = new ArticleLinksModel();
       
-              $links = $articleLinksModel->where('article_id', $id)->findAll();
-      
+              $links = $articleLinksModel->where('article_id', $id)->where('status_id',2)->findAll();
               $data = [
                   'article' => $article,
                   'links' => $links

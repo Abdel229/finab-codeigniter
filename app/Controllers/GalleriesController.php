@@ -192,7 +192,7 @@ class GalleriesController extends BaseController
             $galleryModel = new GalleriesModel();
             $galleries = $galleryModel->where('category_id', $id)->where('status_id',2)->findAll();
             $categoryModel = new GalleriesCategoryModel();
-            $categories = $categoryModel->findAll();
+            $categories = $categoryModel->where('status_id',2)->findAll();
             $category = $categoryModel->where('id', $id)->first();
             // dd($category);
             return view('dashboard/update_gallerie', ["galleries"=>$galleries,"categories"=>$categories,"category_single"=>$category]);

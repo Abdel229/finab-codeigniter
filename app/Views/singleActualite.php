@@ -8,7 +8,7 @@ echo view('partials/header');
             <div class="container">
                 <div class="firstface__content">
                     <div class="firstface__content__img">
-                        <img src="<?=base_url('images/svg/finab_head.svg')?>" alt="finab_head">
+                        <img src="<?= base_url('images/svg/finab_head.svg') ?>" alt="finab_head">
                     </div>
                     <h1>ACTUALITÉS</h1>
                 </div>
@@ -18,8 +18,8 @@ echo view('partials/header');
             <div class="container">
                 <div class="actuality-detail-box__content">
                     <div class="actuality-detail-box__img">
-                        <img src="<?=base_url($article['img'])?>" alt="actuality_detail" id="article-img">
-                         <div class="actuality-detail-box__text">
+                        <img src="<?= base_url($article['img']) ?>" alt="actuality_detail" id="article-img">
+                        <div class="actuality-detail-box__text">
                             <h2 id="article-title"><?= $article['title'] ?></h2>
                             <span id="article-date"><?= $article['date_pub'] ?></span>
                         </div>
@@ -34,7 +34,13 @@ echo view('partials/header');
                     </div> -->
                         <div class="actuality-detail-box__detail" id="article-content">
                             <p><?= $article['description'] ?></p>
-
+                            <?php if (count($links) > 0) : ?>
+                            <?php foreach ($links as $link) : ?>
+                                <div class="single_new_video">
+                                    <?php echo '<iframe width="100%" height="200" src="https://www.youtube.com/embed/' . explode('v=', $link['link']) . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'; ?>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -60,9 +66,10 @@ echo view('partials/header');
                             </a>
                         <?php endforeach; ?>
 
+                      
                     </div>
                     <div class="same-actuality__seemore">
-                        <a href="<?= base_url('/actualite')?>">
+                        <a href="<?= base_url('/actualite') ?>">
                             VOIR TOUS LES ARTICLES
                             <img src="assets/images/svg/Arrow Bottom Right.svg" alt="">
                         </a>
