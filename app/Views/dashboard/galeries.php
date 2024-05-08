@@ -36,11 +36,23 @@ if (!$session->get('user_id')) {
                     </ul>
                 </div>
             </nav>
+
             <div class="dashboard__main">
                 <div class="dashboard__main__title">
                     <i class="icon icon-article"></i>
                     <p>Galleries</p>
                 </div>
+                <ul class="cpn-pg-menu">
+                    
+                    <li class="cpn-pg-menu__item">
+                        <a href="<?=base_url('/admin/galeries')?>" class="cpn-pg-menu__item-link "> <span>Liste des galeries</span></a>
+                    </li>
+                    <li class="cpn-pg-menu__item">
+                        <a href="<?=base_url('/create_gallery_categories')?>" class="cpn-pg-menu__item-link ">
+                            <span>Catégories</span> 
+                        </a>
+                    </li>
+                </ul>
                 <div class="dashboard__main__action">
                     <a href="<?= base_url('galleries/store') ?>" class="btn-action">
                         <i class="icon icon-plus"></i>
@@ -85,6 +97,8 @@ if (!$session->get('user_id')) {
         <!-- Le reste du contenu reste inchangé -->
     </div>
     <script src="<?= base_url('js/admin.js') ?>"></script>
+    <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
+    
 </body>
 
 </html>

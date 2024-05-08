@@ -76,6 +76,7 @@
         </div>
     </div>
     <script src="<?=base_url('js/admin.js')?>"></script>
+    <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const linksContainer = document.getElementById('links-container');

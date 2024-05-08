@@ -58,7 +58,9 @@ img{
   top:0;
   left:0;
   width: 235px;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
+  overflow-y: scroll;
   z-index: 8;
 }
 .aside__top{
@@ -71,6 +73,89 @@ img{
   padding-right: 10px;
   padding-left: 10px;
 }
+
+
+
+/* .aside__bottom__list {
+  list-style: none;
+  padding: 0;
+}
+
+.aside__bottom__item {
+  position: relative;
+}
+
+.submenu, .sub-submenu {
+  display: none;
+  left: 10px;
+  top: 0;
+}
+
+.aside__bottom__item.active .submenu, .submenu-item.active .sub-submenu {
+  display: block;
+}
+
+.submenu li, .sub-submenu li {
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+}
+
+.submenu li:last-child, .sub-submenu li:last-child {
+  border-bottom: none;
+} */
+
+
+.cpn-pg-menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  padding: 5px 15px;
+  border-radius: 20px;
+  background-color: #f4f4f4;
+}
+.cpn-pg-menu__item {
+  margin-bottom: 5px;
+}
+.cpn-pg-menu__item-link {
+  display: inline-block;
+  padding: 5px 12px;
+  color: #91959a;
+  transition: all .5s linear;
+}
+.cpn-pg-menu__item-link.active {
+  color: #5bacb9;
+}
+.cpn-pg-menu__item-link.active::before {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  height: 3px;
+  background-color: #000;
+  left: 0;
+  bottom: -10px;
+}
+.cpn-pg-menu__item-link.active::after {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  border-bottom: solid 5px #000;
+  border-left: solid 5px transparent;
+  border-right: solid 5px transparent;
+  left: calc(50% - 2.5px);
+  bottom: -7px;
+}
+
+
+
+
 .aside__bottom__item__link{
   display: block;
   padding:8px 10px;
@@ -189,15 +274,119 @@ img{
 }
 
 .dashboard__main__box{
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0px 2px 4px #0000005e;
+  display: flex;
+  justify-content: space-between;
 }
+/* bertrand css page finab */
+
+.new_event_finab{
+  width: 250px;
+}
+.btn_new_event_finab{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 48px;
+  background-color: #F1902E;
+  color: #fff;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer !important;
+  margin-bottom: 20px;
+}
+.btn_new_event_finab i{
+  background-color: #fff;
+}
+.finab_details_list{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-direction: column;
+  width: 200px;
+}
+.finab_details_list_item { 
+  padding: 10px 20px 10px 20px;
+  text-align: center;   
+  background-color: #ecbb8a;
+  color: #fff;
+  width: 90%;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.finab_details_list_item.active  {
+  background-color: #F1902E;
+}
+.finab_details_list_item a { 
+  font-size: .8rem;
+  line-height: 10px !important;
+  color: #fff;
+}
+.page_finab{
+  width: calc(100% - 200px);
+}
+.dashboard__main__action._finab_add{
+  width: 20%;
+  padding-left: 200px !important;
+}
+.modal-all {
+  display: none ; /* Par défaut, le modal est caché */
+  position: fixed; /* Position fixe pour le modal */
+  z-index: 4; /* Plus haut niveau pour être sûr que le modal apparaîtra au-dessus de tout le reste */
+  left: 0;
+  top: 0;
+  width: 100%; /* Couvrir toute la largeur */
+  height: 100%; /* Couvrir toute la hauteur */
+  overflow: auto; /* Activer le défilement lorsque le contenu dépasse */
+  background-color: rgb(0,0,0); /* Fond noir avec opacité */
+  background-color: rgba(0,0,0,0.4); /* Fond noir avec opacité */
+  display: flex; 
+  justify-content : center;
+  align-items: center;
+}
+
+/* Style du contenu du modal */
+.modal-content { 
+  position: relative; 
+  display: flex; 
+  justify-content : center;
+  align-items: center;
+  background-color: #fefefe; /* Fond blanc */
+  margin: 15% auto; /* Centrer verticalement et horizontalement */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; 
+  height : 200px;
+}
+
+/* Style de la croix pour fermer le modal */
+.close {
+  position: absolute; 
+  color: #aaa;
+  top: 5px;
+  right: 5px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+
 
 .fnb-table{
   width: 100%;
   border-collapse: collapse;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px #0000005e;
 }
 .fnb-table thead th{
   text-align: left;

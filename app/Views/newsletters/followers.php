@@ -1,10 +1,17 @@
+<?php
+$session = \Config\Services::session();
+if (!$session->get('user_id')) {
+    header("Location:auth/login");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New article</title>
+    <title>Tableau de Bord</title>
     <link rel="stylesheet" href="<?= base_url('styles/css/icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
 </head>
@@ -30,30 +37,40 @@
                 </div>
             </nav>
             <div class="dashboard__main">
-                <div class="dashboard__main__title">
-                    <i class="icon icon-plus"></i>
-                    <p>Nouvelle catégorie</p>
+            <div class="dashboard__main__title">
+                    <i class="icon icon-category"></i>
+                    <p>Newsletters</p>
                 </div>
-
+                <ul class="cpn-pg-menu">
+                    
+                    <li class="cpn-pg-menu__item">
+                        <a href="<?=base_url('/newsletters')?>" class="cpn-pg-menu__item-link "> <span>Historique</span></a>
+                    </li>
+                    <li class="cpn-pg-menu__item">
+                        <a href="<?=base_url('/newsletters/followers')?>" class="cpn-pg-menu__item-link ">
+                            <span>Abonnés</span> 
+                        </a>
+                    </li>
+                    <li class="cpn-pg-menu__item">
+                        <a href="<?=base_url('/newsletters/categories')?>" class="cpn-pg-menu__item-link ">
+                            <span>Catégories</span> 
+                        </a>
+                    </li>
+                </ul>
                 <div class="dashboard__main__box">
-                    <?= view('sections/error') ?>
-                    <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?= base_url('gallery_categorie/store') ?>">
-                        <div class="fnb-form__item">
-                            <label for="title">Titre de la catégorie</label>
-                            <input type="text" id="title" name="name" required>
-                        </div>
-                        <div class="fnb-form__item fnb-form__item-action">
-                            <button type="submit" class="submit-button">Créer la catégorie</button>
-
-                        </div>
-                    </form>
-                    <!-- Le reste du contenu reste inchangé -->
+                    <table class="fnb-table">
+                        <tbody>
+                            <tr>
+                                Bientôt disponible
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+        <!-- Le reste du contenu reste inchangé -->
     </div>
     <script src="<?= base_url('js/admin.js') ?>"></script>
-    <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
 </body>
 
 </html>
