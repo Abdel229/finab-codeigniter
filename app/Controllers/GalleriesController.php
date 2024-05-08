@@ -290,12 +290,16 @@ class GalleriesController extends BaseController
     {
         // Mettre à jour le statut de la galerie à "Supprimée" (statut_id = 3)
         $galleryModel = new GalleriesModel();
+        $image=$galleryModel->where('id', $id)->first();
+        $categoryModel=new GalleriesCategoryModel();
+        $category=$categoryModel->where('id', $image['category_id'])->first();
         $data = [
             'status_id' => 3
         ];
         if ($galleryModel->update($id, $data)) {
             // Rediriger avec un message de succès si la suppression réussit
-            return redirect()->back();
+            return redirect()->to('/galleries/update/'.$category['id'])->with('success', 'Galerie mise à jour avec succès.');
+
         } else {
             // Rediriger avec un message d'erreur si la suppression échoue
             return redirect()->to('/')->with('error', 'Échec de la suppression de la galerie.');
