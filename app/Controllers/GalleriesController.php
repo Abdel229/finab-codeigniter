@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\GalleriesCategoryModel;
+use App\Models\GalleriesInformationModel;
 use App\Models\GalleriesModel;
 use App\Models\ArticleLinksModel;
 
@@ -44,6 +45,25 @@ class GalleriesController extends BaseController
 
             // Récupérer la catégorie sélectionnée
             $categoryName = $this->request->getPost('category_id');
+            $gallerieInformation=new GalleriesInformationModel();
+            $gallerytitle = $this->request->getPost('title');
+            $galleryImg = $this->request->getFile('img');
+            if ($galleryImg->isValid() && !$galleryImg->hasMoved()) {
+                // Déplacer l'image vers le dossier de destination
+                $newName = $galleryImg->getRandomName();
+                $galleryImg->move(ROOTPATH . 'public/uploads', $newName);
+
+                // Enregistrer le lien de l'image dans la base de données
+                $imgPath = 'uploads/' . $newName;
+            }
+            $gallerieInformation->insert([
+                'name'=>$gallerytitle,
+                'img_principales'=>$imgPath,
+                'category_id'=>$categoryName,
+                'status_id'=>2
+            ]);
+            $galleriesInformationModel = new GalleriesInformationModel();
+            $galleriesInforamationLast=$galleriesInformationModel->where('status_id',2)->where('name',$gallerytitle)->orderBy("id","DESC")->first();
             $galleriesCategoryModel = new GalleriesCategoryModel();
             $category = $galleriesCategoryModel->where('id', $categoryName)->first();
 
@@ -62,13 +82,15 @@ class GalleriesController extends BaseController
                     $galleryModel->insert([
                         'img' => 'uploads_galleries/' . $newName,
                         'category_id' => $category['id'],
-                        'status_id' => 2
+                        'status_id' => 2,
+                        "gallery_information_id"=>$galleriesInforamationLast['id']
                     ]);
                 }
             }
 
             // Rediriger l'utilisateur ou afficher un message de confirmation
-            return redirect()->to('/admin/galeries')->with('success', 'Photos enregistrées avec succès !');
+            session()->setFlashdata('success', ['Photos enregistrées avec succès !']);
+            return redirect()->to('/admin/galeries')->withInput();
         }
     }
 
@@ -108,22 +130,9 @@ class GalleriesController extends BaseController
 
     public function category_image()
     {
-        $categoryModel = new GalleriesCategoryModel();
+        $categoryModel = new GalleriesInformationModel();
         $categories = $categoryModel->findAll(6);
-
-        $data = [];
-        foreach ($categories as $category) {
-            $imagesModel = new GalleriesModel();
-            $image = $imagesModel->where('category_id', $category['id'])->findAll(1);
-            if(!$image){
-                continue;
-            }
-            $data[] = [
-                'category' => $category,
-                'image' => $image[0]
-            ];
-        }
-        return $data;
+        return $categories;
     }
     public function galleries_photo()
     {
@@ -155,7 +164,8 @@ class GalleriesController extends BaseController
             $category = $galleriesCategoryModel->where('name', $categoryName)->first();
 
             if (!$category) {
-                return redirect()->back()->withInput()->with('error', 'La catégorie sélectionnée n\'existe pas.');
+                session()->setFlashdata('errors', ['La catégorie sélectionnée n\'existe pas.']);
+                return redirect()->back()->withInput()->withInput();
             }
 
             $photos = $this->request->getFiles();
@@ -180,7 +190,8 @@ class GalleriesController extends BaseController
                 }
             }
 
-            return redirect()->to('/')->with('success', 'Galerie mise à jour avec succès.');
+            session()->setFlashdata('success', ['Galerie mise à jour avec succès.']);
+            return redirect()->to('/admin/galeries')->withInput();
         }
     }
 
@@ -189,13 +200,21 @@ class GalleriesController extends BaseController
         
         $method = $this->request->getMethod();
         if ($method === 'GET') {
-            $galleryModel = new GalleriesModel();
-            $galleries = $galleryModel->where('category_id', $id)->where('status_id',2)->findAll();
+            // gallerie information
+            $galleryInformation=new GalleriesInformationModel();
+            $galleryInformation=$galleryInformation->where('id',$id)->first();
+
+            // categories
             $categoryModel = new GalleriesCategoryModel();
             $categories = $categoryModel->where('status_id',2)->findAll();
             $category = $categoryModel->where('id', $id)->first();
-            // dd($category);
-            return view('dashboard/update_gallerie', ["galleries"=>$galleries,"categories"=>$categories,"category_single"=>$category]);
+
+            // get gallery information
+            $galleryModel = new GalleriesModel();
+            $galleries = $galleryModel->where('gallery_information_id', $id)->where('status_id',2)->findAll();
+            
+            return view('dashboard/update_gallerie', ["galleries"=>$galleries,"categories"=>$categories,"category_single"=>$category,"galleryInformation"=>$galleryInformation]);
+           
         } else if ($method === 'POST') {
             
             // Récupérer les données du formulaire
@@ -203,12 +222,23 @@ class GalleriesController extends BaseController
             $galleriesCategoryModel = new GalleriesCategoryModel();
             $category = $galleriesCategoryModel->where('name', $categoryName)->first();
             
+            $gallerieInformationModel=new GalleriesInformationModel();
+
+            $gallerieInformationImg=$this->request->getFiles();
+            $newName = $gallerieInformationImg['img']->getRandomName();
+            // Déplacer le fichier vers le dossier de destination
+            $gallerieInformationImg['img']->move(ROOTPATH . 'public/uploads_galleries', $newName);
+            $gallerieInformationData=[
+                'name' => $this->request->getPost('name'),
+                'img_principales'=>'uploads_galleries/' . $newName
+            ];
+            $gallerieInformationModel->update($id,$gallerieInformationData);
             // Vérifier si la catégorie existe
             if (!$category) {
                 // Rediriger avec un message d'erreur si la catégorie n'existe pas
-                return redirect()->back()->with('error', 'La catégorie sélectionnée n\'existe pas.');
+                session()->setFlashdata('errors', ['La catégorie sélectionnée n\'existe pas.']);
+                return redirect()->back()->withInput()->withInput();
             }
-            // Récupérer les photos envoyées par le formulaire
             // Récupérer les photos envoyées par le formulaire
             $photos = $this->request->getFiles();
             $galleryModel = new GalleriesModel();
@@ -222,7 +252,6 @@ class GalleriesController extends BaseController
                     ]);
                 }
 
-                // // Vérifier si une nouvelle image a été téléchargée pour cette galerie
                 // $photos = $photos['photos'];
                 // dd($photos);
                 // foreach($photos as $photo){
@@ -244,10 +273,6 @@ class GalleriesController extends BaseController
             }
             // Enregistrer les nouvelles photos
             foreach ($photos['photos'] as $index => $photo) {
-                // Vérifier si l'input correspondant à cette photo a été rempli
-                // $inputName = 'input_' . $index;
-                // if (!empty($this->request->getPost($inputName))) {
-                //     if ($photo->isValid() && !$photo->hasMoved()) {
                         // Générer un nouveau nom de fichier unique
                         $newName = $photo->getRandomName();
 
@@ -262,13 +287,12 @@ class GalleriesController extends BaseController
                             'status_id' => 2
                         ]);
                     }
-            //     }
-            // }
 
 
         
             // Rediriger l'utilisateur ou afficher un message de confirmation
-            return redirect()->to('/admin/galeries')->with('success', 'Galerie mise à jour avec succès.');
+            session()->setFlashdata('success', ['Galerie mise à jour avec succès.']);
+            return redirect()->to('/admin/galeries')->withInput();
         }
         
     }
@@ -276,14 +300,23 @@ class GalleriesController extends BaseController
 
     public function deleteGallery($id)
     {
-        $galleryModel = new GalleriesCategoryModel();
+        $galleryInformationModel=new GalleriesInformationModel();
+        $galleryInformations=$galleryInformationModel->where('id',$id)->first();
+
+        $galleriesModel=new GalleriesModel();
+        $galleries=$galleriesModel->where('gallery_information_id',$id)->findAll();
         $data = [
             'status_id' => 3
         ];
-        if ($galleryModel->update($id, $data)) {
-            return redirect()->to('/admin/galeries')->with('success', 'Galerie supprimée avec succès.');
+        foreach($galleries as $gallerie){
+            $galleriesModel->update($gallerie['id'],$data);
+        }
+        if ($galleryInformationModel->update($id, $data)) {
+            session()->setFlashdata('success', ['Galerie supprimée avec succès.']);
+            return redirect()->to('/admin/galeries')->withInput();
         } else {
-            return redirect()->to('/admin/galeries')->with('error', 'Échec de la suppression de la galerie.');
+            session()->setFlashdata('errors', ['Échec de la suppression de la galerie.']);
+            return redirect()->to('/admin/galeries')->withInput();
         }
     }
     public function delete($id)
@@ -298,11 +331,13 @@ class GalleriesController extends BaseController
         ];
         if ($galleryModel->update($id, $data)) {
             // Rediriger avec un message de succès si la suppression réussit
-            return redirect()->to('/galleries/update/'.$category['id'])->with('success', 'Galerie mise à jour avec succès.');
+            session()->setFlashdata('success', ['Image supprimé avec succès.']);
+            return redirect()->to('/galleries/update/'.$category['id'])->withInput();
 
         } else {
             // Rediriger avec un message d'erreur si la suppression échoue
-            return redirect()->to('/')->with('error', 'Échec de la suppression de la galerie.');
+            session()->setFlashdata('errors', ['Échec de la suppression de l\'image.']);
+            return redirect()->to('/galleries/update/'.$category['id'])->withInput();
         }
     }
 }

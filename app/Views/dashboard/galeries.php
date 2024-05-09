@@ -37,6 +37,7 @@ if (!$session->get('user_id')) {
                 </div>
             </nav>
             <div class="dashboard__main">
+            <?= view('sections/error') ?>
                 <div class="dashboard__main__title">
                     <i class="icon icon-article"></i>
                     <p>Galleries</p>
@@ -57,15 +58,15 @@ if (!$session->get('user_id')) {
                         <tbody>
                             <?php if (count($galleries) > 0) : ?>
                                 <?php foreach ($galleries as $gallerie) : ?>
-                                    <tr data-article="galerie_<?= $gallerie['category']['id'] ?>">
-                                        <td><?= $gallerie['category']['name'] ?></td>
-                                        <td style=' width: 200px;'><img style=' width: 60px;height:60px;object-fit:cover' src="<?= base_url($gallerie['image']['img']) ?>" alt="Exemple" style="<?= $gallerie['category']['name'] ?>"></td>
+                                    <tr data-article="galerie_<?= $gallerie['id'] ?>">
+                                        <td><?= $gallerie['name'] ?></td>
+                                        <td style=' width: 200px;'><img style=' width: 60px;height:60px;object-fit:cover' src="<?= base_url($gallerie['img_principales']) ?>" alt="Exemple"></td>
                                         <td style="width:80px;">
                                             <div class="fnb-actions">
-                                                <a href="<?= base_url('galleries/update/' . $gallerie['category']['id']) ?>" class="fnb-actions__edit" title="MOdifier">
+                                                <a href="<?= base_url('galleries/update/' . $gallerie['id']) ?>" class="fnb-actions__edit" title="MOdifier">
                                                     <i class="icon icon-edit"></i>
                                                 </a>
-                                                <a href="<?= base_url('galleries/delete/' . $gallerie['category']['id']) ?>" class="fnb-actions__delete" title="Supprimer">
+                                                <a href="<?= base_url('galleries/delete/' . $gallerie['id']) ?>" class="fnb-actions__delete btn-delete" title="Supprimer">
                                                     <i class="icon icon-delete"></i>
                                                 </a>
                                             </div>
@@ -84,7 +85,8 @@ if (!$session->get('user_id')) {
         </div>
         <!-- Le reste du contenu reste inchangé -->
     </div>
-    <script src="<?= base_url('js/admin.js') ?>"></script>
+    <?= view('partials/doc_admin_footer'); ?>
+
 </body>
 
 </html>

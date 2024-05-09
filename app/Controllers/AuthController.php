@@ -41,7 +41,6 @@ class AuthController extends BaseController
                 if (password_verify($password, $user->password)) {
                     $session = session();
                     $session->set('user_id', $user->id);
-                    $session->set('user_name', $user->first_names . ' ' . $user->last_name);
                     return redirect()->to(base_url('/admin'))->with('success', 'Connexion réussie');
                 } else {
                     session()->setFlashdata('errors', ['Mot de passe incorrect']);
@@ -75,13 +74,16 @@ class AuthController extends BaseController
                 session()->setFlashdata('errors', $this->validator->getErrors());
                 return redirect()->to(base_url('/auth/register'))->with('success', 'Une erreur est survenu');;
             }
+            $data['status_id']=2;
+            $data['role']='admin';
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
             // Register
             $user = new \App\Models\User();
             $user->save($data);
-            return redirect()->to(base_url('admin'))->with('success', 'Registered successfully!');
+            session()->setFlashdata('errors', ['Registered successfully!']);
+                return redirect()->to(base_url('admin'))->withInput();
         }
 
     }

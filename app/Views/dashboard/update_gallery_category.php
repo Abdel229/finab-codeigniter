@@ -30,6 +30,8 @@
                 </div>
             </nav>
                 <div class="dashboard__main">
+                <?= view('sections/error') ?>
+
                     <div class="dashboard__main__title">
                         <i class="icon icon-plus"></i>
                         <p>Modifier la catégorie</p>
@@ -52,7 +54,8 @@
                 </div>
         </div>
     </div>
-    <script src="<?= base_url('js/admin.js') ?>"></script>
+    <?= view('partials/doc_admin_footer'); ?>
+
 </body>
 
 </html>

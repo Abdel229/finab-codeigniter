@@ -53,9 +53,9 @@ class ArticleController extends BaseController
             // Vérifier si la catégorie existe
             if (!$category) {
                 // Rediriger avec un message d'erreur si la catégorie n'existe pas
-                return redirect()->back()->withInput()->with('error', 'La catégorie sélectionnée n\'existe pas.');
+                session()->setFlashdata('errors', ['La catégorie sélectionnée n\'existe pas.']);
+                return redirect()->back()->withInput();
             }
-
             // Traiter l'image
             $img = $this->request->getFile('img');
             if ($img->isValid() && !$img->hasMoved()) {
@@ -101,7 +101,9 @@ class ArticleController extends BaseController
 
 
             // Rediriger l'utilisateur vers une autre page ou afficher un message de succès
-            return redirect()->to('/admin')->with('success', 'Article ajouté avec succès!');
+            session()->setFlashdata('success', ['Article ajouté avec succès!']);
+                return redirect()->to('/admin')->withInput();
+
         }
     }
 
@@ -116,7 +118,8 @@ class ArticleController extends BaseController
 
         if (!$article) {
             // Gérer le cas où l'article n'est pas trouvé
-            return redirect()->to('/')->with('error', 'Article non trouvé.');
+            session()->setFlashdata('errors', ['Article non trouvé.']);
+                return redirect()->back()->withInput();
         }
 
         // Charger le modèle des liens d'articles
@@ -236,7 +239,8 @@ class ArticleController extends BaseController
 
 
             // Rediriger avec un message de succès
-            return redirect()->to('/admin')->with('success', 'Article updated successfully.');
+            session()->setFlashdata('success', ['Article mis à jour avec succès!']);
+                return redirect()->to('/admin')->withInput();
         }
     }
 
@@ -280,11 +284,13 @@ class ArticleController extends BaseController
         $article = $articleModel->find($id);
 
         if (!$article) {
-            return redirect()->to('/articles')->with('error', 'Article not found.');
+            session()->setFlashdata('errors', ['Article not found']);
+                return redirect()->back()->withInput();
         }
 
         $articleModel->update($id, ['status_id' => 3]);
 
-        return redirect()->to('/admin')->with('message', 'Article deleted.');
+        session()->setFlashdata('success', ['Article supprimé avec succès']);
+                return redirect()->back()->withInput();
     }
 }

@@ -28,6 +28,12 @@
                 Catégories gallerie
             </a>
             </li>
+            <li class="aside__bottom__item">
+                <a href="<?=base_url('/users')?>" class="aside__bottom__item__link <?=((strpos($_SERVER['REQUEST_URI'],'users'))?"active":"");?>">
+                <i class="icon icon-user"></i>
+                Utilisateurs
+            </a>
+            </li>
         </ul>
     </div>
 </aside>

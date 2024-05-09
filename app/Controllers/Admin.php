@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ArticlesModel;
 use App\Models\GalleriesCategoryModel;
+use App\Models\GalleriesInformationModel;
 use App\Models\GalleriesModel;
 
 class Admin extends BaseController
@@ -18,21 +19,9 @@ class Admin extends BaseController
 
     public function galeries(): string
     {
-        $categoryModel = new GalleriesCategoryModel();
-        $categories = $categoryModel->where('status_id', '2')->findAll();
-        $data = [];
-        foreach ($categories as $category) {
-            $imagesModel = new GalleriesModel();
-            $image = $imagesModel->where('category_id', $category['id'])->first();
-            if(!$image){
-                continue;
-            }
-            $data[] = [
-                'category' => $category,
-                'image' => $image
-            ];
-        }
+        $galleriesInformationModel = new GalleriesInformationModel();
+        $galleriesInformation = $galleriesInformationModel->where('status_id', '2')->findAll();
 
-        return view('dashboard/galeries',['galleries'=>$data]);
+        return view('dashboard/galeries',['galleries'=>$galleriesInformation]);
     }
 }

@@ -192,3 +192,10 @@
 .icon-category {
   -webkit-mask-image: url('./../../../images/svg/icon-category.svg');
 }
+
+/*
+* icon-block
+*/
+.icon-block {
+  -webkit-mask-image: url('./../../../images/svg/icon-block.svg');
+}

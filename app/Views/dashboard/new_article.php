@@ -29,6 +29,8 @@
                 </div>
             </nav>
             <div class="dashboard__main">
+            <?= view('sections/error') ?>
+
                 <div class="dashboard__main__title">
                     <i class="icon icon-plus"></i>
                     <p>Nouveau article</p>
@@ -75,7 +77,7 @@
             <!-- Le reste du contenu reste inchangé -->
         </div>
     </div>
-    <script src="<?=base_url('js/admin.js')?>"></script>
+    <?= view('partials/doc_admin_footer'); ?>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const linksContainer = document.getElementById('links-container');

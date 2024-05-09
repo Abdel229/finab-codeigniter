@@ -36,10 +36,11 @@ class GalleriesCategoryController extends BaseController
                     'name' => $this->request->getPost('name'),
                     'status_id' =>2,
                 ]);
-    
-                return redirect()->to('admin/categories-gallerie')->with('success', 'Category created successfully.');
+                session()->setFlashdata('success',['Category created successfully.']);
+                return redirect()->to('admin/categories-gallerie')->withInput();
             } else {
-                return redirect()->back()->withInput()->with('error', 'Validation error.');
+                session()->setFlashdata('errors', ['Validation error.']);
+                return redirect()->back()->withInput();
             }
         }
       
@@ -71,10 +72,11 @@ class GalleriesCategoryController extends BaseController
                     'name' => $this->request->getPost('name'),
                     'status_id' => $this->request->getPost('status_id')?$this->request->getPost('status_id'):2,
                 ]);
-    
-                return redirect()->to('/admin/categories-gallerie')->with('success', 'Category updated successfully.');
+                session()->setFlashdata('success',['Categorie mis à jour avec succès']);
+                return redirect()->to('admin/categories-gallerie')->withInput();
             } else {
-                return redirect()->back()->withInput()->with('error', 'Validation error.');
+                session()->setFlashdata('errors', ['Validation error.']);
+                return redirect()->back()->withInput();
             }
         }
        
@@ -86,9 +88,11 @@ class GalleriesCategoryController extends BaseController
 
         // Supprimer une catégorie en changeant son statut à "supprimé" (par exemple, statut_id = 3)
         if ($model->update($id, ['status_id' => 3])) {
-            return redirect()->to('/admin/categories-gallerie')->with('success', 'Category deleted successfully.');
+            session()->setFlashdata('success',['Categorie supprimé avec succès']);
+            return redirect()->to('/admin/categories-gallerie')->withInput();
         } else {
-            return redirect()->to('/admin/categories-gallerie')->with('error', 'Failed to delete category.');
+            session()->setFlashdata('errors', ['Echec de suppression de catégorie']);
+            return redirect()->to('/admin/categories-gallerie')->withInput();
         }
     }
 }

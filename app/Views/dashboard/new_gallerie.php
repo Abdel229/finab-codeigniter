@@ -31,12 +31,22 @@
                 </div>
             </nav>
             <div class="dashboard__main">
+                <?= view('sections/error') ?>
+
                 <div class="dashboard__main__title">
                     <i class="icon icon-gallery"></i>
                     <p>Nouvelle gallerie</p>
                 </div>
                 <div class="dashboard__main__box">
                     <form class="fnb-form" action="<?= base_url('galleries/store') ?>" method="post" enctype="multipart/form-data" class="form">
+                    <div class="fnb-form__item">
+                            <label for="title">Titre de la galerie</label>
+                            <input type="text" id="title" name="title" required>
+                        </div>
+                        <div class="fnb-form__item">
+                            <label for="image">Image Principale</label>
+                            <input type="file" id="image" name="img" required>
+                        </div>
                         <div class="fnb-form__item">
                             <label for="category_id">Catégorie :</label>
                             <select name="category_id" id="category_id" class="form-input">
@@ -48,14 +58,20 @@
 
                         </div>
 
-                        <div id="fileInputs" class="fnb-form__item">
+                        <div id="fileInputs" class="fnb-form__item" style="display:flex;align-items:center;gap:10px;">
                             <div style="display: flex;">
-                                <input type="file" name="photos[]" required class="form-input">
+                                <input type="file" name="photos[]" multiple class="galery-img-input">
                                 <div id="addMore" style="display:flex; align-items: center; justify-content: center; margin-left: 10px; padding:5px; background-color:#FF8800; border-radius: 4px; cursor: pointer;">
                                     <i class="icon icon-plus" style="background-color:#fff;"></i>
+                                    <p style="color:#fff;margin-left:5px;">Ajouter une image</p>
                                 </div>
                             </div>
-
+                            <div id="loader" style="display: none;">
+                            <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..." style="width: 30px;height:30px;">
+                        </div>
+                        </div>
+                        
+                        <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-gap:10px;" id="img-upload-container">
                         </div>
                         <div class="fnb-form__item fnb-form__item-action">
 
@@ -69,57 +85,8 @@
 
         </div>
 
-        <script src="<?= base_url('js/admin.js') ?>"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const wrapper = document.querySelector('#fileInputs');
-                const addBtn = document.querySelector('#addMore');
-                let x = 1;
+        <?= view('partials/doc_admin_footer'); ?>
 
-                addBtn.addEventListener('click', (e) => {
-                    console.log(x);
-                    const div = document.createElement('div');
-                    div.classList.add('fileInput');
-                    div.style.display = 'flex';
-                    div.style.marginTop = '10px';
-
-                    const input = document.createElement('input');
-                    input.type = 'file';
-                    input.required = true;
-                    input.name = 'photos[]';
-
-                    const removeBtn = document.createElement('div');
-                    removeBtn.style.display = 'flex';
-                    removeBtn.style.alignItems = 'center';
-                    removeBtn.style.justifyContent = 'center';
-                    removeBtn.style.marginLeft = '10px';
-                    removeBtn.style.padding = '5px';
-                    removeBtn.style.backgroundColor = 'red';
-                    removeBtn.style.borderRadius = '4px';
-                    removeBtn.style.cursor = 'pointer';
-                    removeBtn.dataset.index = x;
-                    removeBtn.classList.add('remove_field');
-
-                    const removeBtnIcon = document.createElement('i');
-                    removeBtnIcon.classList.add('icon', 'icon-delete', 'remove-field');
-                    removeBtnIcon.dataset.index = x;
-                    removeBtnIcon.style.backgroundColor = '#fff';
-
-                    removeBtn.appendChild(removeBtnIcon);
-                    div.appendChild(input);
-                    div.appendChild(removeBtn);
-                    wrapper.appendChild(div);
-                    x++;
-                });
-                wrapper.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('remove_field')) {
-                        e.preventDefault();
-                        e.target.parentElement.remove();
-                        x--;
-                    }
-                });
-            });
-        </script>
 
 </body>
 

@@ -38,12 +38,14 @@ class ArticlesCategoryController extends BaseController
     
             // Valider les données
             if (!$categoryModel->save($data)) {
-                session()->setFlashdata('errors', ['Failed to create category']);
+                session()->setFlashdata('errors', ['Création de catégorie échoué']);
                 return redirect()->back()->withInput();
             }
     
             // Redirection avec un message de succès si la catégorie est enregistrée avec succès
-            return redirect()->to('/admin/categories')->with('success', 'Category created successfully.');
+            session()->setFlashdata('success',['Catégorie créer avec succès']);
+                return redirect()->to('/admin/categories')->withInput();
+        
         }
       
     }
@@ -74,11 +76,13 @@ class ArticlesCategoryController extends BaseController
             // Mettre à jour la catégorie dans la base de données
             if (!$categoryModel->update($id, $data)) {
                 // En cas d'échec de mise à jour, rediriger avec un message d'erreur
-                return redirect()->back()->withInput()->with('error', 'Failed to update category.');
+                session()->setFlashdata('errors', ['Erreur lors de la mise à jour de l\'article']);
+                return redirect()->back()->withInput();
             }
 
             // Redirection avec un message de succès si la mise à jour réussit
-            return redirect()->to('/admin/categories')->with('success', 'Category updated successfully.');
+            session()->setFlashdata('success',['Catégorie mise à jour avec succès']);
+                return redirect()->to('/admin/categories')->withInput();
         }
     }
 
@@ -94,10 +98,12 @@ class ArticlesCategoryController extends BaseController
         // Mettre à jour le statut de la catégorie dans la base de données
         if (!$categoryModel->update($id, $data)) {
             // En cas d'échec de mise à jour, rediriger avec un message d'erreur
-            return redirect()->back()->with('error', 'Failed to delete category.');
+            session()->setFlashdata('errors', ['Erreur lors de la suppression de la catégorie']);
+            return redirect()->back()->withInput();
         }
 
         // Redirection avec un message de succès si la suppression réussit
-        return redirect()->to('/admin/categories')->with('success', 'Category deleted successfully.');
+        session()->setFlashdata('success',['Catégorie supprimée avec succès']);
+        return redirect()->to('/admin/categories')->withInput();
     }
 }

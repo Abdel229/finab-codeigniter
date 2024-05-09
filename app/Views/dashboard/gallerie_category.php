@@ -37,6 +37,8 @@ if (!$session->get('user_id')) {
                 </div>
             </nav>
             <div class="dashboard__main">
+            <?= view('sections/error') ?>
+
                 <div class="dashboard__main__title">
                     <i class="icon icon-category"></i>
                     <p>Article Gallery</p>
@@ -63,7 +65,7 @@ if (!$session->get('user_id')) {
                                                 <a href="<?= base_url('galleries_category/update/' . $category['id']) ?>" class="fnb-actions__edit" title="MOdifier">
                                                     <i class="icon icon-edit"></i>
                                                 </a>
-                                                <a href="<?= base_url('galleries_category/delete/' . $category['id']) ?>" class="fnb-actions__delete" title="Supprimer">
+                                                <a href="<?= base_url('galleries_category/delete/' . $category['id']) ?>" class="fnb-actions__delete btn-delete" title="Supprimer">
                                                     <i class="icon icon-delete"></i>
                                                 </a>
                                             </div>
@@ -82,7 +84,8 @@ if (!$session->get('user_id')) {
         </div>
         <!-- Le reste du contenu reste inchangé -->
     </div>
-    <script src="<?= base_url('js/admin.js') ?>"></script>
+    <?= view('partials/doc_admin_footer'); ?>
+
 </body>
 
 </html>

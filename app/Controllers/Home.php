@@ -38,7 +38,8 @@ class Home extends BaseController
               $article = $articleModel->find($id);
               $randomArticles = $articleModel->where('status_id',2)->orderBy('RAND()')->limit(3)->findAll();
               if (!$article) {
-                  return redirect()->to('/')->with('error', 'Article non trouvé.');
+                session()->setFlashdata('success', ['Article non trouvé.']);
+            return redirect()->back()->withInput();
               }
       
               $articleLinksModel = new ArticleLinksModel();

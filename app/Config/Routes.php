@@ -86,3 +86,17 @@ $routes->group('auth', function (RouteCollection $routes) {
     $routes->match(['get','post'],'register','AuthController::register');
     $routes->get('logout','AuthController::logout');
 });
+
+
+/**
+ * User management
+ */
+$routes->group('users', function (RouteCollection $routes) {
+    $routes->get('/', 'UsersController::index');
+    $routes->match(['GET','POST'],'store', 'UsersController::store');
+    $routes->match(['GET','POST'],'update/(:num)', 'UsersController::update/$1');
+    $routes->get('delete/(:num)', 'UsersController::delete/$1');
+    $routes->get('block/(:num)', 'UsersController::block/$1');
+    $routes->get('unblock/(:num)', 'UsersController::unblock/$1');
+    $routes->get('show/(:num)', 'UsersController::show/$1');
+});

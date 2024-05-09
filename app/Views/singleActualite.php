@@ -34,12 +34,15 @@ echo view('partials/header');
                     </div> -->
                         <div class="actuality-detail-box__detail" id="article-content">
                             <p><?= $article['description'] ?></p>
+                           
                             <?php if (count($links) > 0) : ?>
+                                <div  style="display:flex;gap:10px;">
                             <?php foreach ($links as $link) : ?>
                                 <div class="single_new_video">
-                                    <?php echo '<iframe width="100%" height="200" src="https://www.youtube.com/embed/' . explode('v=', $link['link']) . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'; ?>
+                                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/' . explode('v=', <?=$link['link']?>) . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
                                 </div>
                             <?php endforeach; ?>
+                            </div>
                         <?php endif; ?>
                         </div>
                     </div>

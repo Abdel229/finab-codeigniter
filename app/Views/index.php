@@ -158,9 +158,9 @@ if (isset($_SESSION['user_id'])) {
           <div class="gallerie__images-grid">
     <?php foreach ($galleries as $gallery) :?>
         <div class="gallerie__item" data-fancybox="gallery">
-            <a href="<?= base_url($gallery['image']['img'])?>" class="gallerie__link">
-                <img src="<?= base_url($gallery['image']['img'])?>" alt="gallerie_img" style="height: auto;">
-                <div class="image-text"><?=$gallery['category']['name']?></div>
+            <a href="<?= base_url($gallery['img_principales'])?>" class="gallerie__link">
+                <img src="<?= base_url($gallery['img_principales'])?>" alt="gallerie_img" style="height: auto;">
+                <div class="image-text"><?=$gallery['name']?></div>
             </a>
         </div>
     <?php endforeach;?>

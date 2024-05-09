@@ -30,13 +30,13 @@
                 </div>
             </nav>
             <div class="dashboard__main">
+            <?= view('sections/error') ?>
                 <div class="dashboard__main__title">
                     <i class="icon icon-plus"></i>
                     <p>Nouvelle catégorie</p>
                 </div>
 
                 <div class="dashboard__main__box">
-                    <?= view('sections/error') ?>
                     <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?= base_url('article_categorie/store/') ?>">
                         <div class="fnb-form__item">
                             <label for="title">Titre de la catégorie</label>
@@ -52,7 +52,8 @@
             </div>
         </div>
     </div>
-    <script src="<?= base_url('js/admin.js') ?>"></script>
+    <?= view('partials/doc_admin_footer'); ?>
+
 </body>
 
 </html>

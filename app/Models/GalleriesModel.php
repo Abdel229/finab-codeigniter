@@ -35,6 +35,10 @@ class GalleriesModel extends Model
         'status' => [
             'model' => 'StatusModel',
             'foreign_key' => 'status_id'
+        ],
+        'title'=>[
+            'model'=>'GalleriesInformationsModel',
+            'foreign_key' => 'gallery_information_id'
         ]
     ];
 }
