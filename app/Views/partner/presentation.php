@@ -1,10 +1,17 @@
+<?php
+$session = \Config\Services::session();
+if (!$session->get('user_id')) {
+    header("Location:auth/login");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New article</title>
+    <title>Tableau de Bord</title>
     <link rel="stylesheet" href="<?= base_url('styles/css/icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
 </head>
@@ -30,34 +37,40 @@
                 </div>
             </nav>
             <div class="dashboard__main">
-            <?= view('sections/error') ?>
-
                 <div class="dashboard__main__title">
-                    <i class="icon icon-plus"></i>
-                    <p>Nouvelle catégorie</p>
+                    <i class="icon icon-category"></i>
+                    <p>Partenariat</p>
                 </div>
-
+                <ul class="cpn-pg-menu">
+                    
+                    <li class="cpn-pg-menu__item">
+                        <a href="<?=base_url('/partner')?>" class="cpn-pg-menu__item-link "> <span>Présentation</span></a>
+                    </li>
+                    <li class="cpn-pg-menu__item">
+                        <a href="<?=base_url('/partner/list')?>" class="cpn-pg-menu__item-link ">
+                            <span>Liste des partenaires</span> 
+                        </a>
+                    </li>
+                    <li class="cpn-pg-menu__item">
+                        <a href="<?=base_url('/partner/demande')?>" class="cpn-pg-menu__item-link ">
+                            <span>Demandes de partenariats</span> 
+                        </a>
+                    </li>
+                </ul>
                 <div class="dashboard__main__box">
-                    <?= view('sections/error') ?>
-                    <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?= base_url('gallery_categorie/store') ?>">
-                        <div class="fnb-form__item">
-                            <label for="title">Titre de la catégorie</label>
-                            <input type="text" id="title" name="name" required>
-                        </div>
-                        <div class="fnb-form__item fnb-form__item-action">
-                            <button type="submit" class="submit-button">Créer la catégorie</button>
-
-                        </div>
-                    </form>
-                    <!-- Le reste du contenu reste inchangé -->
+                    <table class="fnb-table">
+                        <tbody>
+                            <tr>
+                                Bientôt disponible
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+        <!-- Le reste du contenu reste inchangé -->
     </div>
-    <?= view('partials/doc_admin_footer'); ?>
-
     <script src="<?= base_url('js/admin.js') ?>"></script>
-    <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
 </body>
 
 </html>

@@ -100,3 +100,36 @@ $routes->group('users', function (RouteCollection $routes) {
     $routes->get('unblock/(:num)', 'UsersController::unblock/$1');
     $routes->get('show/(:num)', 'UsersController::show/$1');
 });
+
+
+
+
+
+
+
+
+$routes->get('/partner', 'PartenerController::index');
+$routes->get('/partner/demande', 'PartenerController::index_demande');
+$routes->get('/partner/list', 'PartenerController::index_partners');
+
+
+$routes->get('/events', 'EventController::index');
+
+$routes->get('/contacts', 'ContactsController::index');
+
+$routes->get('/messages', 'MessageController::index');
+
+
+
+$routes->get('/newsletters', 'NewslettersController::index_historique');
+$routes->get('/newsletters/followers', 'NewslettersController::index_followers');
+$routes->get('/newsletters/categories', 'NewslettersController::index_categories');
+
+
+$routes->get('/others', 'OthersController::index_logo');
+$routes->get('/others/promotteur', 'OthersController::index_promotteur');
+$routes->get('/others/configuration', 'OthersController::index_configuration');
+
+
+$routes->get('/finab', 'FinabController::index');
+$routes->get('/finab/edition', 'FinabController::index_edition_finab');

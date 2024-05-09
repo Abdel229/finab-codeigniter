@@ -54,6 +54,8 @@
     </div>
     <?= view('partials/doc_admin_footer'); ?>
 
+    <script src="<?= base_url('js/admin.js') ?>"></script>
+    <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
 </body>
 
 </html>

@@ -41,6 +41,17 @@ if (!$session->get('user_id')) {
                     <i class="icon icon-article"></i>
                     <p>Articles</p>
                 </div>
+                <ul class="cpn-pg-menu">
+                    
+                    <li class="cpn-pg-menu__item">
+                        <a href="" class="cpn-pg-menu__item-link "> <span>Liste des Articles</span></a>
+                    </li>
+                    <li class="cpn-pg-menu__item">
+                        <a href="<?=base_url('/create_article_categories')?>" class="cpn-pg-menu__item-link ">
+                            <span>Catégories</span> 
+                        </a>
+                    </li>
+                </ul>
                 <div class="dashboard__main__action">
                     <a href="<?=base_url('articles/store')?>" class="btn-action">
                         <i class="icon icon-plus"></i>
@@ -85,5 +96,7 @@ if (!$session->get('user_id')) {
     </div>
     <?= view('partials/doc_admin_footer'); ?>
 
+    <script src="<?=base_url('js/admin.js')?>"></script>
+    <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
 </body>
 </html>
