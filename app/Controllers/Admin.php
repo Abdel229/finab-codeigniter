@@ -8,31 +8,40 @@ use App\Models\GalleriesModel;
 
 class Admin extends BaseController
 {
-    public function index(): string
+    public function index()
     {
-        $articleModel=new ArticlesModel();
-        $articles_category=$articleModel->where('status_id',2)->findAll();
-        return view('dashboard/index', ["articles" => $articles_category]);
+        return view('dashboard/index');
     }
+    public function fetcharticles()
+    {
+        $articleModel = new ArticlesModel();
+        $articles = $articleModel->where('status_id', 2)->findAll();
+        return $this->response->setJSON( $articles);
 
+    }
 
     public function galeries(): string
     {
+
+        return view('dashboard/galeries');
+    }
+    public function fetchGalleriesAndCategories()
+    {
         $categoryModel = new GalleriesCategoryModel();
-        $categories = $categoryModel->where('status_id', '2')->findAll();
+        $categories = $categoryModel->findAll();
+
         $data = [];
         foreach ($categories as $category) {
             $imagesModel = new GalleriesModel();
-            $image = $imagesModel->where('category_id', $category['id'])->first();
-            if(!$image){
+            $images = $imagesModel->where('category_id', $category['id'])->first();
+            if(!$images){
                 continue;
             }
             $data[] = [
-                'category' => $category,
-                'image' => $image
+                'categories' => $category,
+                'images' => $images
             ];
         }
-
-        return view('dashboard/galeries',['galleries'=>$data]);
+        return $this->response->setJSON(['galleries' => $data]);
     }
 }

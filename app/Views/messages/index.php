@@ -12,6 +12,7 @@ if (!$session->get('user_id')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord</title>
+    <link rel="stylesheet" href="<?=base_url('styles/css/icons-1.css')?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
 </head>
@@ -36,8 +37,8 @@ if (!$session->get('user_id')) {
                     </ul>
                 </div>
             </nav>
-            <div class="dashboard__main"><div class="dashboard__main__title">
-                    <i class="icon icon-category"></i>
+                <div class="dashboard__main"><div class="dashboard__main__title">
+                    <i class="icon-chat"></i>
                     <p>Messages</p>
                 </div>
                 <ul class="cpn-pg-menu">

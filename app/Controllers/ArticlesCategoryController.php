@@ -11,10 +11,15 @@ class ArticlesCategoryController extends BaseController
 {
     public function index()
     {
+
+        return view('dashboard/article_category');
+    }
+    public function fetchAll()
+    {
         $categoryModel = new ArticlesCategoryModel();
         $categories = $categoryModel->where('status_id',2)->findAll();
 
-        return view('dashboard/article_category', ['categories' => $categories]);
+        return $this->response->setJSON($categories);
     }
 
     public function create()

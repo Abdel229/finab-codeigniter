@@ -192,3 +192,9 @@
 .icon-category {
   -webkit-mask-image: url('./../../../images/svg/icon-category.svg');
 }
+/*
+* icon-finab
+*/
+.icon-finab {
+  -webkit-mask-image: url('./../../images/svg/masque 1.svg');
+}

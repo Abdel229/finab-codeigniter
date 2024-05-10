@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update article</title>
+    <link rel="stylesheet" href="<?=base_url('styles/css/icons-1.css')?>">
     <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
 </head>
@@ -39,7 +40,7 @@
 
                 <div class="dashboard__main__box">
                     <?= view('sections/error') ?>
-                    <form class="article-form fnb-form" method="post" enctype="multipart/form-data" action="<?= base_url('articles/update/' . $article['id']) ?>">
+                    <form class="article-form fnb-form idform" id="idform" method="post" enctype="multipart/form-data" action="<?= base_url('articles/update/' . $article['id']) ?>">
                         <div class="form-group">
                             <label for="title">Titre de l'article</label>
                             <input type="text" id="title" name="title" value="<?= $article['title'] ?>" required>
@@ -55,8 +56,11 @@
                         <div class="form-group">
                             <label for="image">Image actuelle</label><br>
                             <img src="<?= base_url($article['img']) ?>" alt="Image actuelle"><br>
-                            <label for="new-image">Nouvelle image (optionnel)</label>
-                            <input type="file" id="new-image" name="new_img" value="">
+                            
+                            <div class="cpn-form__row">
+                                <input type="file" class="cpn-field" name="img" id="productImgFiled" data-preview-file="true"  accept="image/*">
+                                <label for="productImgFiled" class="cpn-form__label"></label>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="category">Catégorie</label>
@@ -88,8 +92,11 @@
             </div>
         </div>
     </div>    
-    <script src="<?= base_url('js/admin.js') ?>"></script>
-    <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
+    <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/file_preview.js')?>" type="module"></script>
+    <script src="<?=base_url('js/new_article.js')?>" type="module"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {

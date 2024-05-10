@@ -13,24 +13,10 @@ class GalleriesController extends BaseController
 {
     public function index()
     {
-        $categoryModel = new GalleriesCategoryModel();
-        $categories = $categoryModel->findAll();
-
-        $data = [];
-        foreach ($categories as $category) {
-            $imagesModel = new GalleriesModel();
-            $images = $imagesModel->where('category_id', $category['id'])->where('status_id',2)->findAll();
-            if(!$images){
-                continue;
-            }
-            $data[] = [
-                'category' => $category,
-                'images' => $images
-            ];
-        }
-        return view('galleries', ['galleries' => $data]);
+        
+        return view('galleries');
     }
-
+   
     public function store()
     {
         $method = $this->request->getMethod();
@@ -194,7 +180,6 @@ class GalleriesController extends BaseController
             $categoryModel = new GalleriesCategoryModel();
             $categories = $categoryModel->where('status_id',2)->findAll();
             $category = $categoryModel->where('id', $id)->first();
-            // dd($category);
             return view('dashboard/update_gallerie', ["galleries"=>$galleries,"categories"=>$categories,"category_single"=>$category]);
         } else if ($method === 'POST') {
             

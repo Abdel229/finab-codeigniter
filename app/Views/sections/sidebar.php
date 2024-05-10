@@ -6,13 +6,13 @@
         <ul class="aside__bottom__list ui-dropdown">
             <li class="aside__bottom__item ">
                 <a href="#" class="aside__bottom__item__link">
-                    <i class="icon icon-article"></i>
+                    <i class="icon-home"></i>
                     Accueil
                 </a>
             </li>
             <li class="aside__bottom__item">
                 <a href="<?=base_url('/finab')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/finab" || $_SERVER['REQUEST_URI']=="/finab/edition")?"active":"");?>">
-                    <i class="icon icon-article"></i>
+                    <i class="icon icon-finab"></i>
                     Finab
                 </a>
                 <!-- <ul class="submenu">
@@ -63,7 +63,7 @@
             </li>
             <li class="aside__bottom__item">
                 <a href="<?=base_url('/partner')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/partner" || $_SERVER['REQUEST_URI']=="/partner/list" || strpos($_SERVER['REQUEST_URI'],'partner/demande'))?"active":"");?>">
-                    <i class="icon icon-article"></i>
+                    <i class=" icon-clients"></i>
                     Partenariat
                 </a>
                 <!-- <ul class="submenu">
@@ -78,19 +78,19 @@
             </li>
             <li class="aside__bottom__item">
                 <a href="<?=base_url('/events')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/events" )?"active":"");?>">
-                    <i class="icon icon-article"></i>
+                    <i class="icon-credit-card"></i>
                     Evènements
                 </a>
             </li>
             <li class="aside__bottom__item">
                 <a href="<?=base_url('/messages')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/messages" )?"active":"");?>">
-                    <i class="icon icon-article"></i>
+                    <i class="icon-chat"></i>
                     Messages
                 </a>
             </li>
             <li class="aside__bottom__item">
                 <a href="<?=base_url('/newsletters')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/newsletters" || $_SERVER['REQUEST_URI']=="/newsletters/followers" || $_SERVER['REQUEST_URI']=="/newsletters/categories")?"active":"");?>">
-                    <i class="icon icon-article"></i>
+                    <i class="icon-copy"></i>
                     Newsletters
                 </a>
                 <!-- <ul class="submenu">
@@ -105,13 +105,13 @@
             </li>
             <li class="aside__bottom__item">
                 <a href="<?=base_url('/contacts')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/contacts" )?"active":"");?>">
-                    <i class="icon icon-article"></i>
+                    <i class="icon-receipt"></i>
                     Contacts
                 </a>
             </li>
             <li class="aside__bottom__item">
                 <a href="<?=base_url('/others')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/others" || $_SERVER['REQUEST_URI']=="/others/promotteur" || $_SERVER['REQUEST_URI']=="/others/configuration")?"active":"");?>">
-                    <i class="icon icon-article"></i>
+                    <i class="icon-settings"></i>
                     Autres
                 </a>
                 <!-- <ul class="submenu">
