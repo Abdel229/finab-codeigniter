@@ -1,9 +1,11 @@
 // get news data
 
 let elementForData=document.querySelector('#actualite_content');
-const news=JSON.parse(elementForData.dataset.newsData)
+if(elementForData){
+    const news=JSON.parse(elementForData.dataset.newsData)
 
-console.log(news);
+}
+
 
 const actuality = () => {
     const articlesPerPage = 12;

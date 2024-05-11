@@ -273,10 +273,10 @@ img{
   box-shadow: 0px 7px 4px #0000005e;
 }
 
-.dashboard__main__box{
+/* .dashboard__main__box{
   display: flex;
   justify-content: space-between;
-}
+} */
 /* bertrand css page finab */
 
 .new_event_finab{
@@ -837,3 +837,27 @@ Error or success
 .alert__message p{
   color: #fff;
 }
+
+/*
+modal confirmation
+*/
+
+#confirmYes, #confirmNo {
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+#confirmYes{
+  background-color: red;
+}
+#confirmNo{
+  background-color: #FF8800;
+}
+#confirmYes:hover, #confirmNo:hover {
+  background-color: #E77000;
+}
+

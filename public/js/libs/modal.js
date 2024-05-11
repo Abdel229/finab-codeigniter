@@ -186,11 +186,4 @@ export default class MODAL {
         console.log('Error: No found Modal Target')
       }
     }
-  
-  
-   
-  
-    
-    
-  
   }

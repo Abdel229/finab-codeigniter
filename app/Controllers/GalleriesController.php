@@ -15,29 +15,53 @@ class GalleriesController extends BaseController
     public function index()
     {
         $categoryModel = new GalleriesCategoryModel();
-        $categories = $categoryModel->findAll();
-
+        $galleryInformationModel = new GalleriesInformationModel();
+        $imagesModel = new GalleriesModel();
+    
+        // Récupère toutes les catégories avec status_id = 2, triées par ordre décroissant de création
+        $categories = $categoryModel->where('status_id', 2)->orderBy('created_at', 'DESC')->findAll();
+    
+        // Récupère toutes les informations de galerie avec status_id = 2
+        $galleriesInformation = $galleryInformationModel->where('status_id', 2)->findAll();
+    
+        // Récupère toutes les images avec status_id = 2
+        $images = $imagesModel->where('status_id', 2)->findAll();
+    
+        // Crée un tableau pour stocker les données
         $data = [];
+    
+        // Parcoure chaque catégorie
         foreach ($categories as $category) {
-            $imagesModel = new GalleriesModel();
-            $images = $imagesModel->where('category_id', $category['id'])->where('status_id',2)->findAll();
-            if(!$images){
+            // Trouve les informations de galerie correspondantes
+            $galleriesInformationForCategory = array_filter($galleriesInformation, function($gallerieInformation) use ($category) {
+                return $gallerieInformation['category_id'] == $category['id'];
+            });
+            if(empty($galleriesInformationForCategory)){
                 continue;
             }
+            // Trouve les images correspondantes
+            $imagesForCategory = array_filter($images, function($image) use ($category) {
+                return $image['category_id'] == $category['id'];
+            });
+    
+            // Ajoute les données à la structure souhaitée
             $data[] = [
                 'category' => $category,
-                'images' => $images
+                'galleries' => $galleriesInformationForCategory,
+                'images' => $imagesForCategory
             ];
         }
-        return view('galleries', ['galleries' => $data]);
+        // Retourne la vue avec les données
+        return view('galleries', ['data' => $data]);
     }
+    
 
     public function store()
     {
         $method = $this->request->getMethod();
         if ($method === 'GET') {
             $gallerieCategoryModel = new GalleriesCategoryModel();
-            $gallerieCategory = $gallerieCategoryModel->where('status_id',2)->findAll();
+            $gallerieCategory = $gallerieCategoryModel->where('status_id', 2)->findAll();
             return view('dashboard/new_gallerie', ['categories' => $gallerieCategory]);
         } else if ($method === 'POST') {
             // Récupérer les photos envoyées par le formulaire
@@ -45,7 +69,7 @@ class GalleriesController extends BaseController
 
             // Récupérer la catégorie sélectionnée
             $categoryName = $this->request->getPost('category_id');
-            $gallerieInformation=new GalleriesInformationModel();
+            $gallerieInformation = new GalleriesInformationModel();
             $gallerytitle = $this->request->getPost('title');
             $galleryImg = $this->request->getFile('img');
             if ($galleryImg->isValid() && !$galleryImg->hasMoved()) {
@@ -56,39 +80,27 @@ class GalleriesController extends BaseController
                 // Enregistrer le lien de l'image dans la base de données
                 $imgPath = 'uploads/' . $newName;
             }
-            $gallerieInformation->insert([
-                'name'=>$gallerytitle,
-                'img_principales'=>$imgPath,
-                'category_id'=>$categoryName,
-                'status_id'=>2
+            $galleryInformationId = $gallerieInformation->insert([
+                'name' => $gallerytitle,
+                'img_principales' => $imgPath,
+                'category_id' => $categoryName,
+                'status_id' => 2
             ]);
-            $galleriesInformationModel = new GalleriesInformationModel();
-            $galleriesInforamationLast=$galleriesInformationModel->where('status_id',2)->where('name',$gallerytitle)->orderBy("id","DESC")->first();
             $galleriesCategoryModel = new GalleriesCategoryModel();
             $category = $galleriesCategoryModel->where('id', $categoryName)->first();
-
-            // Parcourir chaque champ de fichier individuellement
             foreach ($photos['photos'] as $photo) {
-                // Vérifier si le champ de fichier est un objet de fichier téléchargé valide
                 if ($photo->isValid() && !$photo->hasMoved()) {
-                    // Générer un nouveau nom de fichier unique
                     $newName = $photo->getRandomName();
-
-                    // Déplacer le fichier vers le dossier de destination
                     $photo->move(ROOTPATH . 'public/uploads_galleries', $newName);
-
-                    // Enregistrer le chemin du fichier dans la base de données
                     $galleryModel = new GalleriesModel();
-                    $galleryModel->insert([
+                    $galleryModel->insert((array)[
                         'img' => 'uploads_galleries/' . $newName,
                         'category_id' => $category['id'],
                         'status_id' => 2,
-                        "gallery_information_id"=>$galleriesInforamationLast['id']
+                        'gallery_information_id' => $galleryInformationId
                     ]);
                 }
             }
-
-            // Rediriger l'utilisateur ou afficher un message de confirmation
             session()->setFlashdata('success', ['Photos enregistrées avec succès !']);
             return redirect()->to('/admin/galeries')->withInput();
         }
@@ -197,47 +209,64 @@ class GalleriesController extends BaseController
 
     public function updateGallery($id)
     {
-        
+
         $method = $this->request->getMethod();
         if ($method === 'GET') {
             // gallerie information
-            $galleryInformation=new GalleriesInformationModel();
-            $galleryInformation=$galleryInformation->where('id',$id)->first();
+            $galleryInformation = new GalleriesInformationModel();
+            $galleryInformation = $galleryInformation->where('id', $id)->first();
 
             // categories
             $categoryModel = new GalleriesCategoryModel();
-            $categories = $categoryModel->where('status_id',2)->findAll();
+            $categories = $categoryModel->where('status_id', 2)->findAll();
             $category = $categoryModel->where('id', $id)->first();
 
             // get gallery information
             $galleryModel = new GalleriesModel();
-            $galleries = $galleryModel->where('gallery_information_id', $id)->where('status_id',2)->findAll();
-            
-            return view('dashboard/update_gallerie', ["galleries"=>$galleries,"categories"=>$categories,"category_single"=>$category,"galleryInformation"=>$galleryInformation]);
-           
+            $galleries = $galleryModel->where('gallery_information_id', $id)->where('status_id', 2)->findAll();
+            return view('dashboard/update_gallerie', ["galleries" => $galleries, "categories" => $categories, "category_single" => $category, "galleryInformation" => $galleryInformation]);
         } else if ($method === 'POST') {
-            
             // Récupérer les données du formulaire
             $categoryName = $this->request->getPost('category');
             $galleriesCategoryModel = new GalleriesCategoryModel();
             $category = $galleriesCategoryModel->where('name', $categoryName)->first();
-            
-            $gallerieInformationModel=new GalleriesInformationModel();
 
-            $gallerieInformationImg=$this->request->getFiles();
-            $newName = $gallerieInformationImg['img']->getRandomName();
-            // Déplacer le fichier vers le dossier de destination
-            $gallerieInformationImg['img']->move(ROOTPATH . 'public/uploads_galleries', $newName);
-            $gallerieInformationData=[
-                'name' => $this->request->getPost('name'),
-                'img_principales'=>'uploads_galleries/' . $newName
-            ];
-            $gallerieInformationModel->update($id,$gallerieInformationData);
+            $gallerieInformationModel = new GalleriesInformationModel();
+            $gallerieInformation = $gallerieInformationModel->where('id', $id)->first();
+            $gallerieInformationImg = $this->request->getFile('img_principale');
+            if ($gallerieInformationImg->isValid() && !$gallerieInformationImg->hasMoved()) {
+                $newName = $gallerieInformationImg->getRandomName();
+                // Déplacer le fichier vers le dossier de destination
+                $gallerieInformationImg->move(ROOTPATH . 'public/uploads_galleries', $newName);
+                $gallerieInformationData = [
+                    'name' => $this->request->getPost('name'),
+                    'img_principales' => 'uploads_galleries/' . $newName
+                ];
+                $gallerieInformationModel->update($id, $gallerieInformationData);
+            } else {
+                $gallerieInformationData = [
+                    'name' => $this->request->getPost('name')
+                ];
+            }
+
             // Vérifier si la catégorie existe
             if (!$category) {
                 // Rediriger avec un message d'erreur si la catégorie n'existe pas
                 session()->setFlashdata('errors', ['La catégorie sélectionnée n\'existe pas.']);
                 return redirect()->back()->withInput()->withInput();
+            }
+
+            // suppression des images supprime
+            $deletedImg = $this->request->getPost('removedImg');
+            if ($deletedImg) {
+                foreach (json_decode($deletedImg) as $image) {
+                    // Mettre à jour le statut de la galerie à "Supprimée" (statut_id = 3)
+                    $galleryModel = new GalleriesModel();
+                    $data = [
+                        'status_id' => 3
+                    ];
+                    $galleryModel->update($image, $data);
+                }
             }
             // Récupérer les photos envoyées par le formulaire
             $photos = $this->request->getFiles();
@@ -251,65 +280,46 @@ class GalleriesController extends BaseController
                         'category_id' => $category['id'] // Assurez-vous d'avoir $category défini au préalable
                     ]);
                 }
-
-                // $photos = $photos['photos'];
-                // dd($photos);
-                // foreach($photos as $photo){
-
-                // }
-                // if ($photo && $photo->isValid() && !$photo->hasMoved()) {
-                //     // Générer un nouveau nom de fichier unique
-                //     $newName = $photo->getRandomName();
-
-                //     // Déplacer le fichier vers le dossier de destination
-                //     $photo->move(ROOTPATH . 'public/uploads_galleries', $newName);
-
-                //     // Mettre à jour le chemin de l'image dans la base de données
-                //     $galleryModel->update($gallery['id'], [
-                //         'img' => 'uploads_galleries/' . $newName,
-                //         'status_id' => 2
-                //     ]);
-                // }
             }
             // Enregistrer les nouvelles photos
-            foreach ($photos['photos'] as $index => $photo) {
-                        // Générer un nouveau nom de fichier unique
-                        $newName = $photo->getRandomName();
+            foreach ($photos['photos'] as $photo) {
+                if ($photo->isValid() && !$photo->hasMoved()) {
 
-                        // Déplacer le fichier vers le dossier de destination
-                        $photo->move(ROOTPATH . 'public/uploads_galleries', $newName);
+                    // Générer un nouveau nom de fichier unique
+                    $newName = $photo->getRandomName();
 
-                        // Enregistrer le chemin du fichier dans la base de données
-                        $galleryModel->insert([
-                            'img' => 'uploads_galleries/' . $newName,
-                            'category_id' => $category['id'], // Assurez-vous d'avoir $category défini au préalable
-                            'name' => $this->request->getPost($inputName),
-                            'status_id' => 2
-                        ]);
-                    }
+                    // Déplacer le fichier vers le dossier de destination
+                    $photo->move(ROOTPATH . 'public/uploads_galleries', $newName);
+                    $galleryModel = new GalleriesModel();
+                    // Enregistrer le chemin du fichier dans la base de données
+                    $galleryModel->insert([
+                        'img' => 'uploads_galleries/' . $newName,
+                        'category_id' => $category['id'], // Assurez-vous d'avoir $category défini au préalable
+                        'name' => $this->request->getPost($inputName),
+                        'status_id' => 2,
+                        'gallery_information_id' => $gallerieInformation['id']
+                    ]);
+                }
+            }
 
 
-        
             // Rediriger l'utilisateur ou afficher un message de confirmation
             session()->setFlashdata('success', ['Galerie mise à jour avec succès.']);
             return redirect()->to('/admin/galeries')->withInput();
         }
-        
     }
-
-
     public function deleteGallery($id)
     {
-        $galleryInformationModel=new GalleriesInformationModel();
-        $galleryInformations=$galleryInformationModel->where('id',$id)->first();
+        $galleryInformationModel = new GalleriesInformationModel();
+        $galleryInformations = $galleryInformationModel->where('id', $id)->first();
 
-        $galleriesModel=new GalleriesModel();
-        $galleries=$galleriesModel->where('gallery_information_id',$id)->findAll();
+        $galleriesModel = new GalleriesModel();
+        $galleries = $galleriesModel->where('gallery_information_id', $id)->findAll();
         $data = [
             'status_id' => 3
         ];
-        foreach($galleries as $gallerie){
-            $galleriesModel->update($gallerie['id'],$data);
+        foreach ($galleries as $gallerie) {
+            $galleriesModel->update($gallerie['id'], $data);
         }
         if ($galleryInformationModel->update($id, $data)) {
             session()->setFlashdata('success', ['Galerie supprimée avec succès.']);
@@ -323,21 +333,18 @@ class GalleriesController extends BaseController
     {
         // Mettre à jour le statut de la galerie à "Supprimée" (statut_id = 3)
         $galleryModel = new GalleriesModel();
-        $image=$galleryModel->where('id', $id)->first();
-        $categoryModel=new GalleriesCategoryModel();
-        $category=$categoryModel->where('id', $image['category_id'])->first();
+        $image = $galleryModel->where('id', $id)->first();
         $data = [
             'status_id' => 3
         ];
         if ($galleryModel->update($id, $data)) {
             // Rediriger avec un message de succès si la suppression réussit
             session()->setFlashdata('success', ['Image supprimé avec succès.']);
-            return redirect()->to('/galleries/update/'.$category['id'])->withInput();
-
+            return redirect()->back()->withInput();
         } else {
             // Rediriger avec un message d'erreur si la suppression échoue
             session()->setFlashdata('errors', ['Échec de la suppression de l\'image.']);
-            return redirect()->to('/galleries/update/'.$category['id'])->withInput();
+            return redirect()->back()->withInput();
         }
     }
 }

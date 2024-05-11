@@ -157,10 +157,14 @@ $(document).ready(function(){
 
     }
     //:02-> set current date in option tag
-    const optionTag = selectField.querySelectorAll('option')
-    if(optionTag){
-        optionTag.forEach(item => item.value===currentDateFormatted?item.setAttribute('selected','selected'):item.removeAttribute('selected'))
+    if(selectField){
+        const optionTag = selectField.querySelectorAll('option')
+        if(optionTag){
+            optionTag.forEach(item => item.value===currentDateFormatted?item.setAttribute('selected','selected'):item.removeAttribute('selected'))
+        }
+
     }
+   
 
     //set
     if(selectField){

@@ -182,7 +182,6 @@ class ArticleController extends BaseController
             ];
             // Vérifier si une nouvelle image a été fournie
             $newImageFile = $this->request->getFile('new_img');
-
             // Vérifier si un fichier a été téléchargé et s'il n'a pas été déplacé
             if ($newImageFile->isValid() && !$newImageFile->hasMoved()) {
                 // Déplacer la nouvelle image vers le dossier de destination

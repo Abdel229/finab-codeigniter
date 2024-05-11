@@ -1283,3 +1283,28 @@ a.banner__programme-btn {
       grid-template-columns: repeat(1, 1fr);
   }
 }
+
+
+/*
+ Galery styles
+*/
+.gallerie__list {
+  display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Crée 4 colonnes de largeur égale */
+    gap: 1%; /* Crée un espace entre les colonnes */
+    padding: 10px;
+}
+.gallerie__list h3{
+  font-family: "Shojumaru-regular", sans-serif;
+  text-align: center;
+}
+.column__gallerie__list {
+  border: 1px #000 solid;
+    padding: 5px; /* Padding pour améliorer l'apparence */
+    box-sizing: border-box;  /* Pour inclure les marges dans le calcul de la largeur */
+}
+@media (max-width: 768px) {
+  .gallerie__list {
+    grid-template-columns: repeat(2, 1fr); /* Change pour 2 colonnes sur les petits écrans */
+  }
+}

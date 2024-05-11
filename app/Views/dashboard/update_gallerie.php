@@ -45,7 +45,7 @@
                         </div>
                     <div class="fnb-form__item">
                             <label for="image">Image Principale</label>
-                            <input type="file" id="image" name="img" value="<?=base_url($galleryInformation['img_principales'])?>">
+                            <input type="file" id="image" name="img_principale">
                             <img src="<?= base_url($galleryInformation['img_principales']) ?>" alt="Image actuelle" style="width:300px;height:300px;"><br>
                         </div>
                         <div class="fnb-form__item">
@@ -73,7 +73,8 @@
                         </div>
                         <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-gap:10px;" id="img-upload-container" data-galleries='<?= json_encode($galleries) ?>' >
                         </div>
-
+                        <div id="img-upload-container"></div>
+<input type="hidden" name="removedImg" id="removedImagesInput" value="">
                         <div class="fnb-form__item fnb-form__item-action">
                             <button type="submit" class="btn btn-submit">Mettre à jour</button>
                         </div>
@@ -85,7 +86,6 @@
     <?= view('partials/doc_admin_footer'); ?>
     <script src="<?= base_url('js/admin.js') ?>"></script>
     <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
-
 
 </body>
 

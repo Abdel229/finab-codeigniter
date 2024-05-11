@@ -107,16 +107,22 @@ $routes->group('users', function (RouteCollection $routes) {
 
 
 
-
-$routes->get('/partner', 'PartenerController::index');
-$routes->get('/partner/demande', 'PartenerController::index_demande');
-$routes->get('/partner/list', 'PartenerController::index_partners');
+$routes->group('partner',function (RouteCollection $routes){
+    $routes->get('/', 'PartenerController::index');
+    $routes->get('demande', 'PartenerController::index_demande');
+    $routes->get('list', 'PartenerController::index_partners');
+    $routes->match(['GET','POST'],'store', 'PartenerController::store');
+    $routes->match(['GET','POST'],'update/(:num)', 'PartenerController::update/$1');
+    $routes->get('delete/(:num)','PartenerController::delete/$1');
+});
 
 
 $routes->get('/events', 'EventController::index');
 
-$routes->get('/contacts', 'ContactsController::index');
-
+$routes->group('contacts',function (RouteCollection $routes){
+    $routes->get('/', 'ContactsController::index');
+    $routes->post('store', 'ContactsController::store');
+});
 $routes->get('/messages', 'MessageController::index');
 
 

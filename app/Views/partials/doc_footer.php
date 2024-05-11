@@ -9,6 +9,7 @@
   <script type="module" src="<?php echo base_url('js/actualite.js')?>"></script>
   <script type="module" src="<?php echo base_url('js/contact.js')?>"></script>
   <script type="module" src="<?php echo base_url('js/subscription.js')?>"></script>
+  <script type="module" src="<?php echo base_url('js/rak.js')?>"></script>
 
 </body>
 </html>

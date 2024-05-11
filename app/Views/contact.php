@@ -49,7 +49,7 @@
                     </div>
                     <div class="form_contact">
                         <div class="form_contact_content">
-                            <form id="contactForm" method='post' action='<?=base_url().'sendMail.php'?>'>
+                            <form id="contactForm" method='post' action='<?=base_url('/contacts/store')?>'>
                                 <div class="form_control">
                                     <label for="nom_prenom">Nom et prénom(s)</label>
                                     <input type="text" name="nom_prenom" id="nom_prenom">
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="form_control">
                                     <label for="objet">Objet</label>
-                                    <input type="text" name="objet" id="objet">
+                                    <input type="text" name="object" id="objet">
                                     <div class="error_message" id="objet_error"></div>
                                 </div>
                                 <div class="form_control">

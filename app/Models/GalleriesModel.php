@@ -8,7 +8,7 @@ class GalleriesModel extends Model
 {
     protected $table = 'galleries';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['img', 'category_id', 'status_id', 'created_at', 'updated_at'];
+    protected $allowedFields = ['img', 'category_id','gallery_information_id', 'status_id', 'created_at', 'updated_at'];
 
     protected $useTimestamps = true;
 
