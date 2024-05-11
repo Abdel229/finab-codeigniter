@@ -37,7 +37,7 @@
                 </div>
                 <div class="dashboard__main__box">
                     <?=view('sections/error')?>
-                    <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?=base_url('partner/update/'.$partenaire['id'])?>">
+                    <form class="fnb-form idform" method="post" enctype="multipart/form-data" action="<?=base_url('partner/update/'.$partenaire['id'])?>">
                         <div class="fnb-form__item">
                             <label for="name">Nom</label>
                             <input type="text" id="name" value="<?=$partenaire['titre']?>" name="titre" required>
@@ -48,9 +48,12 @@
                         </div>
                         <div class="fnb-form__item">
                             <label for="image">Image</label>
-                            <input type="file" id="image" name="img">
                             <img src="<?= base_url($partenaire['img']) ?>" alt="Image actuelle" style="width:300px;height:300px;"><br>
-
+                            
+                            <div class="cpn-form__row">
+                                <input type="file" class="cpn-field" name="img" id="productImgFiled" data-preview-file="true"  accept="image/*">
+                                <label for="productImgFiled" class="cpn-form__label"></label>
+                            </div>
                         </div>
                         <div class="fnb-form__item fnb-form__item-action">
                             <button type="submit" class="submit-button">Modifier</button>
@@ -61,7 +64,11 @@
         </div>
     </div>
     <?= view('partials/doc_admin_footer'); ?>
+    <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/file_preview.js')?>" type="module"></script>
+    <script src="<?=base_url('js/new_article.js')?>" type="module"></script>
     <script src="<?=base_url('js/admin.js')?>"></script>
-    <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
 </body>
 </html>

@@ -18,9 +18,14 @@ class PartenerController extends BaseController
     }
     public function index_partners()
     {
+        return view('partner/list_partners');
+    }
+    
+    public function fetchParters()
+    {
         $partenairesModel = new PartenairesModel();
         $partenaires = $partenairesModel->where('status_id', 2)->findAll();
-        return view('partner/list_partners', ['partenaires' => $partenaires]);
+        return $this->response->setJSON($partenaires);
     }
     public function store()
     {

@@ -48,7 +48,11 @@
                         </div>
                         <div class="fnb-form__item cpn-form__row">
                             <label for="image">Image</label>
-                            <input type="file" id="image" name="img" class="cpn-form" data-preview-file="true"  accept="image/*" required>
+                            
+                            <div class="cpn-form__row">
+                                <input type="file" class="cpn-field" name="img" id="productImgFiled" data-preview-file="true"  accept="image/*">
+                                <label for="productImgFiled" class="cpn-form__label"></label>
+                            </div>
                         </div>
                         <div class="fnb-form__item fnb-form__item-action">
                             <button type="submit" class="submit-button">Ajouter</button>
@@ -59,10 +63,11 @@
         </div>
     </div>
     <?= view('partials/doc_admin_footer'); ?>
-    <script src="<?=base_url('js/admin.js')?>"></script>
-    <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
+    <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/file_preview.js')?>" type="module"></script>
+    <script src="<?=base_url('js/new_article.js')?>" type="module"></script>
+    <script src="<?=base_url('js/admin.js')?>"></script>
 </body>
 </html>
