@@ -52,15 +52,7 @@
                     </a>
                 </div>
                 <div class="dashboard__main__box">
-                    <table class="fnb-table">
-                        <thead>
-                            <th>Nom</th>
-                            <th>Action</th>
-                        </thead>
-                        <tbody>
-                           
-                        </tbody>
-                    </table>
+                    <div id="article__list"></div>
                 </div>
             </div>
         </div>

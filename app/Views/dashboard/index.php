@@ -58,16 +58,10 @@ if (!$session->get('user_id')) {
                     </a>
                 </div>
                 <div class="dashboard__main__box">
-                    <table class="fnb-table">
-                        <thead>
-                            <th>Date de création</th>
-                            <th>Titre</th>
-                            <th>Action</th>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
+                    <div id="article__list">
+                        <span></span>
+                    </div>
+
                 </div>
             </div>
         </div>

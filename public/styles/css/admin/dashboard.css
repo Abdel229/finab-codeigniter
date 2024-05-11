@@ -46,6 +46,12 @@ img{
   width: 100%;
   height: auto;
 }
+button{
+  border: none;
+}
+button:focus{
+  outline: none;
+}
 
 .dashboard{
   display:flex;
@@ -334,7 +340,45 @@ input[type="file"].cpn-field + label:hover::before {
   box-shadow: 0px 2px 4px #0000005e;
 }
 /* bertrand css page finab */
+.ui-pagination__table th {
+  padding: 20px 20px 20px 10px;
+}
 
+.ui-pagination__table tr td {
+  padding: 10px 20px 10px 10px;
+  line-height: 1rem;
+}
+
+.cpn-table-wrap__head {
+  margin-bottom: 10px;
+}
+
+.ui-pagination__table thead tr {
+  border-bottom: solid 1px #d7dcde;
+  background-color: #eeeeee;
+}
+
+.ui-pagination__table thead tr th {
+  padding: 12px 20px 12px 10px;
+  text-align: left;
+  line-height: 0.9rem;
+}
+
+.ui-pagination__table thead th {
+  cursor: pointer;
+}
+
+.ui-pagination__table tbody tr td {
+  vertical-align: top;
+}
+
+.ui-pagination__table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.ui-pagination__nav-item-btn {
+  cursor: pointer;
+}
 .new_event_finab{
   width: 250px;
 }
@@ -396,9 +440,6 @@ input[type="file"].cpn-field + label:hover::before {
 }
 .ui-dropdown__list-item-btn a{
   font-size: .8rem;
-}
-.ui-dropdown__list{
-
 }
 .modal-all {
   display: none ; /* Par défaut, le modal est caché */

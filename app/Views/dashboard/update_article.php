@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<?=base_url('styles/css/icons-1.css')?>">
     <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 </head>
 
 <body>
@@ -47,7 +48,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Description de l'article</label>
-                            <textarea id="description" name="description" required><?= $article['description'] ?></textarea>
+                            <textarea id="description1" class="description" name="description" required><?= $article['description'] ?></textarea>
                         </div>
                         <div class="form-group">
                             <label for="publication-date">Date de publication</label>
@@ -96,6 +97,7 @@
     <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/file_preview.js')?>" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script src="<?=base_url('js/new_article.js')?>" type="module"></script>
     
     <script>

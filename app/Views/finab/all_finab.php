@@ -35,30 +35,13 @@
                 </div>
 
                 <div class="new_event_finab modal">
-                    <button type="submit" class="btn_new_event_finab">
+                    <button type="submit" class="btn_new_event_finab" data-action="new_event_fnb">
                         <i class="icon icon-plus"></i>
                         Nouveau évènement Finab
                     </button>
                 </div>
                 <div class="dashboard__main__box">
-                    <table class="fnb-table" id="fnb-table">
-                        <thead>
-                            <th>Editions</th>
-                            <th>Action</th>
-                        </thead>
-                        <tbody>
-                            <!-- <tr >
-                                <td >Finab 2024</td>
-                                <td>
-                                    <div class="fnb-actions">
-                                        <a href="<?=base_url('/api/get_data')?>" class="fnb-actions__edit" title="MOdifier">
-                                            <i class="icon icon-plus"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr> -->
-                        </tbody>
-                    </table>
+                    <div id="article__list"></div>
                 </div>
             </div>
         </div>

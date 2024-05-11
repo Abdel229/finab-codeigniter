@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ArticlesModel;
 use App\Models\GalleriesCategoryModel;
+use App\Models\ArticlesCategoryModel;
 use App\Models\GalleriesModel;
 
 class Admin extends BaseController
@@ -16,7 +17,19 @@ class Admin extends BaseController
     {
         $articleModel = new ArticlesModel();
         $articles = $articleModel->where('status_id', 2)->findAll();
-        return $this->response->setJSON( $articles);
+        $data = [];
+        foreach ($articles as $article) {
+            $categoriesModel = new ArticlesCategoryModel();
+            $categories = $categoriesModel->where('id', $article['category_id'])->first();
+            if(!$categories){
+                continue;
+            }
+            $data[] = [
+                'categories' => $categories,
+                'articles' => $article
+            ];
+        }
+        return $this->response->setJSON(['allarticles' => $data]);
 
     }
 

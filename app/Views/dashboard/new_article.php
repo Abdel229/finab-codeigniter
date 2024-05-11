@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="<?=base_url('styles/css/icons-1.css')?>">
     <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
     <link rel="stylesheet" href="<?=base_url('styles/css/admin/dashboard.css')?>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 </head>
 <body>
     <div class="dashboard">
@@ -82,9 +83,10 @@
     <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/file_preview.js')?>" type="module"></script>
-    <script src="<?=base_url('js/new_article.js')?>" type="module"></script>
     <script src="<?=base_url('js/admin.js')?>"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="<?=base_url('js/new_article.js')?>" type="module"></script>
+   
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const linksContainer = document.getElementById('links-container');
