@@ -35,7 +35,7 @@ class Partenaire extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('status_id', 'status', 'id'); // Correction de l'ajout de la clé étrangère
+        $this->forge->addForeignKey('status_id', 'status', 'id'); 
         $this->forge->createTable('partenaires');
     }
 

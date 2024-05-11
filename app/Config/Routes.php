@@ -115,6 +115,7 @@ $routes->group('users', function (RouteCollection $routes) {
 $routes->group('partner',function (RouteCollection $routes){
     $routes->get('/', 'PartenerController::index');
     $routes->get('demande', 'PartenerController::index_demande');
+    $routes->get('fetchParters', 'PartenerController::fetchParters');
     $routes->get('list', 'PartenerController::index_partners');
     $routes->match(['GET','POST'],'store', 'PartenerController::store');
     $routes->match(['GET','POST'],'update/(:num)', 'PartenerController::update/$1');

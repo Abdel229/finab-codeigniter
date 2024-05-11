@@ -64,46 +64,17 @@ if (!$session->get('user_id')) {
                     </a>
                 </div>
                 <div class="dashboard__main__box">
-                <table class="fnb-table">
-                        <thead>
-                            <th>Image</th>
-                            <th>Nom</th>
-                            <th>Lien</th>
-                            <th>Actions</th>
-                        </thead>
-                        <tbody>
-                            <?php if(count($partenaires) > 0) :?>
-                                <?php foreach($partenaires as $partenaire): ?>
-                                <tr data-article="article_<?=$partenaire['id']?>">
-                                    <td><img src="<?= base_url($partenaire['img'])?>" style="width: 60px; height:60px;"/></td>
-                                    <td><?=$partenaire['titre']?></td>
-                                    <td><a href="<?=$partenaire['lien']?> " target="_blank"style="color:blue;">Cliquez</a></td>
-                                    <td>
-                                        <div class="fnb-actions">
-                                            <a href="<?=base_url('partner/update/'.$partenaire['id'])?>" class="fnb-actions__edit" title="MOdifier">
-                                                <i class="icon icon-edit"></i>
-                                            </a>
-                                            <a href="<?=base_url('partner/delete/'.$partenaire['id'])?>" class="fnb-actions__delete btn-delete" title="Supprimer">
-                                                <i class="icon icon-delete"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="3" style="text-align:center;">Aucune information disponible</td>
-                                </tr>
-                           <?php endif;?>
-                        </tbody>
-                    </table>
+                    <div id="article__list"></div>
                 </div>
             </div>
         </div>
         <!-- Le reste du contenu reste inchangé -->
     </div>
-    <script src="<?= base_url('js/admin.js') ?>"></script>
-    <script src="<?= base_url('js/rak.js') ?>"></script>
+    <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
+    <script src="<?=base_url('js/partner.js')?>" type="module"></script>
+    <script src="<?=base_url('js/admin.js')?>"></script>
 </body>
 
 </html>

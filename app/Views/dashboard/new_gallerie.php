@@ -46,7 +46,11 @@
                         </div>
                         <div class="fnb-form__item">
                             <label for="image">Image Principale</label>
-                            <input type="file" id="image" name="img" required>
+                            
+                            <div class="cpn-form__row">
+                                <input type="file" class="cpn-field" name="img" id="productImgFiled" data-preview-file="true"  accept="image/*">
+                                <label for="productImgFiled" class="cpn-form__label"></label>
+                            </div>
                         </div>
                         <div class="fnb-form__item">
                             <label for="category_id">Catégorie :</label>
@@ -80,7 +84,6 @@
 
         <?= view('partials/doc_admin_footer'); ?>
         <script src="<?= base_url('js/admin.js') ?>"></script>
-    <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
         <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
