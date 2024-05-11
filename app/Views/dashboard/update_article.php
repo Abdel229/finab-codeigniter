@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?=base_url('styles/css/icons-1.css')?>">
     <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Description de l'article</label>
-                            <textarea id="description1" class="description" name="description" required><?= $article['description'] ?></textarea>
+                            <textarea id="description1" class="description summernote" name="description" required ><?= $article['description'] ?></textarea>
                         </div>
                         <div class="form-group">
                             <label for="publication-date">Date de publication</label>
@@ -60,7 +60,7 @@
                             <img src="<?= base_url($article['img']) ?>" alt="Image actuelle"><br>
                             
                             <div class="cpn-form__row">
-                                <input type="file" class="cpn-field" name="img" id="productImgFiled" data-preview-file="true"  accept="image/*">
+                                <input type="file" class="cpn-field" name="new_img" id="productImgFiled" data-preview-file="true"  accept="image/*">
                                 <label for="productImgFiled" class="cpn-form__label"></label>
                             </div>
                         </div>
@@ -98,7 +98,8 @@
     <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/file_preview.js')?>" type="module"></script>
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script src="<?=base_url('js/new_article.js')?>" type="module"></script>
     
     <script>
