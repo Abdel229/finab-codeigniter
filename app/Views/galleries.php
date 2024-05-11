@@ -49,16 +49,6 @@ echo view('partials/header');
         <?php echo view('sections/last-events'); ?>
     </main>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let select = document.querySelector('#programmeSearch');
-        select.addEventListener('click', function(event) {
-            if (event.target.tagName.toLowerCase() === 'option' || event.target.tagName.startsWith('OPTION')) {
-                window.location.href = event.target.getAttribute('data-href');
-            }
-        });
-    });
-</script>
 <?php
 echo view('partials/footer');
 echo view('partials/doc_footer');

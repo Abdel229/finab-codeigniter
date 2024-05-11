@@ -61,7 +61,7 @@
 
                         <div id="fileInputs" class="fnb-form__item">
                                 <div class="cpn-form__row">
-                                    <input type="file" class="cpn-field" name="img" id="productImgFiled" data-preview-file="true"  accept="image/*">
+                                    <input type="file" class="cpn-field" multiple name="img" id="productImgFiled" data-preview-file="true"  accept="image/*">
                                     <label for="productImgFiled" class="cpn-form__label"></label>
                                 </div>
 

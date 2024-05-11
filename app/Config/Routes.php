@@ -126,7 +126,10 @@ $routes->get('/events', 'EventController::index');
 
 $routes->group('contacts',function (RouteCollection $routes){
     $routes->get('/', 'ContactsController::index');
-    $routes->post('store', 'ContactsController::store');
+});
+$routes->group('messages',function (RouteCollection $routes){
+    $routes->get('/', 'MessagesController::index');
+    $routes->post('store', 'MessagesController::store');
 });
 $routes->get('/messages', 'MessageController::index');
 

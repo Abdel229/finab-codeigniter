@@ -4,9 +4,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ContactModel extends Model
+class MessageModel extends Model
 {
-    protected $table            = 'contacts';
+    protected $table            = 'messages';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
