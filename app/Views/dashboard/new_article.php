@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="<?=base_url('styles/css/icons-1.css')?>">
     <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
     <link rel="stylesheet" href="<?=base_url('styles/css/admin/dashboard.css')?>">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="dashboard">
@@ -46,7 +46,7 @@
                         </div>
                         <div class="fnb-form__item">
                             <label for="description">Description de l'article</label>
-                            <textarea id="description" name="description" required></textarea>
+                            <textarea id="description" name="description" required class="summernote"></textarea>
                         </div>
                         <div class="fnb-form__item">
                             <label for="publication-date">Date de publication</label>
@@ -87,7 +87,8 @@
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/file_preview.js')?>" type="module"></script>
     <script src="<?=base_url('js/admin.js')?>"></script>
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script src="<?=base_url('js/new_article.js')?>" type="module"></script>
    
     <script>
