@@ -5,23 +5,57 @@ namespace App\Controllers;
 use App\Models\ArticlesModel;
 use App\Models\GalleriesCategoryModel;
 use App\Models\GalleriesInformationModel;
+use App\Models\ArticlesCategoryModel;
 use App\Models\GalleriesModel;
 
 class Admin extends BaseController
 {
-    public function index(): string
+    public function index()
     {
-        $articleModel=new ArticlesModel();
-        $articles_category=$articleModel->where('status_id',2)->findAll();
-        return view('dashboard/index', ["articles" => $articles_category]);
+        return view('dashboard/index');
     }
+    public function fetcharticles()
+    {
+        $articleModel = new ArticlesModel();
+        $articles = $articleModel->where('status_id', 2)->findAll();
+        $data = [];
+        foreach ($articles as $article) {
+            $categoriesModel = new ArticlesCategoryModel();
+            $categories = $categoriesModel->where('id', $article['category_id'])->first();
+            if(!$categories){
+                continue;
+            }
+            $data[] = [
+                'categories' => $categories,
+                'articles' => $article
+            ];
+        }
+        return $this->response->setJSON(['allarticles' => $data]);
 
+    }
 
     public function galeries(): string
     {
-        $galleriesInformationModel = new GalleriesInformationModel();
-        $galleriesInformation = $galleriesInformationModel->where('status_id', '2')->findAll();
 
-        return view('dashboard/galeries',['galleries'=>$galleriesInformation]);
+        return view('dashboard/galeries');
+    }
+    public function fetchGalleriesAndCategories()
+    {
+        $categoryModel = new GalleriesCategoryModel();
+        $categories = $categoryModel->findAll();
+
+        $data = [];
+        foreach ($categories as $category) {
+            $imagesModel = new GalleriesModel();
+            $images = $imagesModel->where('category_id', $category['id'])->first();
+            if(!$images){
+                continue;
+            }
+            $data[] = [
+                'categories' => $category,
+                'images' => $images
+            ];
+        }
+        return $this->response->setJSON(['galleries' => $data]);
     }
 }

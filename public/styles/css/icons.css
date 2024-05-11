@@ -199,3 +199,9 @@
 .icon-block {
   -webkit-mask-image: url('./../../../images/svg/icon-block.svg');
 }
+/*
+* icon-finab
+*/
+.icon-finab {
+  -webkit-mask-image: url('./../../images/svg/masque 1.svg');
+}

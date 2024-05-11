@@ -172,8 +172,10 @@ $(document).ready(function(){
             let value = e.target.value
 
             const allCurrentProgram = document.querySelectorAll(`.programme-box__bottom__item[data-day="${value}"]`)
+            if(programListBox){
+                programListBox.classList.remove('empty')
 
-            programListBox.classList.remove('empty')
+            }
             
             allProgram.forEach(item => {
                 item.classList.remove('active')

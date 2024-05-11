@@ -38,7 +38,7 @@ if (!$session->get('user_id')) {
             </nav>
             <div class="dashboard__main">
                 <div class="dashboard__main__title">
-                    <i class="icon icon-category"></i>
+                    <i class="icon-receipt"></i>
                     <p>Contacts</p>
                 </div>
                 <ul class="cpn-pg-menu">

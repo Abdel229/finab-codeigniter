@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New article</title>
+    <link rel="stylesheet" href="<?=base_url('styles/css/icons-1.css')?>">
     <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
     <link rel="stylesheet" href="<?=base_url('styles/css/admin/dashboard.css')?>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 </head>
 <body>
     <div class="dashboard">
@@ -37,7 +39,7 @@
                 </div>
                 <div class="dashboard__main__box">
                     <?=view('sections/error')?>
-                    <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?=base_url('articles/store')?>">
+                    <form class="fnb-form idform" method="post" id="" enctype="multipart/form-data" action="<?=base_url('articles/store')?>">
                         <div class="fnb-form__item">
                             <label for="title">Titre de l'article</label>
                             <input type="text" id="title" name="title" required>
@@ -51,8 +53,10 @@
                             <input type="date" id="publication-date" name="date_pub">
                         </div>
                         <div class="fnb-form__item">
-                            <label for="image">Image</label>
-                            <input type="file" id="image" name="img">
+                            <div class="cpn-form__row">
+                                <input type="file" class="cpn-field" name="img" id="productImgFiled" data-preview-file="true"  accept="image/*">
+                                <label for="productImgFiled" class="cpn-form__label"></label>
+                            </div>
                         </div>
                         <div class="fnb-form__item">
                             <label for="category">Catégorie</label>
@@ -78,8 +82,14 @@
         </div>
     </div>
     <?= view('partials/doc_admin_footer'); ?>
+    <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/file_preview.js')?>" type="module"></script>
     <script src="<?=base_url('js/admin.js')?>"></script>
-    <script src="<?=base_url('js/ui/dropdown.js')?>"></script>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="<?=base_url('js/new_article.js')?>" type="module"></script>
+   
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const linksContainer = document.getElementById('links-container');

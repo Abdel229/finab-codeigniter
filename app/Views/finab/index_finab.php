@@ -12,6 +12,7 @@ if (!$session->get('user_id')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord</title>
+    <link rel="stylesheet" href="<?=base_url('styles/css/icons-1.css')?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
 </head>
@@ -38,7 +39,7 @@ if (!$session->get('user_id')) {
             </nav>
             <div class="dashboard__main">
                 <div class="dashboard__main__title">
-                    <i class="icon icon-category"></i>
+                    <i class="icon icon-finab"></i>
                     <p> <a href="<?=base_url('/finab')?>">Finab</a>/ Finab 2024</p>
                 </div>
                 

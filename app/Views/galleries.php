@@ -17,6 +17,17 @@ echo view('partials/header');
         <section class="partner-section section-default-therm">
             <div class="container">
                 <div class="category-container">
+                    <div class="programme-box__bottom__search">
+                        <span>Filtrage par catégorie</span>
+                        <select name="programme_search" id="programmeSearch">
+                            <option>Sélectionnez</option>
+                            <?php foreach ($allCategories as $categorie) : ?>
+                                <option value="" data-href="<?= base_url('galleries/per-category/' . $categorie['id']) ?>">
+                                    <?= $categorie['name'] ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                     <div class="distinction__list gallerie__list">
                         <?php foreach ($data as $item) : ?>
                             <?php foreach ($item['galleries'] as $gallery) : ?>
@@ -38,6 +49,16 @@ echo view('partials/header');
         <?php echo view('sections/last-events'); ?>
     </main>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let select = document.querySelector('#programmeSearch');
+        select.addEventListener('click', function(event) {
+            if (event.target.tagName.toLowerCase() === 'option' || event.target.tagName.startsWith('OPTION')) {
+                window.location.href = event.target.getAttribute('data-href');
+            }
+        });
+    });
+</script>
 <?php
 echo view('partials/footer');
 echo view('partials/doc_footer');

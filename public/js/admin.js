@@ -133,32 +133,32 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
    // Obtenez tous les éléments avec la classe btn_new_event_finab
-const openModalBtns = document.querySelectorAll('.modal');
+// const openModalBtns = document.querySelectorAll('.modal');
 
-// Obtenez l'élément modal
-const modal = document.getElementById("myModal");
+// // Obtenez l'élément modal
+// const modal = document.getElementById("myModal");
 
-// Obtenez l'élément de la croix pour fermer le modal
-const closeModalSpan = document.querySelector(".close");
+// // Obtenez l'élément de la croix pour fermer le modal
+// const closeModalSpan = document.querySelector(".close");
 
-// Ajoutez un gestionnaire d'événements à chaque bouton pour ouvrir le modal
-openModalBtns.forEach(function(btn) {
-    btn.addEventListener("click", function() {
-        modal.style.zIndex = 5;
-    });
-});
+// // Ajoutez un gestionnaire d'événements à chaque bouton pour ouvrir le modal
+// openModalBtns.forEach(function(btn) {
+//     btn.addEventListener("click", function() {
+//         modal.style.zIndex = 5;
+//     });
+// });
 
-// Lorsque l'utilisateur clique sur la croix, fermez le modal
-closeModalSpan.addEventListener("click", function() {
-    modal.style.zIndex = 1;
-});
+// // Lorsque l'utilisateur clique sur la croix, fermez le modal
+// closeModalSpan.addEventListener("click", function() {
+//     modal.style.zIndex = 1;
+// });
 
-// Lorsque l'utilisateur clique en dehors du modal, fermez-le
-window.addEventListener("click", function(event) {
-    if (event.target === modal) {
-        modal.style.zIndex = 1;
-    }
-});
+// // Lorsque l'utilisateur clique en dehors du modal, fermez-le
+// window.addEventListener("click", function(event) {
+//     if (event.target === modal) {
+//         modal.style.zIndex = 1;
+//     }
+// });
 
 
 // Sélectionnez tous les éléments de la liste des détails Finab
@@ -182,7 +182,7 @@ finabDetailsItems.forEach(function(item) {
 });
 
     
-    
+    const thead = [{ title: "Editions", }, { title: "Actions", },];
     
     
     
