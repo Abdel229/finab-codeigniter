@@ -134,7 +134,7 @@ function createTableFragment() {
             data: partnersData,
             thead,
             bodyListSchema: schema,
-            limit: 1,
+            limit: 10,
             navTopSelector: null,
         });
     })
