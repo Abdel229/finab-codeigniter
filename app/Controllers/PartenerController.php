@@ -24,7 +24,7 @@ class PartenerController extends BaseController
     public function fetchParters()
     {
         $partenairesModel = new PartenairesModel();
-        $partenaires = $partenairesModel->where('status_id', 2)->findAll();
+        $partenaires = $partenairesModel->findAll();
         return $this->response->setJSON($partenaires);
     }
     public function store()
@@ -106,6 +106,20 @@ class PartenerController extends BaseController
         $partnerModel->update($id, ['status_id' => 3]);
 
         session()->setFlashdata('success', ['Partenaire supprimé avec succès']);
+                return redirect()->back()->withInput();
+    }
+    public function Activer($id){
+        $partnerModel = new PartenairesModel();
+        $partner = $partnerModel->find($id);
+
+        if (!$partner) {
+            session()->setFlashdata('errors', ['Article not found']);
+                return redirect()->back()->withInput();
+        }
+
+        $partnerModel->update($id, ['status_id' => 2]);
+
+        session()->setFlashdata('success', ['Partenaire a été activer']);
                 return redirect()->back()->withInput();
     }
 }

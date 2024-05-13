@@ -120,6 +120,7 @@ $routes->group('partner',function (RouteCollection $routes){
     $routes->match(['GET','POST'],'store', 'PartenerController::store');
     $routes->match(['GET','POST'],'update/(:num)', 'PartenerController::update/$1');
     $routes->get('delete/(:num)','PartenerController::delete/$1');
+    $routes->get('active/(:num)','PartenerController::Activer/$1');
 });
 
 

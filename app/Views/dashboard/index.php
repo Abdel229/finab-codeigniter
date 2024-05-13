@@ -45,7 +45,7 @@ if (!$session->get('user_id')) {
                 <ul class="cpn-pg-menu">
                     
                     <li class="cpn-pg-menu__item">
-                        <a href="" class="cpn-pg-menu__item-link "> <span>Liste des Articles</span></a>
+                        <a href="<?=base_url('/admin')?>" class="cpn-pg-menu__item-link "> <span>Liste des Articles</span></a>
                     </li>
                     <li class="cpn-pg-menu__item">
                         <a href="<?=base_url('/create_article_categories')?>" class="cpn-pg-menu__item-link ">

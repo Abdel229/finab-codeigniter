@@ -22,7 +22,7 @@ function actions(button){
             modal.close();
         });
     }
-    }
+}
 function createTableFragment() {
     fetch(`${baseUrl}/partner/fetchParters`) 
     .then(response => {
@@ -34,7 +34,7 @@ function createTableFragment() {
     .then(partenaires => {
        const partnersData = partenaires;
         const thead = [
-            { title: "Images", },{ title: "Noms", },{ title: "Liens", }, { title: "Actions", },
+            { title: "Images", },{ title: "Noms", },{ title: "Liens", },{ title: "Status", }, { title: "Actions", },
         ];
     
         const schema = (item) => {
@@ -42,6 +42,7 @@ function createTableFragment() {
             const title = item.titre;
             const img = item.img;
             const lien = item.lien;
+            const status = item.status_id ;
     
             const schema = document.createDocumentFragment();
     
@@ -51,6 +52,10 @@ function createTableFragment() {
                 <td><img src="${baseUrl}/${img}" alt="" style='width: 50px;'></td>
                 <td>${title}</td>
                 <td><a href="${lien}" style="color:blue;">${lien}</a></td>
+                <td>${status == 2 ? `
+                    <span class="partner__status">Activer</span>`
+                    :`<span class="partner__status warning">Désactiver</span>`}
+                </td>
                 <td>
                     <div class="fnb-table__actions-btns">
                         <button class="menu-fnb-btn" data-dropdown="product-menu-actions" data-action="open-product-menu"><i class="icon-menu-actions-vertical"></i></button>
@@ -65,19 +70,32 @@ function createTableFragment() {
                         <li class="ui-dropdown__list-item">
                             <button class="ui-dropdown__list-item-btn" >
                                 <i class="icon-edit"></i>
-                                <a href="${baseUrl}/partner/update//${id}" class="" title="Modifier">
+                                <a href="${baseUrl}/partner/update/${id}" class="" title="Modifier">
                                     Modifier
                                 </a>
                             </button>
                         </li>
                         <li class="ui-dropdown__list-item">
+                            ${status == 2 ? `
+                            
                             <button class="ui-dropdown__list-item-btn" data-action="barcode-control">
-                                <i class="icon-delete"></i>
+                                <i class="icon-disabled"></i>
                                 
-                                <a href="${baseUrl}/partner/delete/${id}" class="btn-delete" title="Supprimer">
-                                    Supprimer
+                                <a href="${baseUrl}/partner/delete/${id}" class="btn-delete" title="Désactiver">
+                                    Désactiver
                                 </a>
                             </button>
+                            `
+                            :`
+                            
+                            <button class="ui-dropdown__list-item-btn" data-action="barcode-control">
+                                <i class="icon-activate"></i>
+                                
+                                <a href="${baseUrl}/partner/active/${id}" class="btn-delete" title="Activer">
+                                    Activer
+                                </a>
+                            </button>
+                            `}
                         </li>
                     </ul>
                 `;
@@ -114,7 +132,7 @@ function createTableFragment() {
                                         console.log(context)
                                     }
                                 })
-                                actions(element)
+                                actions(btnDelete)
                             });
                     },
                 });

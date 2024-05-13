@@ -191,10 +191,10 @@ input[type="file"].cpn-field + label:hover::before {
   color: #91959a;
   transition: all .5s linear;
 }
-.cpn-pg-menu__item-link.active {
+.cpn-pg-menu__item-link.menu_active {
   color: #5bacb9;
 }
-.cpn-pg-menu__item-link.active::before {
+.cpn-pg-menu__item-link.menu_active::before {
   content: "";
   position: absolute;
   display: inline-block;
@@ -204,7 +204,7 @@ input[type="file"].cpn-field + label:hover::before {
   left: 0;
   bottom: -10px;
 }
-.cpn-pg-menu__item-link.active::after {
+.cpn-pg-menu__item-link.menu_active::after {
   content: "";
   position: absolute;
   display: inline-block;
@@ -332,7 +332,6 @@ input[type="file"].cpn-field + label:hover::before {
   width: max-content;
   gap:5px;
   border-radius:5px 5px 0 0;
-  box-shadow: 0px 7px 4px #0000005e;
 }
 
 .dashboard__main__box{
@@ -975,3 +974,17 @@ modal confirmation
   background-color: #E77000;
 }
 
+.partner__status{
+  width: 100px;
+  height: 20px;
+  background-color: #2ce518;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: .875rem;
+}
+.partner__status.warning{
+  background-color: #FF8800;
+}
