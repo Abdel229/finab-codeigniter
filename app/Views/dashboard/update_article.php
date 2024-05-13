@@ -101,57 +101,10 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script src="<?=base_url('js/new_article.js')?>" type="module"></script>
+    <script src="<?=base_url('js/rak.js')?>" type="module"></script>
+
     
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const linksContainer = document.getElementById('links-container');
 
-            let linkCounter =  <?= $id ?>;
-
-            function addLink() {
-                // conteneur du lien et du bouton delete
-                const divContainer=document.createElement('div');
-                divContainer.style="display:flex;"
-                const newInput = document.createElement('input');
-                newInput.type = 'text';
-                newInput.name = 'lien' + linkCounter;
-                newInput.id = 'lien' + linkCounter;
-                const newLabel = document.createElement('label');
-                newLabel.htmlFor = 'lien' + linkCounter;
-                newLabel.textContent = 'Lien ' + linkCounter;
-
-                const removeLinkButton = document.createElement('i');
-                removeLinkButton.classList.add('icon', 'icon-delete');
-                removeLinkButton.style='margin-left:10px;cursor:pointer;background-color:red;'
-                removeLinkButton.addEventListener('click', function() {
-                linksContainer.removeChild(newLabel);
-                    linksContainer.removeChild(divContainer);
-                });
-
-                linksContainer.appendChild(newLabel);
-                divContainer.appendChild(newInput);
-                divContainer.appendChild(removeLinkButton);
-                linksContainer.appendChild(divContainer);
-
-                linkCounter++;
-            }
-            const addLinkButton = document.createElement('button');
-            addLinkButton.type = 'button';
-            addLinkButton.style='display:flex;align-items:center;justify-content:center;background-color:#D67608;border:none;padding:6px 20px;border-radius:8px;color:#fff;cursor:pointer;'
-
-            const icon = document.createElement('i');
-            icon.classList.add('icon');
-            icon.classList.add('icon-plus');
-            icon.style='margin-right:8px;background-color:#fff;'
-            addLinkButton.appendChild(icon);
-
-            const textNode = document.createTextNode('Ajouter un lien');
-            addLinkButton.appendChild(textNode);
-
-            addLinkButton.addEventListener('click', addLink);
-            linksContainer.appendChild(addLinkButton);
-        });
-    </script>
 </body>
 
 </html>

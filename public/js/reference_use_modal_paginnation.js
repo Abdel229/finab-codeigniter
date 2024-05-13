@@ -1,67 +1,63 @@
 if (subsidiaryProducts) {
- const thead = [
-{ title: "Produits", }, { title: "Prix", }, { title: "Stocks", }, { title: "",},];
+    const thead = [
+        { title: "Produits", }, { title: "Prix", }, { title: "Stocks", }, { title: "", },];
 
- const schema = (item) => {
- const productId = Number(item.product_id);
- const subsidiaryProductId = Number(item.id);
- const productStatus = Number(item.status);
- const imgName = item?.image?.length > 0 ? item.image : "default.png";
- const category = item.category ?? null;
- const originalBarcode = item.original_barcode;
+    const schema = (item) => {
+        const productId = Number(item.product_id);
+        const subsidiaryProductId = Number(item.id);
+        const productStatus = Number(item.status);
+        const imgName = item?.image?.length > 0 ? item.image : "default.png";
+        const category = item.category ?? null;
+        const originalBarcode = item.original_barcode;
 
- const config = JSON.parse(item.config);
- //console.log("config", config);
+        const config = JSON.parse(item.config);
+        //console.log("config", config);
 
- let productStatusColor = "";
- switch (productStatus) {
- case 1:
- productStatusColor = "warning";
- break;
- case 2:
- productStatusColor = "success";
- break;
- case 0:
- productStatusColor = "danger";
- break;
- }
+        let productStatusColor = "";
+        switch (productStatus) {
+            case 1:
+                productStatusColor = "warning";
+                break;
+            case 2:
+                productStatusColor = "success";
+                break;
+            case 0:
+                productStatusColor = "danger";
+                break;
+        }
 
- const stock = Number(item.stock);
- const alertStock = Number(item.qty_stock_alert);
- const qtyInCardBox = Number(item.qty_in_cardboard);
- const totalCardBox =
- qtyInCardBox > 0 ? Math.floor(stock / qtyInCardBox) : 0;
- const stockRestOuputCardbox =
- qtyInCardBox > 0 ? stock % qtyInCardBox : 0;
- const stockShow =
- totalCardBox > 0
- ? `${formatFigures(totalCardBox)} <small>Carton${
- totalCardBox > 1 ? "s" : ""
- }</small> ${
- stockRestOuputCardbox > 0
- ? ` et ${formatFigures(
- stockRestOuputCardbox
- )} <small>bouteille${
- stockRestOuputCardbox > 1 ? "s" : ""
- }</small>`
- : ""
- }`
- : `${formatFigures(stock)}<small> bouteille${
- stock > 1 ? "s" : ""
- }</small>`;
+        const stock = Number(item.stock);
+        const alertStock = Number(item.qty_stock_alert);
+        const qtyInCardBox = Number(item.qty_in_cardboard);
+        const totalCardBox =
+            qtyInCardBox > 0 ? Math.floor(stock / qtyInCardBox) : 0;
+        const stockRestOuputCardbox =
+            qtyInCardBox > 0 ? stock % qtyInCardBox : 0;
+        const stockShow =
+            totalCardBox > 0
+                ? `${formatFigures(totalCardBox)} <small>Carton${totalCardBox > 1 ? "s" : ""
+                }</small> ${stockRestOuputCardbox > 0
+                    ? ` et ${formatFigures(
+                        stockRestOuputCardbox
+                    )} <small>bouteille${stockRestOuputCardbox > 1 ? "s" : ""
+                    }</small>`
+                    : ""
+                }`
+                : `${formatFigures(stock)}<small> bouteille${stock > 1 ? "s" : ""
+                }</small>`;
 
- const TotalStock = `${formatFigures(stock)} ${wordPlural({
- single: "bouteille",
- qty: stock,
- })}`;
- const TolatAlertStock = `${formatFigures(alertStock)} ${wordPlural({
- single: "bouteille",
- qty: alertStock,
- })}`;
+        const TotalStock = `${formatFigures(stock)} ${wordPlural({
+            single: "bouteille",
+            qty: stock,
+        })}`;
+        const TolatAlertStock = `${formatFigures(alertStock)} ${wordPlural({
+            single: "bouteille",
+            qty: alertStock,
+        })}`;
 
- const schema = document.createDocumentFragment();
- const TR = document.createElement("tr");
- TR.innerHTML = `
+        const schema = document.createDocumentFragment();
+        const TR = document.createElement("tr");
+        TR.innerHTML = `
  <td>
  <div class="ui-pagination__tbl-item">
  <div class="ui-pagination__tbl-item-inner">
@@ -71,21 +67,20 @@ if (subsidiaryProducts) {
  <div class="ui-pagination__tbl-item-infos">
  <div class="ui-pagination__tbl-item-infos-row ui-pagination__tbl-item-infos-row--name">
  ${statusUI({
- type: "round",
- status: productStatusColor,
- })}
+            type: "round",
+            status: productStatusColor,
+        })}
  ${item.name}
  </div>
- ${
- category?.name
- ? `
+ ${category?.name
+                ? `
  <div class="ui-pagination__tbl-item-infos-row">
  <span class="label">Catégorie:</span>
  <span class="value">${category.name}</span>
  </div>
  `
- : ""
- }
+                : ""
+            }
  <div class="ui-pagination__tbl-item-infos-row">
  <span class="label">Qté en carton:</span>
  <span class="value">${item.qty_in_cardboard}</span>
@@ -107,14 +102,14 @@ if (subsidiaryProducts) {
  <div class="ui-pagination__tbl-item-infos-row">
  <span class="label">D'achat:</span>
  <span class="value">${formatter.format(
- item.buying_price
- )}</span>
+                item.buying_price
+            )}</span>
  </div>
  <div class="ui-pagination__tbl-item-infos-row">
  <span class="label">De vente:</span>
  <span class="value">${formatter.format(
- item.selling_price
- )}</span>
+                item.selling_price
+            )}</span>
  </div>
  </div>
  </td>
@@ -142,20 +137,19 @@ if (subsidiaryProducts) {
  </td>
  `;
 
- //=>> CATEGORIES DATA
- const activesCategories = prodoctsCategories.filter(
- (cat) => Number(cat.status) === 2
- );
+        //=>> CATEGORIES DATA
+        const activesCategories = prodoctsCategories.filter(
+            (cat) => Number(cat.status) === 2
+        );
 
- const menuBtn = TR.querySelector(
- 'button[data-action="open-product-menu"]'
- );
- if (menuBtn) {
- const productMenuContent = `
+        const menuBtn = TR.querySelector(
+            'button[data-action="open-product-menu"]'
+        );
+        if (menuBtn) {
+            const productMenuContent = `
  <ul class="ui-dropdown__list">
- ${
- productStatus === 1
- ? `
+ ${productStatus === 1
+                    ? `
  <li class="ui-dropdown__list-item">
  <button class="ui-dropdown__list-item-btn" data-action="activate">
  <i class="icon-activate"></i>
@@ -163,11 +157,10 @@ if (subsidiaryProducts) {
  </button>
  </li>
  `
- : ""
- }
- ${
- productStatus === 2
- ? `
+                    : ""
+                }
+ ${productStatus === 2
+                    ? `
  <li class="ui-dropdown__list-item">
  <button class="ui-dropdown__list-item-btn" data-action="disabled">
  <i class="icon-disabled"></i>
@@ -175,8 +168,8 @@ if (subsidiaryProducts) {
  </button>
  </li>
  `
- : ""
- }
+                    : ""
+                }
  <li class="ui-dropdown__list-item">
  <button class="ui-dropdown__list-item-btn" data-action="edit">
  <i class="icon-edit"></i>
@@ -197,103 +190,103 @@ if (subsidiaryProducts) {
  </li>
  </ul>
  `;
- const dropdown = new Dropdown({
- autoCreate: false,
- content: productMenuContent,
- idName: "product-menu--click",
- callBack: (dropdown) => {
- //===> Change Status
- ["disabled", "activate"].forEach((attr) => {
- const changeStatusBtn = dropdown.querySelector(
- `button[data-action="${attr}"]`
- );
- if (changeStatusBtn) {
- changeStatusBtn.addEventListener("click", (e) => {
- e.preventDefault();
- const settingVal = {
- title: `Changement de statut de produit`,
- action: attr === "disabled" ? "désactiver" : "activer",
- color: attr === "disabled" ? "#ff1212" : "#094529",
- newStatus: attr === "disabled" ? 1 : 2,
- };
+            const dropdown = new Dropdown({
+                autoCreate: false,
+                content: productMenuContent,
+                idName: "product-menu--click",
+                callBack: (dropdown) => {
+                    //===> Change Status
+                    ["disabled", "activate"].forEach((attr) => {
+                        const changeStatusBtn = dropdown.querySelector(
+                            `button[data-action="${attr}"]`
+                        );
+                        if (changeStatusBtn) {
+                            changeStatusBtn.addEventListener("click", (e) => {
+                                e.preventDefault();
+                                const settingVal = {
+                                    title: `Changement de statut de produit`,
+                                    action: attr === "disabled" ? "désactiver" : "activer",
+                                    color: attr === "disabled" ? "#ff1212" : "#094529",
+                                    newStatus: attr === "disabled" ? 1 : 2,
+                                };
 
- AlertModal({
- title: settingVal.title,
- alertMessage: `Vous Êtes sur le point de vouloir <mark style="color:${settingVal.color};">${settingVal.action}</mark> le produit <mark class="cpn-alert-change-status__text--mark">${item.name}</mark>`,
- className: "warning",
- description: true,
- callBack: (response) => {
- const {
- data,
- emptyKeys,
- fields,
- showFormError,
- successFormSubmit,
- } = response;
- if (data.description) {
- const description = data.description;
+                                AlertModal({
+                                    title: settingVal.title,
+                                    alertMessage: `Vous Êtes sur le point de vouloir <mark style="color:${settingVal.color};">${settingVal.action}</mark> le produit <mark class="cpn-alert-change-status__text--mark">${item.name}</mark>`,
+                                    className: "warning",
+                                    description: true,
+                                    callBack: (response) => {
+                                        const {
+                                            data,
+                                            emptyKeys,
+                                            fields,
+                                            showFormError,
+                                            successFormSubmit,
+                                        } = response;
+                                        if (data.description) {
+                                            const description = data.description;
 
- if (description.length >= 5) {
- const formData = new FormData();
- formData.append("userId", userId);
- formData.append("cause", description);
- formData.append("doBy", "users");
- formData.append(
- "dataItem",
- JSON.stringify({
- status: settingVal.newStatus,
- })
- );
- AppFetch(
- `${baseUrl}api/products/update/${subsidiaryProductId}`,
- {
- method: "POST",
- body: formData,
- }
- ).then((responseUpdateProduct) => {
- if (
- responseUpdateProduct?.status === "success"
- ) {
- console.log(
- "responseUpdateProduct",
- responseUpdateProduct
- );
- successFormSubmit({ refresh: true });
- } else {
- showFormError(
- `Désolé, La modifiaction a échouée!`
- );
- }
- });
- } else {
- showFormError("Motif trop court!");
- }
- } else {
- showFormError("Veuillez renseigner le motif.");
- }
+                                            if (description.length >= 5) {
+                                                const formData = new FormData();
+                                                formData.append("userId", userId);
+                                                formData.append("cause", description);
+                                                formData.append("doBy", "users");
+                                                formData.append(
+                                                    "dataItem",
+                                                    JSON.stringify({
+                                                        status: settingVal.newStatus,
+                                                    })
+                                                );
+                                                AppFetch(
+                                                    `${baseUrl}api/products/update/${subsidiaryProductId}`,
+                                                    {
+                                                        method: "POST",
+                                                        body: formData,
+                                                    }
+                                                ).then((responseUpdateProduct) => {
+                                                    if (
+                                                        responseUpdateProduct?.status === "success"
+                                                    ) {
+                                                        console.log(
+                                                            "responseUpdateProduct",
+                                                            responseUpdateProduct
+                                                        );
+                                                        successFormSubmit({ refresh: true });
+                                                    } else {
+                                                        showFormError(
+                                                            `Désolé, La modifiaction a échouée!`
+                                                        );
+                                                    }
+                                                });
+                                            } else {
+                                                showFormError("Motif trop court!");
+                                            }
+                                        } else {
+                                            showFormError("Veuillez renseigner le motif.");
+                                        }
 
- // const submitCallBack = arg => {
- // const {data, showFormError, emptyKeys, successFormSubmit} = arg
- // console.log('data', data, userId)
- // }
- },
- });
- });
- }
- });
+                                        // const submitCallBack = arg => {
+                                        // const {data, showFormError, emptyKeys, successFormSubmit} = arg
+                                        // console.log('data', data, userId)
+                                        // }
+                                    },
+                                });
+                            });
+                        }
+                    });
 
- //===> Edit Product
- const editProduct = dropdown.querySelector(
- 'button[data-action="edit"]'
- );
- if (editProduct) {
- const modalContent = () => {
- const modalContent = document.createDocumentFragment();
- const className = "modal-add-new-prod";
- const formId = "edit-product-form";
- const modalInner = document.createElement("div");
- modalInner.classList = className;
- modalInner.innerHTML = `
+                    //===> Edit Product
+                    const editProduct = dropdown.querySelector(
+                        'button[data-action="edit"]'
+                    );
+                    if (editProduct) {
+                        const modalContent = () => {
+                            const modalContent = document.createDocumentFragment();
+                            const className = "modal-add-new-prod";
+                            const formId = "edit-product-form";
+                            const modalInner = document.createElement("div");
+                            modalInner.classList = className;
+                            modalInner.innerHTML = `
  <div class="ui-modal__head">
  <h2 class="ui-modal__title">Modification de produit</h2>
  </div>
@@ -338,116 +331,115 @@ if (subsidiaryProducts) {
  </form>
  </div>
  `;
- const form = modalInner.querySelector(`form#${formId}`);
- if (form) {
- const btn = form.querySelector(
- 'button[data-action="submit"]'
- );
- if (!btn) return;
+                            const form = modalInner.querySelector(`form#${formId}`);
+                            if (form) {
+                                const btn = form.querySelector(
+                                    'button[data-action="submit"]'
+                                );
+                                if (!btn) return;
 
- //==>>>
- const categoryIdField = form.querySelector(
- `select#categoryIdFieldEdit`
- );
- if (prodoctsCategories && categoryIdField) {
- const categoryId = item.products_category_id;
- categoryIdField.innerHTML = selectOptions({
- data: prodoctsCategories.sort((a, b) =>
- a.name.localeCompare(b.name)
- ),
- selectedList: [categoryId],
- });
- }
+                                //==>>>
+                                const categoryIdField = form.querySelector(
+                                    `select#categoryIdFieldEdit`
+                                );
+                                if (prodoctsCategories && categoryIdField) {
+                                    const categoryId = item.products_category_id;
+                                    categoryIdField.innerHTML = selectOptions({
+                                        data: prodoctsCategories.sort((a, b) =>
+                                            a.name.localeCompare(b.name)
+                                        ),
+                                        selectedList: [categoryId],
+                                    });
+                                }
 
-    //==>>>
-    new InputPreviewFiles({
-        section: form,
-        selectedImgPath: `${baseUrl}assets/images/upload/products/${imgName}`,
-    });
+                                //==>>>
+                                new InputPreviewFiles({
+                                    section: form,
+                                    selectedImgPath: `${baseUrl}assets/images/upload/products/${imgName}`,
+                                });
 
- //===>>> SEND FORM
- const submitCallBack = (arg) => {
- const {
- data,
- showFormError,
- emptyKeys,
- successFormSubmit,
- } = arg;
- if (emptyKeys?.length > 0) {
- showFormError(
- "Désolé, veuillez renseigner les champs obligatoires."
- );
- } else {
- const formData = new FormData();
- formData.append("userId", userId);
- if (data?.file?.name) {
- formData.append("image", data.file);
- }
- formData.append(
- "dataItem",
- JSON.stringify({
- products_category_id: data.categoryId,
- name: data.productName,
- buying_price: data.buyingPrice,
- selling_price: data.sellingingPrice,
- qty_in_cardboard: data.qtyInCardboard,
- qty_stock_alert: data.qytStockAlert,
- })
- );
- AppFetch(
- `${baseUrl}_api/products/update/${subsidiaryProductId}`,
- {
- method: "POST",
- body: formData,
- }
- ).then((responseUpdateProduct) => {
- if (responseUpdateProduct?.status === "success") {
- successFormSubmit({ refresh: true });
- } else {
- showFormError(
- responseUpdateProduct?.message ??
- `Désolé, La modifiaction a échouée!`
- );
- }
- });
- }
- };
- FormControlSubmit({ form, btn, submitCallBack });
- }
- modalContent.appendChild(modalInner);
- return modalContent;
- };
+                                //===>>> SEND FORM
+                                const submitCallBack = (arg) => {
+                                    const {
+                                        data,
+                                        showFormError,
+                                        emptyKeys,
+                                        successFormSubmit,
+                                    } = arg;
+                                    if (emptyKeys?.length > 0) {
+                                        showFormError(
+                                            "Désolé, veuillez renseigner les champs obligatoires."
+                                        );
+                                    } else {
+                                        const formData = new FormData();
+                                        formData.append("userId", userId);
+                                        if (data?.file?.name) {
+                                            formData.append("image", data.file);
+                                        }
+                                        formData.append(
+                                            "dataItem",
+                                            JSON.stringify({
+                                                products_category_id: data.categoryId,
+                                                name: data.productName,
+                                                buying_price: data.buyingPrice,
+                                                selling_price: data.sellingingPrice,
+                                                qty_in_cardboard: data.qtyInCardboard,
+                                                qty_stock_alert: data.qytStockAlert,
+                                            })
+                                        );
+                                        AppFetch(
+                                            `${baseUrl}_api/products/update/${subsidiaryProductId}`,
+                                            {
+                                                method: "POST",
+                                                body: formData,
+                                            }
+                                        ).then((responseUpdateProduct) => {
+                                            if (responseUpdateProduct?.status === "success") {
+                                                successFormSubmit({ refresh: true });
+                                            } else {
+                                                showFormError(
+                                                    responseUpdateProduct?.message ??
+                                                    `Désolé, La modifiaction a échouée!`
+                                                );
+                                            }
+                                        });
+                                    }
+                                };
+                                FormControlSubmit({ form, btn, submitCallBack });
+                            }
+                            modalContent.appendChild(modalInner);
+                            return modalContent;
+                        };
 
- editProduct.addEventListener("click", (e) => {
- e.preventDefault();
- const modal = new MODAL({
- id: "modalNewProduct",
- className: "wdg-modal--default",
- modalContent: modalContent(),
- width: "500px",
- });
- });
- }
+                        editProduct.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            const modal = new MODAL({
+                                id: "modalNewProduct",
+                                className: "wdg-modal--default",
+                                modalContent: modalContent(),
+                                width: "500px",
+                            });
+                        });
+                    }
 
- //===> Barcode control
- const barcodeControlBtn = dropdown.querySelector(
- 'button[data-action="barcode-control"]'
- );
- if (barcodeControlBtn) {
- let modal;
- const modalContent = () => {
- const modalContent = document.createDocumentFragment();
- const className = "modal-barcode-control";
- const printBarcodeformId = "print-barcode-form";
- const originalBarcodeformId = "original-barcode-form";
- const modalInner = document.createElement("div");
- modalInner.classList = className;
- modalInner.innerHTML = `
+                    //===> Barcode control
+                    const barcodeControlBtn = dropdown.querySelector(
+                        'button[data-action="barcode-control"]'
+                    );
+                    if (barcodeControlBtn) {
+                        let modal;
+                        const modalContent = () => {
+                            const modalContent = document.createDocumentFragment();
+                            const className = "modal-barcode-control";
+                            const printBarcodeformId = "print-barcode-form";
+                            const originalBarcodeformId = "original-barcode-form";
+                            const modalInner = document.createElement("div");
+                            modalInner.classList = className;
+                            modalInner.innerHTML = `
  <div class="ui-modal__head">
  <h2 class="ui-modal__title">Contrôle code bar</h2>
- <div class="ui-modal__subtitle"><strong>Produit: </strong> ${
- item.name
- }</div>
+ <div class="ui-modal__subtitle"><strong>Produit: </strong> ${item.name
+                                }</div>
  </div>
  <div class="ui-modal__body">
  <div class="cpn-tas" data-tabs="barcode-control">
@@ -482,14 +474,13 @@ if (subsidiaryProducts) {
  </form>
  </div>
  <div class="cpn-tas__body-item" data-tabs-box-name="2">
- ${
- originalBarcode?.length > 0
- ? `
+ ${originalBarcode?.length > 0
+                                    ? `
  <div class="barcode-original">
  <svg id="svg-barcode-original"></svg>
  </div>
  `
- : `
+                                    : `
  <form class="cpn-form" id="${originalBarcodeformId}">
  <div class="cpn-form__row">
  <label for="barcodeFiledEdit" class="cpn-form__label">Scanner le code bar <span class="cpn-form__label-required">*</span></label>
@@ -500,7 +491,7 @@ if (subsidiaryProducts) {
  </div>
  </form>
  `
- }
+                                }
  
  </div>
  <div class="cpn-tas__body-item" data-tabs-box-name="3">
@@ -508,19 +499,17 @@ if (subsidiaryProducts) {
  <div class="barcode-config-box__row">
  <h5 class="barcode-config-box__title">Code bar à utilisé à la caisse:</h5>
  <div class="cpn-form__row">
- <input type="radio" class="cpn-field" id="customBarcodeSelectField" ${
- config?.barcodeForSale === "custom"
- ? "checked"
- : ""
- } name="activeBarCode" value="custom"/>
+ <input type="radio" class="cpn-field" id="customBarcodeSelectField" ${config?.barcodeForSale === "custom"
+                                    ? "checked"
+                                    : ""
+                                } name="activeBarCode" value="custom"/>
  <label class="cpn-form__label" for="customBarcodeSelectField">Personnalisé:</label>
  </div>
  <div class="cpn-form__row">
- <input type="radio" class="cpn-field" id="originalBarcodeSelectField" ${
- config?.barcodeForSale === "original"
- ? "checked"
- : ""
- } name="activeBarCode" value="original"/>
+ <input type="radio" class="cpn-field" id="originalBarcodeSelectField" ${config?.barcodeForSale === "original"
+                                    ? "checked"
+                                    : ""
+                                } name="activeBarCode" value="original"/>
  <label class="cpn-form__label" for="originalBarcodeSelectField">Original:</label>
  </div>
  </div>
@@ -531,235 +520,235 @@ if (subsidiaryProducts) {
  
  </div>
  `;
- //==>> ControlTabs
- ControlTabs({ selector: modalInner });
+                            //==>> ControlTabs
+                            ControlTabs({ selector: modalInner });
 
- //==>> PrintBarcodeform
- const printBarcodeform = modalInner.querySelector(
- `form#${printBarcodeformId}`
- );
- if (printBarcodeform) {
- const form = printBarcodeform;
- const btn = form.querySelector(
- 'button[data-action="submit"]'
- );
- if (!btn) return;
+                            //==>> PrintBarcodeform
+                            const printBarcodeform = modalInner.querySelector(
+                                `form#${printBarcodeformId}`
+                            );
+                            if (printBarcodeform) {
+                                const form = printBarcodeform;
+                                const btn = form.querySelector(
+                                    'button[data-action="submit"]'
+                                );
+                                if (!btn) return;
 
- const submitCallBack = async (arg) => {
- const {
- data,
- showFormError,
- emptyKeys,
- successFormSubmit,
- } = arg;
- if (emptyKeys?.length > 0) {
- showFormError(
- "Désolé, veuillez renseigner les champs obligatoires."
- );
- } else {
- const formData = new FormData();
- formData.append("userId", userId);
- formData.append("subsidiaryId", subsidiaryId);
- formData.append("type", data.typeBarcode);
- formData.append("qty", data.printQty);
- const getBarcodeResponse = await AppFetch(
- `${baseUrl}_api/products/getBarcode/${productId}`,
- {
- method: "POST",
- body: formData,
- }
- );
+                                const submitCallBack = async (arg) => {
+                                    const {
+                                        data,
+                                        showFormError,
+                                        emptyKeys,
+                                        successFormSubmit,
+                                    } = arg;
+                                    if (emptyKeys?.length > 0) {
+                                        showFormError(
+                                            "Désolé, veuillez renseigner les champs obligatoires."
+                                        );
+                                    } else {
+                                        const formData = new FormData();
+                                        formData.append("userId", userId);
+                                        formData.append("subsidiaryId", subsidiaryId);
+                                        formData.append("type", data.typeBarcode);
+                                        formData.append("qty", data.printQty);
+                                        const getBarcodeResponse = await AppFetch(
+                                            `${baseUrl}_api/products/getBarcode/${productId}`,
+                                            {
+                                                method: "POST",
+                                                body: formData,
+                                            }
+                                        );
 
- if (getBarcodeResponse?.status === "success") {
- const BARCODE = getBarcodeResponse.data.barcode;
- const styles = `
+                                        if (getBarcodeResponse?.status === "success") {
+                                            const BARCODE = getBarcodeResponse.data.barcode;
+                                            const styles = `
  .print-list-barcode{width:100%;margin:auto;}
  `;
- let list = "";
- for (
- let index = 0;
- index < data.printQty;
- index++
- ) {
- list += '<svg data-id="barcode"></svg>';
- }
- const body = `<div class="print-list-barcode" id="print-list-barcode">${list}</div>`;
- modal.close();
- WindowPrinter({
- styles,
- body,
- width: "100%",
- isInvoice: false,
- callBack: (ifrDoc) => {
- const barcodeBlocks = ifrDoc.querySelectorAll(
- '[data-id="barcode"]'
- );
- if (barcodeBlocks) {
- barcodeBlocks.forEach((barcodeBlock) => {
- JsBarcode(barcodeBlock, BARCODE, {
- format: "CODE128",
- width: 5,
- });
- });
- }
- },
- });
- } else {
- showFormError(
- getBarcodeResponse?.message ??
- `Désolé, La modifiaction a échouée!`
- );
- }
- }
- };
- FormControlSubmit({ form, btn, submitCallBack });
- }
+                                            let list = "";
+                                            for (
+                                                let index = 0;
+                                                index < data.printQty;
+                                                index++
+                                            ) {
+                                                list += '<svg data-id="barcode"></svg>';
+                                            }
+                                            const body = `<div class="print-list-barcode" id="print-list-barcode">${list}</div>`;
+                                            modal.close();
+                                            WindowPrinter({
+                                                styles,
+                                                body,
+                                                width: "100%",
+                                                isInvoice: false,
+                                                callBack: (ifrDoc) => {
+                                                    const barcodeBlocks = ifrDoc.querySelectorAll(
+                                                        '[data-id="barcode"]'
+                                                    );
+                                                    if (barcodeBlocks) {
+                                                        barcodeBlocks.forEach((barcodeBlock) => {
+                                                            JsBarcode(barcodeBlock, BARCODE, {
+                                                                format: "CODE128",
+                                                                width: 5,
+                                                            });
+                                                        });
+                                                    }
+                                                },
+                                            });
+                                        } else {
+                                            showFormError(
+                                                getBarcodeResponse?.message ??
+                                                `Désolé, La modifiaction a échouée!`
+                                            );
+                                        }
+                                    }
+                                };
+                                FormControlSubmit({ form, btn, submitCallBack });
+                            }
 
- //==>> AddNewOriginalBarcodeform
- const originalBarcodeform = modalInner.querySelector(
- `form#${originalBarcodeformId}`
- );
- if (originalBarcodeform) {
- const form = originalBarcodeform;
- const btn = form.querySelector(
- 'button[data-action="submit"]'
- );
- if (!btn) return;
+                            //==>> AddNewOriginalBarcodeform
+                            const originalBarcodeform = modalInner.querySelector(
+                                `form#${originalBarcodeformId}`
+                            );
+                            if (originalBarcodeform) {
+                                const form = originalBarcodeform;
+                                const btn = form.querySelector(
+                                    'button[data-action="submit"]'
+                                );
+                                if (!btn) return;
 
- const submitCallBack = async (arg) => {
- const {
- data,
- showFormError,
- emptyKeys,
- successFormSubmit,
- } = arg;
- if (emptyKeys?.length > 0) {
- showFormError(
- "Désolé, veuillez renseigner les champs obligatoires."
- );
- } else {
- const formData = new FormData();
- formData.append("userId", userId);
- formData.append(
- "cause",
- "Enregistrement du code bar original"
- );
- formData.append("doBy", "users");
- formData.append(
- "dataItem",
- JSON.stringify({
- original_barcode: data.barcode,
- })
- );
- AppFetch(
- `${baseUrl}api/products/update/${subsidiaryProductId}`,
- {
- method: "POST",
- body: formData,
- }
- ).then((responseUpdateProduct) => {
- if (responseUpdateProduct?.status === "success") {
- console.log(
- "responseUpdateProduct",
- responseUpdateProduct
- );
- successFormSubmit({ refresh: true });
- } else {
- showFormError(
- responseUpdateProduct?.message ??
- `Désolé, La modifiaction a échouée!`
- );
- }
- });
- }
- };
- FormControlSubmit({ form, btn, submitCallBack });
- } else {
- const barCodeOriginalSvg = modalInner.querySelector(
- "svg#svg-barcode-original"
- );
- if (barCodeOriginalSvg && originalBarcode?.length > 0) {
- JsBarcode(barCodeOriginalSvg, originalBarcode);
- }
- }
+                                const submitCallBack = async (arg) => {
+                                    const {
+                                        data,
+                                        showFormError,
+                                        emptyKeys,
+                                        successFormSubmit,
+                                    } = arg;
+                                    if (emptyKeys?.length > 0) {
+                                        showFormError(
+                                            "Désolé, veuillez renseigner les champs obligatoires."
+                                        );
+                                    } else {
+                                        const formData = new FormData();
+                                        formData.append("userId", userId);
+                                        formData.append(
+                                            "cause",
+                                            "Enregistrement du code bar original"
+                                        );
+                                        formData.append("doBy", "users");
+                                        formData.append(
+                                            "dataItem",
+                                            JSON.stringify({
+                                                original_barcode: data.barcode,
+                                            })
+                                        );
+                                        AppFetch(
+                                            `${baseUrl}api/products/update/${subsidiaryProductId}`,
+                                            {
+                                                method: "POST",
+                                                body: formData,
+                                            }
+                                        ).then((responseUpdateProduct) => {
+                                            if (responseUpdateProduct?.status === "success") {
+                                                console.log(
+                                                    "responseUpdateProduct",
+                                                    responseUpdateProduct
+                                                );
+                                                successFormSubmit({ refresh: true });
+                                            } else {
+                                                showFormError(
+                                                    responseUpdateProduct?.message ??
+                                                    `Désolé, La modifiaction a échouée!`
+                                                );
+                                            }
+                                        });
+                                    }
+                                };
+                                FormControlSubmit({ form, btn, submitCallBack });
+                            } else {
+                                const barCodeOriginalSvg = modalInner.querySelector(
+                                    "svg#svg-barcode-original"
+                                );
+                                if (barCodeOriginalSvg && originalBarcode?.length > 0) {
+                                    JsBarcode(barCodeOriginalSvg, originalBarcode);
+                                }
+                            }
 
- //==>>
- const allCheckboxFieldBarcode = modalInner.querySelectorAll(
- 'input[type="radio"][name="activeBarCode"]'
- );
- if (allCheckboxFieldBarcode && config?.barcodeForSale) {
- allCheckboxFieldBarcode.forEach((field) => {
- field.addEventListener("change", (e) => {
- e.preventDefault();
- const value = field.value;
- config.barcodeForSale = value;
+                            //==>>
+                            const allCheckboxFieldBarcode = modalInner.querySelectorAll(
+                                'input[type="radio"][name="activeBarCode"]'
+                            );
+                            if (allCheckboxFieldBarcode && config?.barcodeForSale) {
+                                allCheckboxFieldBarcode.forEach((field) => {
+                                    field.addEventListener("change", (e) => {
+                                        e.preventDefault();
+                                        const value = field.value;
+                                        config.barcodeForSale = value;
 
- const formData = new FormData();
- formData.append("userId", userId);
- formData.append(
- "cause",
- "Changement de type de code bar"
- );
- formData.append("doBy", "users");
- formData.append(
- "dataItem",
- JSON.stringify({
- config: JSON.stringify(config),
- })
- );
- AppFetch(
- `${baseUrl}api/products/update/${subsidiaryProductId}`,
- {
- method: "POST",
- body: formData,
- }
- ).then((responseUpdateTypeBarcode) => {
- if (
- responseUpdateTypeBarcode?.status === "success"
- ) {
- AlertMessage({
- message: "Success!!!",
- type: "success",
- });
- console.log("change success");
- //successFormSubmit({refresh:true})
- } else {
- showFormError(
- responseUpdateTypeBarcode?.message ??
- `Désolé, La modifiaction a échouée!`
- );
- }
- });
+                                        const formData = new FormData();
+                                        formData.append("userId", userId);
+                                        formData.append(
+                                            "cause",
+                                            "Changement de type de code bar"
+                                        );
+                                        formData.append("doBy", "users");
+                                        formData.append(
+                                            "dataItem",
+                                            JSON.stringify({
+                                                config: JSON.stringify(config),
+                                            })
+                                        );
+                                        AppFetch(
+                                            `${baseUrl}api/products/update/${subsidiaryProductId}`,
+                                            {
+                                                method: "POST",
+                                                body: formData,
+                                            }
+                                        ).then((responseUpdateTypeBarcode) => {
+                                            if (
+                                                responseUpdateTypeBarcode?.status === "success"
+                                            ) {
+                                                AlertMessage({
+                                                    message: "Success!!!",
+                                                    type: "success",
+                                                });
+                                                console.log("change success");
+                                                //successFormSubmit({refresh:true})
+                                            } else {
+                                                showFormError(
+                                                    responseUpdateTypeBarcode?.message ??
+                                                    `Désolé, La modifiaction a échouée!`
+                                                );
+                                            }
+                                        });
 
- // console.log('change')
- });
- });
- }
- modalContent.appendChild(modalInner);
- return modalContent;
- };
+                                        // console.log('change')
+                                    });
+                                });
+                            }
+                            modalContent.appendChild(modalInner);
+                            return modalContent;
+                        };
 
- barcodeControlBtn.addEventListener("click", (e) => {
- e.preventDefault();
- modal = new MODAL({
- id: "modalBarCodeControl",
- className: "wdg-modal--default",
- modalContent: modalContent(),
- width: "500px",
- });
- });
- }
+                        barcodeControlBtn.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            modal = new MODAL({
+                                id: "modalBarCodeControl",
+                                className: "wdg-modal--default",
+                                modalContent: modalContent(),
+                                width: "500px",
+                            });
+                        });
+                    }
 
- //===> Change Qty Stock
- const btnChangeStockBtn = dropdown.querySelector('button[data-action="change-stock"]')
- if (btnChangeStockBtn) {
- const modalContent = () => {
- const modalContent = document.createDocumentFragment()
- const className = "modal-change-qty-stock-prod"
- const formId = "change-qty-stock-product-form"
- const modalInner = document.createElement("div")
- modalInner.classList = className
- modalInner.innerHTML = `
+                    //===> Change Qty Stock
+                    const btnChangeStockBtn = dropdown.querySelector('button[data-action="change-stock"]')
+                    if (btnChangeStockBtn) {
+                        const modalContent = () => {
+                            const modalContent = document.createDocumentFragment()
+                            const className = "modal-change-qty-stock-prod"
+                            const formId = "change-qty-stock-product-form"
+                            const modalInner = document.createElement("div")
+                            modalInner.classList = className
+                            modalInner.innerHTML = `
  <div class="ui-modal__head">
  <h2 class="ui-modal__title">Modification du stock du produit:</h2>
  <div class="ui-modal__subtitle"><strong>Produit: </strong> ${item.name}</div>
@@ -792,150 +781,149 @@ if (subsidiaryProducts) {
  </div>
  `;
 
- const form = modalInner.querySelector(`form#${formId}`);
- if (form) {
- const btn = form.querySelector(
- 'button[data-action="submit"]'
- );
- if (!btn) return;
+                            const form = modalInner.querySelector(`form#${formId}`);
+                            if (form) {
+                                const btn = form.querySelector(
+                                    'button[data-action="submit"]'
+                                );
+                                if (!btn) return;
 
- //===>>> SEND FORM
- const submitCallBack = (arg) => {
- const {
- data,
- showFormError,
- emptyKeys,
- successFormSubmit,
- } = arg;
- if (emptyKeys?.length > 0) {
- showFormError(
- "Désolé, veuillez renseigner les champs obligatoires."
- );
- } else {
- const isAdd = data.action === "add" ? true : false;
- const qty = Number(data.qty);
- const newStock = isAdd ? stock + qty : stock - qty;
- if (newStock >= 0) {
- const formData = new FormData();
- formData.append("userId", userId);
- formData.append(
- "system_logs_category_id",
- `${isAdd ? "3" : "4"}`
- );
- formData.append(
- "cause",
- `<div>${
- isAdd ? "Ajout" : "Dimunition"
- } de ${qty}</div> ${data.observation}`
- );
- formData.append(
- "dataItem",
- JSON.stringify({
- stock: newStock,
- })
- );
- AppFetch(
- `${baseUrl}_api/products/update/${subsidiaryProductId}`,
- {
- method: "POST",
- body: formData,
- }
- ).then((responseUpdateProduct) => {
- if (responseUpdateProduct?.status === "success") {
- successFormSubmit({ refresh: true });
- } else {
- showFormError(
- responseUpdateProduct?.message ??
- `Désolé, La modifiaction a échouée!`
- );
- }
- });
- } else {
- showFormError(
- `Désolé, le stock actuellement disponible est inférieur à votre demande!`
- );
- }
- }
- };
- FormControlSubmit({ form, btn, submitCallBack });
- }
+                                //===>>> SEND FORM
+                                const submitCallBack = (arg) => {
+                                    const {
+                                        data,
+                                        showFormError,
+                                        emptyKeys,
+                                        successFormSubmit,
+                                    } = arg;
+                                    if (emptyKeys?.length > 0) {
+                                        showFormError(
+                                            "Désolé, veuillez renseigner les champs obligatoires."
+                                        );
+                                    } else {
+                                        const isAdd = data.action === "add" ? true : false;
+                                        const qty = Number(data.qty);
+                                        const newStock = isAdd ? stock + qty : stock - qty;
+                                        if (newStock >= 0) {
+                                            const formData = new FormData();
+                                            formData.append("userId", userId);
+                                            formData.append(
+                                                "system_logs_category_id",
+                                                `${isAdd ? "3" : "4"}`
+                                            );
+                                            formData.append(
+                                                "cause",
+                                                `<div>${isAdd ? "Ajout" : "Dimunition"
+                                                } de ${qty}</div> ${data.observation}`
+                                            );
+                                            formData.append(
+                                                "dataItem",
+                                                JSON.stringify({
+                                                    stock: newStock,
+                                                })
+                                            );
+                                            AppFetch(
+                                                `${baseUrl}_api/products/update/${subsidiaryProductId}`,
+                                                {
+                                                    method: "POST",
+                                                    body: formData,
+                                                }
+                                            ).then((responseUpdateProduct) => {
+                                                if (responseUpdateProduct?.status === "success") {
+                                                    successFormSubmit({ refresh: true });
+                                                } else {
+                                                    showFormError(
+                                                        responseUpdateProduct?.message ??
+                                                        `Désolé, La modifiaction a échouée!`
+                                                    );
+                                                }
+                                            });
+                                        } else {
+                                            showFormError(
+                                                `Désolé, le stock actuellement disponible est inférieur à votre demande!`
+                                            );
+                                        }
+                                    }
+                                };
+                                FormControlSubmit({ form, btn, submitCallBack });
+                            }
 
- modalContent.appendChild(modalInner);
- return modalContent;
- };
+                            modalContent.appendChild(modalInner);
+                            return modalContent;
+                        };
 
- btnChangeStockBtn.addEventListener("click", (e) => {
- e.preventDefault();
- const modal = new MODAL({
- id: "modalNewProduct",
- className: "wdg-modal--default",
- modalContent: modalContent(),
- width: "400px",
- });
- });
- }
- },
- });
+                        btnChangeStockBtn.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            const modal = new MODAL({
+                                id: "modalNewProduct",
+                                className: "wdg-modal--default",
+                                modalContent: modalContent(),
+                                width: "400px",
+                            });
+                        });
+                    }
+                },
+            });
 
- //==> OPEN MENU
- menuBtn.addEventListener("click", (e) => {
- e.preventDefault();
- dropdown.create(e);
- });
- }
+            //==> OPEN MENU
+            menuBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                dropdown.create(e);
+            });
+        }
 
- TR.setAttribute("data-id", productId);
- schema.appendChild(TR);
+        TR.setAttribute("data-id", productId);
+        schema.appendChild(TR);
 
- return schema;
- };
+        return schema;
+    };
 
- new PAGINATION({
- targetId: _VAR.pgStockMainId,
- className: "pg--product-list",
- data: subsidiaryProducts.sort((a, b) => a.name.localeCompare(b.name)),
- thead,
- bodyListSchema: schema,
- limit: 20,
- navTopSelector: null,
- filters: [
- {
- selector: "status",
- label: "Statut",
- data: [
- {
- value: -1,
- label: "Tout",
- color: "#363740",
- selected: true,
- },
- {
- value: 1,
- label: "Désactivés",
- color: "#f0a61c",
- selected: false,
- },
+    new PAGINATION({
+        targetId: _VAR.pgStockMainId,
+        className: "pg--product-list",
+        data: subsidiaryProducts.sort((a, b) => a.name.localeCompare(b.name)),
+        thead,
+        bodyListSchema: schema,
+        limit: 20,
+        navTopSelector: null,
+        filters: [
+            {
+                selector: "status",
+                label: "Statut",
+                data: [
+                    {
+                        value: -1,
+                        label: "Tout",
+                        color: "#363740",
+                        selected: true,
+                    },
+                    {
+                        value: 1,
+                        label: "Désactivés",
+                        color: "#f0a61c",
+                        selected: false,
+                    },
 
- {
- value: 2,
- label: "activés",
- color: "#00aa4d",
- selected: false,
- },
- {
- value: 0,
- label: "Bloqués",
- color: "#ff0000",
- selected: false,
- },
- ],
- },
- ],
- actionsBtns: [
- {
- label: "Version Pdf",
- actionName: "download",
- svg: `
+                    {
+                        value: 2,
+                        label: "activés",
+                        color: "#00aa4d",
+                        selected: false,
+                    },
+                    {
+                        value: 0,
+                        label: "Bloqués",
+                        color: "#ff0000",
+                        selected: false,
+                    },
+                ],
+            },
+        ],
+        actionsBtns: [
+            {
+                label: "Version Pdf",
+                actionName: "download",
+                svg: `
  <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
  viewBox="0 0 58 58" style="enable-background:new 0 0 58 58;" xml:space="preserve">
  <g>
@@ -974,16 +962,16 @@ if (subsidiaryProducts) {
  </g>
  </svg>
  `,
- className: "custum-className",
- callBack: (currentData) => {
- console.log("currentData", currentData)
- const modalContent = () => {
- const modalContent = document.createDocumentFragment();
- const className = "modal-generate-product";
- const formId = "generate-product-form";
- const modalInner = document.createElement("div");
- modalInner.classList = className;
- modalInner.innerHTML = `
+                className: "custum-className",
+                callBack: (currentData) => {
+                    console.log("currentData", currentData)
+                    const modalContent = () => {
+                        const modalContent = document.createDocumentFragment();
+                        const className = "modal-generate-product";
+                        const formId = "generate-product-form";
+                        const modalInner = document.createElement("div");
+                        modalInner.classList = className;
+                        modalInner.innerHTML = `
  <div class="ui-modal__head">
  <h2 class="ui-modal__title">Configurer la liste des produits</h2>
  </div>
@@ -1014,59 +1002,59 @@ if (subsidiaryProducts) {
  </form>
  
  `
- const form = modalInner.querySelector(`form#${formId}`);
- if (form) {
- const btn = form.querySelector('button[data-action="submit"]');
- if (!btn) return
+                        const form = modalInner.querySelector(`form#${formId}`);
+                        if (form) {
+                            const btn = form.querySelector('button[data-action="submit"]');
+                            if (!btn) return
 
- //===>>> SEND FORM
- const submitCallBack = (arg) => {
+                            //===>>> SEND FORM
+                            const submitCallBack = (arg) => {
 
- const { data, showFormError, emptyKeys, successFormSubmit } = arg
- console.log(data)
- if (Object.keys(data).length < 1 ) {
- showFormError(
- "Désolé, veuillez cocher au moin un champ."
- )
- } else {
- const formData = new FormData()
- formData.append("name", "products")
- formData.append("data", JSON.stringify({
- config:data,
- currentData:currentData
- }));
- AppFetch(`${baseUrl}_api/products/liveContentSession`, {
- method: "POST",
- body: formData,
- }).then((response) => {
- if (response?.status==='success') {
- modal.close()
- window.open(
- `${baseUrl}managers/stocks/pdf_products`,
- "_blank"
- );
- } else {
- console.log("response", response);
- }
- })
- }
- }
- FormControlSubmit({ form, btn, submitCallBack })
+                                const { data, showFormError, emptyKeys, successFormSubmit } = arg
+                                console.log(data)
+                                if (Object.keys(data).length < 1) {
+                                    showFormError(
+                                        "Désolé, veuillez cocher au moin un champ."
+                                    )
+                                } else {
+                                    const formData = new FormData()
+                                    formData.append("name", "products")
+                                    formData.append("data", JSON.stringify({
+                                        config: data,
+                                        currentData: currentData
+                                    }));
+                                    AppFetch(`${baseUrl}_api/products/liveContentSession`, {
+                                        method: "POST",
+                                        body: formData,
+                                    }).then((response) => {
+                                        if (response?.status === 'success') {
+                                            modal.close()
+                                            window.open(
+                                                `${baseUrl}managers/stocks/pdf_products`,
+                                                "_blank"
+                                            );
+                                        } else {
+                                            console.log("response", response);
+                                        }
+                                    })
+                                }
+                            }
+                            FormControlSubmit({ form, btn, submitCallBack })
 
- }
+                        }
 
- modalContent.appendChild(modalInner)
- return modalContent
- }
+                        modalContent.appendChild(modalInner)
+                        return modalContent
+                    }
 
- const modal = new MODAL({
- id: "modalGenerateProduct",
- className: "wdg-modal--default",
- modalContent: modalContent(),
- width: "500px",
- });
- },
- },
- ],
- });
- } 
+                    const modal = new MODAL({
+                        id: "modalGenerateProduct",
+                        className: "wdg-modal--default",
+                        modalContent: modalContent(),
+                        width: "500px",
+                    });
+                },
+            },
+        ],
+    });
+} 

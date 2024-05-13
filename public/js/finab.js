@@ -202,7 +202,7 @@ function createTableFragment() {
                             <button class="ui-dropdown__list-item-btn" data-action="barcode-control">
                                 <i class="icon-delete"></i>
                                 
-                                <a href="#" class="" title="Supprimer">
+                                <a href="#" class="btn-delete" title="Supprimer">
                                     Supprimer
                                 </a>
                             </button>

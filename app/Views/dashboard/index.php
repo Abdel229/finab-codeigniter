@@ -73,5 +73,6 @@ if (!$session->get('user_id')) {
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
     <script src="<?=base_url('js/articles.js')?>" type="module"></script>
     <script src="<?=base_url('js/admin.js')?>"></script>
+
 </body>
 </html>

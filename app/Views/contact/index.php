@@ -47,29 +47,32 @@ if (!$session->get('user_id')) {
                         <a href="<?=base_url('/contacts')?>" class="cpn-pg-menu__item-link "> <span>Téléphone</span></a>
                     </li>
                     <li class="cpn-pg-menu__item">
-                        <a href="#" class="cpn-pg-menu__item-link ">
+                        <a href="<?=base_url('/contacts/email')?>" class="cpn-pg-menu__item-link ">
                             <span>Email</span> 
                         </a>
                     </li>
                     <li class="cpn-pg-menu__item">
-                        <a href="#" class="cpn-pg-menu__item-link ">
+                        <a href="<?=base_url('/contacts/adresse')?>" class="cpn-pg-menu__item-link ">
                             <span>Adresse</span> 
                         </a>
                     </li>
                     <li class="cpn-pg-menu__item">
-                        <a href="#" class="cpn-pg-menu__item-link ">
+                        <a href="" class="cpn-pg-menu__item-link ">
                             <span>Réseaux Sociaux</span> 
                         </a>
                     </li>
                 </ul>
                 <div class="dashboard__main__box">
-                    <table class="fnb-table">
-                        <tbody>
-                            <tr>
-                                Bientôt disponible
-                            </tr>
-                        </tbody>
-                    </table>
+                <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?= base_url('contacts/phone_number') ?>">
+                        <div class="fnb-form__item">
+                            <label for="title">Numéro de téléphone</label>
+                            <input type="tel" id="title" name="phoneNumber" value="<?= $contact? $contact['phone_number']:''?>" required>
+                        </div>
+                        <div class="fnb-form__item fnb-form__item-action">
+                        <button type="submit" class="submit-button">Ajouter</button>
+
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

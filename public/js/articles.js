@@ -5,6 +5,24 @@ import PAGINATION from "./ui/pagination.js";
 
 
 const baseUrl = window.location.origin;
+function actions(button){
+    const yesButton = document.querySelector('#confirmYes');
+    console.log(yesButton);
+    if(yesButton) {
+        yesButton.addEventListener('click', function() {
+            window.location.href = button.getAttribute('href');
+            modal.close();
+        });
+    }
+    
+    const noButton = document.querySelector('#confirmNo');
+    console.log(noButton);
+    if(noButton){
+        noButton.addEventListener('click', function() {
+            modal.close();
+        });
+    }
+    }
 function createTableFragment() {
     fetch(`${baseUrl}/admin/fetcharticles`) 
     .then(response => {
@@ -60,7 +78,7 @@ function createTableFragment() {
                             <button class="ui-dropdown__list-item-btn" data-action="barcode-control">
                                 <i class="icon-delete"></i>
                                 
-                                <a href="${baseUrl}/articles/delete/${id}" class="" title="Supprimer">
+                                <a href="${baseUrl}/articles/delete/${id}" class="btn-delete" title="Supprimer">
                                     Supprimer
                                 </a>
                             </button>
@@ -71,9 +89,37 @@ function createTableFragment() {
                     autoCreate: false,
                     content: FinabMenuContent,
                     idName: "product-menu--click",
-                    callBack: (dropdown) => {
+                    callBack: (element) => {
                         //===> Edit Product
-                        
+                        const btnDelete = element.querySelector('.btn-delete')
+                        const modalContent = () => {
+                            const modalContent = document.createDocumentFragment()
+                            const modalBody = document.createElement('div')
+                            modalBody.className = 'wdg-modal_body wdg-modal_body--full'
+                            modalBody.innerHTML = `<div style="padding:5px;">
+                        <p style="text-align:center;">Voulez vous vraiment supprimer?</p>
+                        <div>
+                        </div style="display:flex;gap:10px; justify-content:center;">
+                            <button id="confirmYes">Oui</button>
+                            <button id="confirmNo">Non</button>
+                        </div>`
+                            modalContent.appendChild(modalBody)
+                            return modalContent
+                        }
+                        let modal
+                            btnDelete.addEventListener('click', function (event) {
+                                event.preventDefault();
+                                modal = new MODAL({
+                                    id: '',
+                                    className: 'wdg-modal--default',
+                                    modalContent: modalContent(),
+                                    width: '500px',
+                                    callBack: (context) => {
+                                        console.log(context)
+                                    }
+                                })
+                                actions(element)
+                            });
                     },
                 });
     

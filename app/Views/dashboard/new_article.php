@@ -77,7 +77,7 @@
                             <button type="submit" class="submit-button">Créer l'article</button>
                         </div>
                     </form>
-                </div>
+                </div>  
             <!-- Le reste du contenu reste inchangé -->
         </div>
     </div>

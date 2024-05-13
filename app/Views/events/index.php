@@ -71,7 +71,8 @@ if (!$session->get('user_id')) {
         </div>
         <!-- Le reste du contenu reste inchangé -->
     </div>
-    <script src="<?= base_url('js/admin.js') ?>"></script>
+    <?= view('partials/doc_admin_footer'); ?>
+    
 </body>
 
 </html>

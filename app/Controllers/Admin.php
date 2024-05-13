@@ -41,19 +41,12 @@ class Admin extends BaseController
     }
     public function fetchGalleriesAndCategories()
     {
-        $categoryModel = new GalleriesCategoryModel();
-        $categories = $categoryModel->findAll();
-
+        $categoryModel = new GalleriesInformationModel();
+        $categories = $categoryModel->where('status_id',2)->findAll();
         $data = [];
         foreach ($categories as $category) {
-            $imagesModel = new GalleriesModel();
-            $images = $imagesModel->where('category_id', $category['id'])->first();
-            if(!$images){
-                continue;
-            }
             $data[] = [
-                'categories' => $category,
-                'images' => $images
+                'categories' => $category
             ];
         }
         return $this->response->setJSON(['galleries' => $data]);

@@ -64,5 +64,6 @@
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
     <script src="<?=base_url('js/admin.js')?>"></script>
     <script src="<?=base_url('js/articles_categories.js')?>" type="module"></script>
+    <script type="module" src="<?=base_url('js/rak.js')?>"></script>
 </body>
 </html>

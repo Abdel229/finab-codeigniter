@@ -74,6 +74,7 @@ if (!$session->get('user_id')) {
     <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
     <script src="<?=base_url('js/admin.js')?>"></script>
+    <script type="module" src="<?=base_url('js/rak.js')?>"></script>
     <script src="<?=base_url('js/galleries_categories.js')?>" type="module"></script>
 </body>
 

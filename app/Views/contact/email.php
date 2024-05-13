@@ -12,7 +12,6 @@ if (!$session->get('user_id')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord</title>
-    <link rel="stylesheet" href="<?=base_url('styles/css/icons-1.css')?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/icons.css') ?>">
     <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
 </head>
@@ -37,40 +36,49 @@ if (!$session->get('user_id')) {
                     </ul>
                 </div>
             </nav>
-
             <div class="dashboard__main">
-            <?= view('sections/error') ?>
                 <div class="dashboard__main__title">
-                    <i class="icon icon-gallery"></i>
-                    <p>Galleries</p>
+                    <i class="icon-receipt"></i>
+                    <p>Contacts</p>
                 </div>
                 <ul class="cpn-pg-menu">
                     
                     <li class="cpn-pg-menu__item">
-                        <a href="<?=base_url('/admin/galeries')?>" class="cpn-pg-menu__item-link "> <span>Liste des galeries</span></a>
+                        <a href="<?=base_url('/contacts')?>" class="cpn-pg-menu__item-link "> <span>Téléphone</span></a>
                     </li>
                     <li class="cpn-pg-menu__item">
-                        <a href="<?=base_url('/create_gallery_categories')?>" class="cpn-pg-menu__item-link ">
-                            <span>Catégories</span> 
+                        <a href="<?=base_url('/contacts/email')?>" class="cpn-pg-menu__item-link ">
+                            <span>Email</span> 
+                        </a>
+                    </li>
+                    <li class="cpn-pg-menu__item">
+                        <a href="<?=base_url('/contacts/adresse')?>" class="cpn-pg-menu__item-link ">
+                            <span>Adresse</span> 
+                        </a>
+                    </li>
+                    <li class="cpn-pg-menu__item">
+                        <a href="#" class="cpn-pg-menu__item-link ">
+                            <span>Réseaux Sociaux</span> 
                         </a>
                     </li>
                 </ul>
-                <div class="dashboard__main__action">
-                    <a href="<?= base_url('galleries/store') ?>" class="btn-action">
-                        <i class="icon icon-plus"></i>
-                        <span>Ajouter</span>
-                    </a>
-                </div>
                 <div class="dashboard__main__box">
-                    <div id="article__list"></div>
+                <form class="fnb-form" method="post" enctype="multipart/form-data" action="<?= base_url('contacts/email') ?>">
+                        <div class="fnb-form__item">
+                            <label for="title">Email</label>
+                            <input type="email" id="title" name="email" value="<?= isset($contact)? $contact['email']:''?>" required>
+                        </div>
+                        <div class="fnb-form__item fnb-form__item-action">
+                        <button type="submit" class="submit-button">Ajouter</button>
+
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
         <!-- Le reste du contenu reste inchangé -->
     </div>
-    <?= view('partials/doc_admin_footer'); ?>
-    
-    
+    <script src="<?= base_url('js/admin.js') ?>"></script>
 </body>
 
 </html>

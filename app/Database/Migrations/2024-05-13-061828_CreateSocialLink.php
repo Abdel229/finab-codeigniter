@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateContactTable extends Migration
+class CreateSocialLink extends Migration
 {
     public function up()
     {
@@ -19,31 +19,20 @@ class CreateContactTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ),
-            'object' => array(
-                'type' => 'VARCHAR',
+            'link' => array(
+                'type' => 'LONGTEXT',
                 'constraint' => 255,
-            ),
-            'email' => array(
-                'type'=>"LONGTEXT",
-                'null'=>false
-            ),
-            'message' => array(
-                'type'=>"LONGTEXT",
-                'null'=>false
             ),
             'status_id' => array(
                 'type' => 'INT',
-                'unsigned' => TRUE,
-                'null' => TRUE,
-            ),
-            'read_statut'=>array(
-                'type' => 'INT',
-                'null'=>false
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => true,
             )
         ));
         $this->forge->addKey('id', TRUE);
-        $this->forge->createTable('contacts');
-        $this->forge->addForeignKey('contacts', 'status_id', 'status', 'id');
+        $this->forge->addForeignKey('status_id', 'status', 'id'); 
+        $this->forge->createTable('social_link');
     }
 
     public function down()

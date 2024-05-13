@@ -17,30 +17,30 @@ class GalleriesController extends BaseController
         $categoryModel = new GalleriesCategoryModel();
         $galleryInformationModel = new GalleriesInformationModel();
         $imagesModel = new GalleriesModel();
-    
+
         // Récupère toutes les catégories avec status_id = 2, triées par ordre décroissant de création
         $categories = $categoryModel->where('status_id', 2)->orderBy('created_at', 'DESC')->findAll();
-    
+
         // Récupère toutes les informations de galerie avec status_id = 2
         $galleriesInformation = $galleryInformationModel->where('status_id', 2)->findAll();
-    
+
         // Récupère toutes les images avec status_id = 2
         $images = $imagesModel->where('status_id', 2)->findAll();
-    
+
         // Crée un tableau pour stocker les données
         $data = [];
-    
+
         // Parcoure chaque catégorie
         foreach ($categories as $category) {
             // Trouve les informations de galerie correspondantes
-            $galleriesInformationForCategory = array_filter($galleriesInformation, function($gallerieInformation) use ($category) {
+            $galleriesInformationForCategory = array_filter($galleriesInformation, function ($gallerieInformation) use ($category) {
                 return $gallerieInformation['category_id'] == $category['id'];
             });
-            if(empty($galleriesInformationForCategory)){
+            if (empty($galleriesInformationForCategory)) {
                 continue;
             }
             // Trouve les images correspondantes
-            $imagesForCategory = array_filter($images, function($image) use ($category) {
+            $imagesForCategory = array_filter($images, function ($image) use ($category) {
                 return $image['category_id'] == $category['id'];
             });
             // Ajoute les données à la structure souhaitée
@@ -50,51 +50,50 @@ class GalleriesController extends BaseController
                 'images' => $imagesForCategory
             ];
         }
-        $allCategorie=$categoryModel->where('status_id', 2)->orderBy('created_at', 'DESC')->findAll();
+        $allCategorie = $categoryModel->where('status_id', 2)->orderBy('created_at', 'DESC')->findAll();
         // Retourne la vue avec les données
-        return view('galleries', ['data' => $data,'allCategories' => $allCategorie]);
+        return view('galleries', ['data' => $data, 'allCategories' => $allCategorie]);
     }
-   public function perCategorie($id){
-    $categoryModel = new GalleriesCategoryModel();
-    $galleryInformationModel = new GalleriesInformationModel();
-    $imagesModel = new GalleriesModel();
+    public function perCategorie($id)
+    {
+        $categoryModel = new GalleriesCategoryModel();
+        $galleryInformationModel = new GalleriesInformationModel();
+        $imagesModel = new GalleriesModel();
 
-    // Récupère toutes les catégories avec status_id = 2, triées par ordre décroissant de création
-    $categories = $categoryModel->where('status_id', 2)->where('id',$id)->first();
+        $categories = $categoryModel->where('status_id', 2)->where('id', $id)->findAll();
 
-    // Récupère toutes les informations de galerie avec status_id = 2
-    $galleriesInformation = $galleryInformationModel->where('status_id', 2)->findAll();
+        $galleriesInformation = $galleryInformationModel->where('status_id', 2)->findAll();
 
-    // Récupère toutes les images avec status_id = 2
-    $images = $imagesModel->where('status_id', 2)->findAll();
+        $images = $imagesModel->where('status_id', 2)->findAll();
 
-    // Crée un tableau pour stocker les données
-    $data = [];
+        $data = [];
 
-    // Parcoure chaque catégorie
-    foreach ($categories as $category) {
-        // Trouve les informations de galerie correspondantes
-        $galleriesInformationForCategory = array_filter($galleriesInformation, function($gallerieInformation) use ($category) {
-            return $gallerieInformation['category_id'] == $category['id'];
-        });
-        if(empty($galleriesInformationForCategory)){
-            continue;
+        foreach ($categories as $category) {
+            // Trouve les informations de galerie correspondantes
+            $galleriesInformationForCategory = array_filter($galleriesInformation, function ($gallerieInformation) use ($category) {
+                return $gallerieInformation['category_id'] == $category['id'];
+            });
+            if (empty($galleriesInformationForCategory)) {
+                continue;
+            }
+            // Trouve les images correspondantes
+            $imagesForCategory = array_filter($images, function ($image) use ($category) {
+                return $image['category_id'] == $category['id'];
+            });
+            if (empty($imagesForCategory)) {
+                continue;
+            }
+            // Ajoute les données à la structure souhaitée
+            $data[] = [
+                'category' => $category,
+                'galleries' => $galleriesInformationForCategory,
+                'images' => $imagesForCategory
+            ];
         }
-        // Trouve les images correspondantes
-        $imagesForCategory = array_filter($images, function($image) use ($category) {
-            return $image['category_id'] == $category['id'];
-        });
-        // Ajoute les données à la structure souhaitée
-        $data[] = [
-            'category' => $category,
-            'galleries' => $galleriesInformationForCategory,
-            'images' => $imagesForCategory
-        ];
+        $allCategorie = $categoryModel->where('status_id', 2)->orderBy('created_at', 'DESC')->findAll();
+        // Retourne la vue avec les données
+        return view('galleries', ['data' => $data, 'allCategories' => $allCategorie,'activeCategory' => $categories[0]]);
     }
-    $allCategorie=$categoryModel->where('status_id', 2)->orderBy('created_at', 'DESC')->findAll();
-    // Retourne la vue avec les données
-    return view('galleries', ['data' => $data,'allCategories' => $allCategorie]);
-   }
     public function store()
     {
         $method = $this->request->getMethod();

@@ -109,6 +109,6 @@ class ArticlesCategoryController extends BaseController
 
         // Redirection avec un message de succès si la suppression réussit
         session()->setFlashdata('success',['Catégorie supprimée avec succès']);
-        return redirect()->to('/admin/categories')->withInput();
+        return redirect()->back()->withInput();
     }
 }

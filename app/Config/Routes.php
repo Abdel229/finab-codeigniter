@@ -60,7 +60,7 @@ $routes->group('/galleries',function(RouteCollection $routes) {
     $routes->match(['get','post'],'store', 'GalleriesController::store');
     $routes->match(['GET','POST'],'update/(:num)', 'GalleriesController::updateGallery/$1');
     $routes->get('show/(:num)', 'GalleriesController::show/$1');
-    $routes->get('per-categorie/(:num)', 'GalleriesController::perCategorie/$1');
+    $routes->get('per-category/(:num)', 'GalleriesController::perCategorie/$1');
     $routes->get('delete/(:num)', 'GalleriesController::deleteGallery/$1');
     $routes->get('delete_image/(:num)', 'GalleriesController::delete/$1');
 });
@@ -127,6 +127,9 @@ $routes->get('/events', 'EventController::index');
 
 $routes->group('contacts',function (RouteCollection $routes){
     $routes->get('/', 'ContactsController::index');
+    $routes->post('phone_number', 'ContactsController::setPhoneNumber');
+    $routes->match(['GET','POST'],'email', 'ContactsController::setEmail');
+    $routes->match(['GET','POST'],'adresse', 'ContactsController::setAdresse');
 });
 $routes->group('messages',function (RouteCollection $routes){
     $routes->get('/', 'MessagesController::index');

@@ -1308,3 +1308,9 @@ a.banner__programme-btn {
     grid-template-columns: repeat(2, 1fr); /* Change pour 2 colonnes sur les petits écrans */
   }
 }
+.gallerie-categorie{
+  font-size: 2rem;
+    line-height: 3.2rem;
+    text-align: center;
+    font-family: "Shojumaru-regular", sans-serif;
+}

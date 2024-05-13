@@ -76,7 +76,10 @@ for (let i = 0; i < alerts.length; i++) {
  */
 document.addEventListener('DOMContentLoaded', () => {
     const imgContainer = document.querySelector('#img-upload-container');
-    const existingImages = JSON.parse(imgContainer.getAttribute('data-galleries'));
+    let existingImages
+    if(imgContainer){
+         existingImages = JSON.parse(imgContainer.getAttribute('data-galleries'));
+    }
     const addBtn = document.querySelector('#addMore');
     const inputImg = document.querySelector('.galery-img-input');
     const loader = document.querySelector('#loader');
@@ -105,10 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
             imgContainer.appendChild(img);
         }
     }
+    if(addBtn){
+        addBtn.addEventListener('click', (e) => {
+            inputImg.click();
+        });
+    }
 
-    addBtn.addEventListener('click', (e) => {
-        inputImg.click();
-    });
 
     inputImg.addEventListener('change', (e) => {
         if (inputImg.files.length > 0) {
@@ -207,45 +212,45 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * Gestion de gallerie
  */
-$(document).ready(function(){
-    const container = document.querySelector('.gallerie__list');
-    console.log(container)
-    const principalesImg = document.querySelectorAll('.principal_gallery_img');
-    let fancyName;
-    let imagesData
-    principalesImg.forEach((principale, index) => {
-        principale.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log(principale.getAttribute('data-galleries'))
-            imagesData = JSON.parse(principale.getAttribute('data-galleries'));
-            fancyName = principale.getAttribute('data-fancybox');
-            console.log('====================================');
-            console.log(typeof(imagesData));
-            console.log('====================================');
-            displayImgs(imagesData, fancyName);
-        });
-    });
+// $(document).ready(function(){
+//     const container = document.querySelector('.gallerie__list');
+//     console.log(container)
+//     const principalesImg = document.querySelectorAll('.principal_gallery_img');
+//     let fancyName;
+//     let imagesData
+//     principalesImg.forEach((principale, index) => {
+//         principale.addEventListener('click', (e) => {
+//             e.preventDefault();
+//             console.log(principale.getAttribute('data-galleries'))
+//             imagesData = JSON.parse(principale.getAttribute('data-galleries'));
+//             fancyName = principale.getAttribute('data-fancybox');
+//             console.log('====================================');
+//             console.log(typeof(imagesData));
+//             console.log('====================================');
+//             displayImgs(imagesData, fancyName);
+//         });
+//     });
 
-    function displayImgs(galleriesData, fancyName) {
-        for (const key in galleriesData) {
-            if (galleriesData.hasOwnProperty(key)) { // Vérifie que la propriété appartient à l'objet et non à sa chaîne prototype
-                const gallery = galleriesData[key];
-                const link = document.createElement('a');
-                link.href = gallery.image;
-                link.classList.add('distinction__item');
-                link.setAttribute('data-fancybox', fancyName);
-                link.style.display ='none';
-                const img = document.createElement('img');
-                img.src = gallery.image;
-                img.alt = 'distinction_img';
-                link.appendChild(img);
-                container.appendChild(link);
-            }
-        }
-    }
-    $(`[data-fancybox=${fancyName}]`).fancybox({});
+//     function displayImgs(galleriesData, fancyName) {
+//         for (const key in galleriesData) {
+//             if (galleriesData.hasOwnProperty(key)) { // Vérifie que la propriété appartient à l'objet et non à sa chaîne prototype
+//                 const gallery = galleriesData[key];
+//                 const link = document.createElement('a');
+//                 link.href = gallery.image;
+//                 link.classList.add('distinction__item');
+//                 link.setAttribute('data-fancybox', fancyName);
+//                 link.style.display ='none';
+//                 const img = document.createElement('img');
+//                 img.src = gallery.image;
+//                 img.alt = 'distinction_img';
+//                 link.appendChild(img);
+//                 container.appendChild(link);
+//             }
+//         }
+//     }
+//     $(`[data-fancybox=${fancyName}]`).fancybox({});
 
-});
+// });
 
 
 /**
@@ -253,9 +258,19 @@ $(document).ready(function(){
  */
 document.addEventListener('DOMContentLoaded', function() {
     let select = document.querySelector('#programmeSearch');
-    select.addEventListener('click', function(event) {
-        if (event.target.tagName.toLowerCase() === 'option' || event.target.tagName.startsWith('OPTION')) {
-            window.location.href = event.target.getAttribute('data-href');
+    select.addEventListener('change', function(event) {
+        // Vérifie si l'événement provient d'un changement d'option
+        if (event.target.tagName.toLowerCase() === 'select') {
+            // Obtient l'option sélectionnée
+            let selectedOption = event.target.options[event.target.selectedIndex];
+            // Vérifie si l'option a un attribut 'data-href'
+            if (selectedOption.hasAttribute('data-href')) {
+                window.location.href = selectedOption.getAttribute('data-href');
+            }
         }
     });
 });
+
+/**
+ * Article link
+ */
