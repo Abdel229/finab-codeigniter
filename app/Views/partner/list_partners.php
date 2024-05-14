@@ -64,6 +64,7 @@ if (!$session->get('user_id')) {
                     </a>
                 </div>
                 <div class="dashboard__main__box">
+                    
                     <div id="article__list"></div>
                 </div>
             </div>

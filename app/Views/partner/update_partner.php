@@ -40,11 +40,11 @@
                     <form class="fnb-form idform" method="post" enctype="multipart/form-data" action="<?=base_url('partner/update/'.$partenaire['id'])?>">
                         <div class="fnb-form__item">
                             <label for="name">Nom</label>
-                            <input type="text" id="name" value="<?=$partenaire['titre']?>" name="titre" required>
+                            <input type="text" id="name" value="<?=$partenaire['title']?>" name="titre" required>
                         </div>
                         <div class="fnb-form__item">
                             <label for="lien">Lien (optionnel)</label>
-                            <input type="link" id="lien" value="<?=$partenaire['lien']?>" name="lien" required>
+                            <input type="link" id="lien" value="<?=$partenaire['link']?>" name="lien" required>
                         </div>
                         <div class="fnb-form__item">
                             <label for="image">Image</label>

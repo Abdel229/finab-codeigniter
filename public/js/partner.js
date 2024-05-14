@@ -39,9 +39,9 @@ function createTableFragment() {
     
         const schema = (item) => {
             const id = item.id;
-            const title = item.titre;
+            const title = item.title;
             const img = item.img;
-            const lien = item.lien;
+            const lien = item.link;
             const status = item.status_id ;
     
             const schema = document.createDocumentFragment();
@@ -111,12 +111,12 @@ function createTableFragment() {
                             const modalBody = document.createElement('div')
                             modalBody.className = 'wdg-modal_body wdg-modal_body--full'
                             modalBody.innerHTML = `<div style="padding:5px;">
-                        <p style="text-align:center;">Voulez vous vraiment supprimer?</p>
-                        <div>
-                        </div style="display:flex;gap:10px; justify-content:center;">
-                            <button id="confirmYes">Oui</button>
-                            <button id="confirmNo">Non</button>
-                        </div>`
+                            <p style="text-align:center;">Voulez vous vraiment ${status == 2 ? `<span class="confirm__disabled">Désactiver</span>`:`<span class="confirm__disabled">Activer</span>`} ?</p>
+                            <div>
+                            </div style="display:flex;gap:10px; justify-content:center;">
+                                <button id="confirmYes">Oui</button>
+                                <button id="confirmNo">Non</button>
+                            </div>`
                             modalContent.appendChild(modalBody)
                             return modalContent
                         }

@@ -39,8 +39,9 @@ if (!$session->get('user_id')) {
             </nav>
             <div class="dashboard__main">
                 <div class="dashboard__main__title">
-                    <i class=" icon-clients"></i>
+                    <i class="icon icon-phone"></i>
                     <p>Partenariat</p>
+                    
                 </div>
                 <ul class="cpn-pg-menu">
                     
@@ -59,19 +60,17 @@ if (!$session->get('user_id')) {
                     </li>
                 </ul>
                 <div class="dashboard__main__box">
-                    <table class="fnb-table">
-                        <tbody>
-                            <tr>
-                                Bientôt disponible
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div id="article__list"></div>
                 </div>
             </div>
         </div>
         <!-- Le reste du contenu reste inchangé -->
     </div>
-    <script src="<?= base_url('js/admin.js') ?>"></script>
+    <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
+    <script src="<?=base_url('js/become_partner.js')?>" type="module"></script>
+    <script src="<?=base_url('js/admin.js')?>"></script>
 </body>
 
 </html>

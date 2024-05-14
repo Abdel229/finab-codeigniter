@@ -12,7 +12,7 @@ class PartenairesModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['titre','img','status_id','lien'];
+    protected $allowedFields    = ['title','img','status_id','link','email','phone','user_name','object','query','accepted_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

@@ -24,6 +24,7 @@
         <li class="header__menu__item"><a href="<?=base_url('contact')?>" class="<?=($_SERVER['REQUEST_URI']=="/contact.php")?'active':'';?>">Contact</a></li>
 
       </ul>
+      <a href="<?=base_url('/partner/become_partner')?>" class="header__action__partner" >Devenir partenaire</a>
       <a href="#" class="header__action" id="subcriptionBtn">Inscrivez-vous</a>
       <a href="#" class="header__btnClose" id="js-btn-menu"><span></span></a>
     </div>

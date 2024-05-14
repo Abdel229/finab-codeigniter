@@ -18,16 +18,16 @@
 /*
 * icon-phone
 */
-.icon-phone {
+/* .icon-phone {
   -webkit-mask-image: url('./../../../assets/images/svg/icon-phone.svg');
-}
+} */
 
 
 /*
 * icon-email
 */
 .icon-email {
-  -webkit-mask-image: url('./../../../assets/images/svg/icon-email.svg');
+  -webkit-mask-image: url('./../../images/svg/icon-email.svg');
 }
 
 
