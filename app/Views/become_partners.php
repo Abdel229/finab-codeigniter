@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div class="row_contact">
+        <div class="row_contact partners">
             <div class="mask_finab1">
                 <div class="mask_finab_content">
                     <img src="<?=base_url('images/svg/Mask group.svg') ?>" alt="" class='Mask_group'>
@@ -35,13 +35,13 @@
                 </div>
             </div>
             <div class="container_main">
-                <div class="container_main_content">
+                <div class="container_main_content_">
                     <?php 
                     
                         echo view('sections/error');
                     ?>
-                    <div class="form_become_partner">
-                        <div class="form_become_partner_content">
+                    <div class="form_become_partner container_main">
+                        <div class="form_become_partner_content container_main_content">
                             <form id="contactForm" method='post' action='<?=base_url('/partner/become_partner')?>' class="partners_form" enctype="multipart/form-data">
                                 <div class="form_control_partner__double">
                                     <div class="form_control_left">

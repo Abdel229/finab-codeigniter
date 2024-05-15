@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\PartenairesModel;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Services\EmailService;
 
 class PartenerController extends BaseController
 {
@@ -181,6 +182,19 @@ class PartenerController extends BaseController
                     'query' => $query
                 ]);
             }
+            $emailService = new EmailService();
+
+            $to = 'bertrandorouganni@gmail.com';
+            $subject = 'Demande de partenariat pour Finab';
+            $body = '<h1>'.$titre.'</h1><span>Vient d\'envoyer leur 
+            demande de partenariat par le biais de <strong>'.$user_name.'</strong>.</span>';
+    
+            if ($emailService->sendMail($to, $subject, $body)) {
+                echo "Email has been sent successfully.";
+            } else {
+                echo "Failed to send email.";
+            }
+    
             session()->setFlashdata('success', ['Votre demande a été envoyée avec succès']);
             return redirect()->to('/partner/become_partner')->withInput();
         }
