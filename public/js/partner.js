@@ -7,7 +7,6 @@ import PAGINATION from "./ui/pagination.js";
 const baseUrl = window.location.origin;
 function actions(button){
     const yesButton = document.querySelector('#confirmYes');
-    console.log(yesButton);
     if(yesButton) {
         yesButton.addEventListener('click', function() {
             window.location.href = button.getAttribute('href');
@@ -114,7 +113,7 @@ function createTableFragment() {
                                         console.log(context)
                                     }
                                 })
-                                actions(element)
+                                actions(btnDelete)
                             });
                     },
                 });

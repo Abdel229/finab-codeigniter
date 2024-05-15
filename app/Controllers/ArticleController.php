@@ -5,14 +5,13 @@ namespace App\Controllers;
 use App\Models\ArticlesCategoryModel;
 use App\Models\ArticlesModel;
 use App\Models\ArticleLinksModel;
-
 class ArticleController extends BaseController
 {
     // Méthode pour afficher une liste d'articles
     public function index()
     {
         $articleCategoryModel = new ArticlesModel();
-        $articles_category = $articleCategoryModel->where('status_id',2)->findAll();
+        $articles_category = $articleCategoryModel->where('status_id',2)->findAll(10);
         return view('formulaire/articles_form', ["articlescategory" => $articles_category]);
     }
 
@@ -20,7 +19,6 @@ class ArticleController extends BaseController
     public function store()
     {
         $method = $this->request->getMethod('true');
-
         if ($method === 'GET') {
             $categoryModel = new ArticlesCategoryModel();
             $category = $categoryModel->where('status_id',2)->findAll();

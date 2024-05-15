@@ -23,7 +23,7 @@ echo view('partials/header');
           <p class="actualite-inner__text">Tout ce que vous devez savoir sur finab</p>
         </div>
 
-        <div class="actualite__content" id="actualite_content" data-news-data="<?= json_encode($actualites) ?>">
+        <div class="actualite__content" id="actualite_content" data-actu="<?= htmlspecialchars(json_encode($actualites), ENT_QUOTES, 'UTF-8') ?>">
           <div class="actualite__content__filter">
             <div class="actualite__content__filter_search">
               <!-- <p class="actualite__content__filter__search__p">Recherche par date</p>-->
@@ -43,20 +43,8 @@ echo view('partials/header');
 -->
           </div>
 
-          <div class="actualite__content__news_paginate">
+          <div class="actualite__content__news_paginate" id="actualite_content" data-actualite="">
             <div class="actualite__content__news" id="news-container">
-              <?php foreach ($actualites as $actualite) : ?>
-                <a href="<?=base_url('single-actualite/'.$actualite['id'])?>" class="single_new">
-                  <div class="single_new_img">
-                    <img src="<?=base_url($actualite['img'])?>" alt="Image de l'article">
-                  </div>
-                  <p class="single_new_text"><?= $actualite['title']?></p>
-                  <div class="single_new_date">
-                    <i class="icon icon-calendar"></i>
-                    <p class="single_new_date_p"><?= $actualite['date_pub']?></p>
-                  </div>
-                </a>
-              <?php endforeach; ?>
             </div>
             <div class="pagination-container" id="pagination-container"></div>
           </div>

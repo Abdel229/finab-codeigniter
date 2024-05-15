@@ -4,6 +4,10 @@ namespace App\Controllers;
 
 use App\Models\ArticleLinksModel;
 use App\Models\ArticlesModel;
+use App\Models\ContactModel;
+use App\Models\SocialLinkModel;
+use App\Models\SponsoringPartenariatModel;
+use Config\Services;
 
 class Home extends BaseController
 {
@@ -22,14 +26,18 @@ class Home extends BaseController
 
     public function partners(): string
     {
-        return view('partners');
+        $partnerSponsModel = new SponsoringPartenariatModel();
+        $partner_spon = $partnerSponsModel->where('id', 1)->first();
+        return view('partners',['data'=>$partner_spon]);
     }
 
     public function actualite(): string
     {
         $actualiteModel=new ArticlesModel();
         $actualite=$actualiteModel->where('status_id',2)->findAll();
-        return view('actualite',['actualites'=>$actualite]);
+        $pager = $actualiteModel->pager;
+
+        return view('actualite',['actualites'=>$actualite,'pager' => $pager]);
     }
 
     public function singleActualite($id){
@@ -59,6 +67,15 @@ class Home extends BaseController
 
     public function contact(): string
     {
-        return view('contact');
+        $contactModel = new ContactModel();
+        $contact = $contactModel->where('status_id', 2)->first();
+
+        $socialLinkModel = new SocialLinkModel();
+        $socialLinks=$socialLinkModel->findAll();
+        if ($contact) {
+            return view('contact', ['contact' => $contact,'socialLinks'=>$socialLinks]);
+        } else {
+            return view('contact');
+        }
     }
 }

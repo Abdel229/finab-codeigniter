@@ -12,7 +12,7 @@ class MessageModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name','object','email','message','statu_id','read_statut'];
+    protected $allowedFields    = ['name','object','email','message','status_id','read_statut'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

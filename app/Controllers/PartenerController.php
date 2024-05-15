@@ -4,13 +4,121 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\PartenairesModel;
+use App\Models\SponsoringPartenariatModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class PartenerController extends BaseController
 {
     public function index()
     {
-        return view('/partner/presentation');
+        $method = $this->request->getMethod();
+        if ($method === 'GET') {
+            $partnerSponsModel = new SponsoringPartenariatModel();
+            $partner_spon = $partnerSponsModel->where('id', 1)->first();
+            return view('/partner/presentation', ['data' => $partner_spon]);
+        } else if ($method === 'POST') {
+            $title = $this->request->getPost('title');
+            $subtitle = $this->request->getPost('subtitle');
+            $miniText = $this->request->getPost('mini_text');
+            $principalImg = $this->request->getFile('principal_img');
+
+            $partnerSponsModel = new SponsoringPartenariatModel();
+            $partner_spon = $partnerSponsModel->where('id', 1)->first();
+            if ($partner_spon) {
+                // mise à jour
+                $data=[
+                    'title'=> $title,
+                    'subtitle'=>$subtitle,
+                   'mini_text'=>$miniText,
+                ];
+                // principal img
+                if ($principalImg->isValid() && !$principalImg->hasMoved()) {
+                    // Déplacer la nouvelle image vers le dossier de destination
+                    $newImageName = $principalImg->getRandomName();
+                    $principalImg->move(ROOTPATH . 'public/uploads', $newImageName);
+    
+                    $data['principal_img'] = 'uploads/' . $newImageName;
+                }
+
+                // update youtube links
+                $links = [];
+                foreach ($_POST as $key => $value) {
+                    // Vérifier si la clé correspond à un lien
+                    if (strpos($key, 'lien') === 0 && !empty($value)) {
+                        // Extraire le numéro de lien de la clé
+                        $linkNumber = substr($key, 4);
+
+                        // Ajouter le lien au tableau des liens
+                        $links[] = $value;
+                    }
+                }
+                $data['videos_links']=json_encode($links);
+
+                 // enregistrement des images additionnels
+                $photos = $this->request->getFiles();
+                 $additionnalImg = [];
+                 foreach ($photos['photos'] as $photo) {
+                     if ($photo->isValid() && !$photo->hasMoved()) {
+                         $newName = $photo->getRandomName();
+                         $photo->move(ROOTPATH . 'public/uploads_galleries', $newName);
+                         $additionnalImg = 'uploads_galleries/' . $newName;
+                     }
+                 }
+                 $data['images']=json_encode($additionnalImg);
+
+                 $partnerSponsModel->update($partner_spon['id'],$data);
+                 $new_partner=$partnerSponsModel->where('id',1)->first();
+                return view('/partner/presentation', ['data' => $new_partner]);
+
+            } else {
+                // Création
+                // enregistrement de l'image principale
+                if ($principalImg->isValid() && !$principalImg->hasMoved()) {
+                    // Déplacer l'image vers le dossier de destination
+                    $newName = $principalImg->getRandomName();
+                    $principalImg->move(ROOTPATH . 'public/uploads', $newName);
+
+                    // Enregistrer le lien de l'image dans la base de données
+                    $imgPath = 'uploads/' . $newName;
+                }
+                // Enregistrer des liens de vidéos
+                $links = [];
+                foreach ($_POST as $key => $value) {
+                    // Vérifier si la clé correspond à un lien
+                    if (strpos($key, 'lien') === 0 && !empty($value)) {
+                        // Extraire le numéro de lien de la clé
+                        $linkNumber = substr($key, 4);
+
+                        // Ajouter le lien au tableau des liens
+                        $links[] = $value;
+                    }
+                }
+
+                $photos = $this->request->getFiles();
+                // enregistrement des images additionnels
+                $additionnalImg = [];
+                foreach ($photos['photos'] as $photo) {
+                    if ($photo->isValid() && !$photo->hasMoved()) {
+                        $newName = $photo->getRandomName();
+                        $photo->move(ROOTPATH . 'public/uploads_galleries', $newName);
+                        $additionnalImg = 'uploads_galleries/' . $newName;
+                    }
+                }
+
+                // enregistrement des données
+                $new_partner=$partnerSponsModel->insert([
+                    'title'=> $title,
+                    'subtitle'=>$subtitle,
+                    'principal_img'=>$imgPath,
+                   'mini_text'=>$miniText,
+                   'images'=>json_encode($additionnalImg),
+                   'video_links'=>json_encode($links)
+                ]);
+                return view('/partner/presentation', ['data' => $new_partner]);
+
+
+            }
+        }
     }
     public function index_demande()
     {
@@ -20,7 +128,7 @@ class PartenerController extends BaseController
     {
         return view('partner/list_partners');
     }
-    
+
     public function fetchParters()
     {
         $partenairesModel = new PartenairesModel();
@@ -78,7 +186,7 @@ class PartenerController extends BaseController
             }
             $titre = $this->request->getPost('titre');
             $lien = $this->request->getPost('lien');
-            $partnerData=[
+            $partnerData = [
                 'titre' => $titre,
                 'lien' => $lien,
             ];
@@ -88,24 +196,25 @@ class PartenerController extends BaseController
                 $newImageFile->move(ROOTPATH . 'public/uploads', $newImageName);
                 $partnerData['img'] = 'uploads/' . $newImageName;
             }
-            $partnerModel=new PartenairesModel();
-            $partnerModel->update($id,$partnerData);
+            $partnerModel = new PartenairesModel();
+            $partnerModel->update($id, $partnerData);
             session()->setFlashdata('success', ['Partenaire mis à jour avec succès!']);
-                return redirect()->to('/partner/list')->withInput();
+            return redirect()->to('/partner/list')->withInput();
         }
     }
-    public function delete($id){
+    public function delete($id)
+    {
         $partnerModel = new PartenairesModel();
         $partner = $partnerModel->find($id);
 
         if (!$partner) {
             session()->setFlashdata('errors', ['Article not found']);
-                return redirect()->back()->withInput();
+            return redirect()->back()->withInput();
         }
 
         $partnerModel->update($id, ['status_id' => 3]);
 
         session()->setFlashdata('success', ['Partenaire supprimé avec succès']);
-                return redirect()->back()->withInput();
+        return redirect()->back()->withInput();
     }
 }

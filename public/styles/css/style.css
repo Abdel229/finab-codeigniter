@@ -1302,6 +1302,7 @@ a.banner__programme-btn {
   border: 1px #000 solid;
     padding: 5px; /* Padding pour améliorer l'apparence */
     box-sizing: border-box;  /* Pour inclure les marges dans le calcul de la largeur */
+    height: 250px;
 }
 @media (max-width: 768px) {
   .gallerie__list {

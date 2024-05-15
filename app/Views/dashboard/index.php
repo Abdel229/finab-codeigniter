@@ -63,7 +63,6 @@ if (!$session->get('user_id')) {
                     <div id="article__list">
                         <span></span>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -44,33 +44,21 @@ if (!$session->get('user_id')) {
                 <ul class="cpn-pg-menu">
                     
                     <li class="cpn-pg-menu__item">
-                        <a href="<?=base_url('/messages')?>" class="cpn-pg-menu__item-link "> <span>Sous menu 1</span></a>
-                    </li>
-                    <li class="cpn-pg-menu__item">
-                        <a href="#" class="cpn-pg-menu__item-link ">
-                            <span>Sous menu 1</span> 
-                        </a>
-                    </li>
-                    <li class="cpn-pg-menu__item">
-                        <a href="#" class="cpn-pg-menu__item-link ">
-                            <span>Sous menu 1</span> 
-                        </a>
+                        <a href="<?=base_url('/messages')?>" class="cpn-pg-menu__item-link "> <span>Tout les messages</span></a>
                     </li>
                 </ul>
                 <div class="dashboard__main__box">
-                    <table class="fnb-table">
-                        <tbody>
-                            <tr>
-                                Bientôt disponible
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div id="message__list">
+                        <span></span>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- Le reste du contenu reste inchangé -->
     </div>
     <script src="<?= base_url('js/admin.js') ?>"></script>
+    <script type="module" src="<?= base_url('js/messages.js') ?>"></script>
+
 </body>
 
 </html>

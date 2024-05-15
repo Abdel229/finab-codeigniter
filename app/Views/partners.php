@@ -10,18 +10,18 @@
           <div class="pg-first-face__blackImg wow animate__animated animate__backInDown">
             <img src="<?= base_url('images/svg/finab_head.svg') ?>"  class="finab-head" alt="finab-head">
           </div>
-          <h1 class="h1 pg-title">Sponsoring et Partenariat</h1>
+          <h1 class="h1 pg-title"><?= $data['title'] ?></h1>
         </div>
       </div>
     </section>
     <section class="partner-section section-default-therm">
       <div class="container">
         <div class="partner-section__inner">
-          <h2 class="h2 partner-section__title">Accompagnez le développement des arts et des cultures Africaines, devenez partenaire</h2>
+          <h2 class="h2 partner-section__title"><?= $data['subtitle'] ?></h2>
 
           <div class="partner-section__presentation">
             <div class="partner-section__presentation-img">
-              <img src="<?= base_url('images/aff-1.png') ?>"/>
+              <img src="<?= base_url($data['principal_img']) ?>"/>
             </div>
             <div class="partner-section__presentation-content">
               <h3 class="h3 partner-section__presentation-content-title">4 Bonnes raisons pour devenir partenaire du FINAB</h3>
@@ -42,8 +42,7 @@
             </div>
           </div>
           <div class="partner-section__presentation-text">
-            <p>Rejoignez-nous dans cette aventure culturelle et contactez-nous dès aujourd'hui pour explorer les différentes options de partenariat.C’est grâce au soutien précieux de nos partenaires que nous sommes en mesure d'offrir une plateforme dynamique pour célébrer la diversité artistique et stimuler le développement culturel.</p>
-            <p>Ensemble, nous pouvons faire une différence significative dans le paysage culturel africain.</p>
+            <p><?= $data['mini_text'] ?></p>
           </div>
         </div>
 

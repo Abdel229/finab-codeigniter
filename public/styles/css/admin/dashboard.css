@@ -975,3 +975,53 @@ modal confirmation
   background-color: #E77000;
 }
 
+.social-block{
+  display: flex;
+  margin-top:10px;
+}
+.social-block label{
+  display: flex;
+  align-items: center;
+  background: #aaaaaa84;
+  gap: 5px;
+  border-radius:6px 0px 0px 6px;
+  padding: 0px 10px;
+  width: 180px;
+}
+.social-block i{
+  display: block;
+}
+.social-block input{
+  border-radius: 0px 6px 6px 0px;
+}
+
+
+/*
+* Toggle btn
+*/
+.toggle-button {
+  background: gray;
+  width: 80px;
+  height: 30px;
+  border-radius: 30px;
+  padding: 5px;
+  cursor: pointer;
+  margin-top:20px;
+  transition: all 300ms ease-in-out;
+}
+
+.toggle-button > .inner-circle {
+  background: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: all 300ms ease-in-out;
+}
+
+.toggle-button.active {
+  background: #04c21d;
+}
+
+.toggle-button.active > .inner-circle {
+  margin-left: 40px;
+}

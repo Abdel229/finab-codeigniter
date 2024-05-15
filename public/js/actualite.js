@@ -1,11 +1,11 @@
 // get news data
 
 let elementForData=document.querySelector('#actualite_content');
+let news
 if(elementForData){
-    const news=JSON.parse(elementForData.dataset.newsData)
-
+    news=JSON.parse(elementForData.getAttribute('data-actu'))
 }
-
+console.log(news);
 
 const actuality = () => {
     const articlesPerPage = 12;
@@ -15,13 +15,14 @@ const actuality = () => {
         const start = (pageNumber - 1) * articlesPerPage;
         const end = start + articlesPerPage;
         const articles = articlesToDisplay.slice(start, end);
+        const host = window.location.origin;
 
         const newsContainer = document.querySelector('#news-container');
         newsContainer.innerHTML = '';
 
         articles.forEach(article => {
             const articleElement = document.createElement('a');
-            articleElement.href = `actuality_detail.php?id=${article.id}`;
+            articleElement.href = `${host}/single-actualite/${article.id}`;
             articleElement.className = 'single_new';
 
             const imgContainer = document.createElement('div');
@@ -31,8 +32,9 @@ const actuality = () => {
             imgContainer.appendChild(img);
             articleElement.appendChild(imgContainer);
 
+            const textContainer = document.createElement('p');
             textContainer.className = 'single_new_text';
-            textContainer.textContent = article.titre
+            textContainer.textContent = article.title
             articleElement.appendChild(textContainer);
 
             const dateContainer = document.createElement('div');
@@ -42,7 +44,7 @@ const actuality = () => {
             dateContainer.appendChild(icon);
             const dateText = document.createElement('p');
             dateText.className = 'single_new_date_p';
-            dateText.textContent = article.date_publication;
+            dateText.textContent = article.date_pub;
             dateContainer.appendChild(dateText);
             articleElement.appendChild(dateContainer);
 
@@ -86,7 +88,7 @@ const actuality = () => {
 
     document.getElementById('search-input').addEventListener('input', (event) => {
         const searchQuery = event.target.value.toLowerCase();
-        const filteredNews = news.filter(article => article.contenu.toLowerCase().includes(searchQuery));
+        const filteredNews = news.filter(article => article.title.toLowerCase().includes(searchQuery));
         handlePagination(1, filteredNews);
     });
     handlePagination(1)
@@ -160,7 +162,7 @@ const actuality_detail = () => {
 document.addEventListener('DOMContentLoaded', function (e) {
     const currentUrl = window.location.href;
     console.log(currentUrl)
-    if (currentUrl.includes('actualite.php')) {
+    if (currentUrl.includes('actualite')) {
         actuality()
     }
     else if (currentUrl.includes('actuality_detail.php')) {

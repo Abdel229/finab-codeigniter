@@ -205,3 +205,17 @@
 .icon-finab {
   -webkit-mask-image: url('./../../images/svg/masque 1.svg');
 }
+
+/*
+* icon-toggle-on
+*/
+.icon-toggle-on {
+  -webkit-mask-image: url('./../../../images/svg/icon-toggle-on.svg');
+}
+
+/*
+* icon-toggle-off
+*/
+.icon-toggle-off {
+  -webkit-mask-image: url('./../../../images/svg/icon-toggle-off.svg');
+}

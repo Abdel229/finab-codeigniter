@@ -20,18 +20,16 @@ class CreateSocialLink extends Migration
                 'constraint' => 255,
             ),
             'link' => array(
-                'type' => 'LONGTEXT',
+                'type' => 'VARCHAR',
                 'constraint' => 255,
             ),
             'status_id' => array(
                 'type' => 'INT',
                 'constraint' => 11,
-                'unsigned' => true,
                 'null' => true,
             )
         ));
         $this->forge->addKey('id', TRUE);
-        $this->forge->addForeignKey('status_id', 'status', 'id'); 
         $this->forge->createTable('social_link');
     }
 

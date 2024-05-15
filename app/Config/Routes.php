@@ -113,7 +113,7 @@ $routes->group('users', function (RouteCollection $routes) {
 
 
 $routes->group('partner',function (RouteCollection $routes){
-    $routes->get('/', 'PartenerController::index');
+    $routes->match(['GET','POST'],'/', 'PartenerController::index');
     $routes->get('demande', 'PartenerController::index_demande');
     $routes->get('fetchParters', 'PartenerController::fetchParters');
     $routes->get('list', 'PartenerController::index_partners');
@@ -130,12 +130,16 @@ $routes->group('contacts',function (RouteCollection $routes){
     $routes->post('phone_number', 'ContactsController::setPhoneNumber');
     $routes->match(['GET','POST'],'email', 'ContactsController::setEmail');
     $routes->match(['GET','POST'],'adresse', 'ContactsController::setAdresse');
+    $routes->match(['GET','POST'],'links', 'ContactsController::setLinks');
 });
 $routes->group('messages',function (RouteCollection $routes){
     $routes->get('/', 'MessagesController::index');
+    $routes->get('get-messages', 'MessagesController::fetchMessages');
     $routes->post('store', 'MessagesController::store');
+    $routes->get('delete/(:num)', 'MessagesController::delete/$1');
+    $routes->get('read/(:num)', 'MessagesController::setRead/$1');
+    $routes->get('unread/(:num)', 'MessagesController::setUnRead/$1');
 });
-$routes->get('/messages', 'MessageController::index');
 
 
 

@@ -75,7 +75,6 @@
                         <div class="form-group">
                             <div id="links-container">
                                 <!-- Les champs d'entrée pour les liens seront ajoutés ici -->
-
                                 <?php
                                     $id=1;
                                 foreach($links as $link): ?>
@@ -94,7 +93,7 @@
             </div>
         </div>
     </div>    
-    <script scriptsrc="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/file_preview.js')?>" type="module"></script>
