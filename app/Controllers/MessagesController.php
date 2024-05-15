@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\ContactModel;
 use App\Models\MessageModel;
+use App\Services\EmailService;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class MessagesController extends BaseController
@@ -35,6 +36,17 @@ class MessagesController extends BaseController
             ];
             $messageModel=new MessageModel();
             $message=$messageModel->insert($data);
+            $emailService = new EmailService();
+
+            $to = 'bertrandorouganni@gmail.com';
+            $subject = 'Demande de partenariat pour Finab';
+            $body = '<h1>Votre message a été reçu avec succès</h1>';
+    
+            if ($emailService->sendMail($to, $subject, $body)) {
+                echo "Email has been sent successfully.";
+            } else {
+                echo "Failed to send email.";
+            }
             session()->setFlashdata('success', ['Message envoyé avec succès!']);
             return redirect()->to('/contact')->withInput();
     }
