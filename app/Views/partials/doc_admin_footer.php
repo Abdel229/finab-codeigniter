@@ -7,5 +7,4 @@
     <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/file_preview.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
-    <script src="<?=base_url('js/galeries.js')?>" type="module"></script>
     <script src="<?=base_url('js/new_article.js')?>" type="module"></script>

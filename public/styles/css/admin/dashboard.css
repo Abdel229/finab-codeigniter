@@ -1033,3 +1033,13 @@ modal confirmation
 .partner_infos a{
   font-size: 0.85rem;
 }
+.home{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+.home__content h1{
+  font-size: 2.125rem;
+  font-weight: bold;
+}

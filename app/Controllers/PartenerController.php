@@ -188,7 +188,7 @@ class PartenerController extends BaseController
     public function fetchBecomePartners()
     {
         $partenairesModel = new PartenairesModel();
-        $partenaires = $partenairesModel->where('status_id',1)->orderBy('id', 'DESC')->findAll();
+        $partenaires = $partenairesModel->where('status_id',1)->orWhere('status_id',5)->orderBy('id', 'DESC')->findAll();
         return $this->response->setJSON($partenaires);
     }
     public function Accepted($id){
@@ -205,17 +205,25 @@ class PartenerController extends BaseController
         // Formater la date et l'heure pour MySQL (optionnel)
         $dateHeureFormatMySQL = $dateHeureActuelle->format('Y-m-d H:i:s');
 
-        $partnerModel->update($id, ['status_id' => 3,'accepted_at'=>$dateHeureFormatMySQL]);
+        $partnerModel->update($id, ['status_id' => 3,'accepted_at'=>$dateHeureFormatMySQL,'updated_at'=>$dateHeureFormatMySQL]);
 
-        session()->setFlashdata('success', ['Partenaire supprimé avec succès']);
+        session()->setFlashdata('success', ['La demande de partenariat a été accepté avec succès']);
                 return redirect()->back()->withInput();
     }
     public function Refused($id){
+        $rules = [
+            'observation' => 'required|max_length[1000]'
+        ];
+        if (!$this->validate($rules)) {
+            session()->setFlashdata('errors', $this->validator->getErrors());
+            return redirect()->back()->withInput();
+        }
+        $observation = $this->request->getPost('observation');
         $partnerModel = new PartenairesModel();
         $partner = $partnerModel->find($id);
 
         if (!$partner) {
-            session()->setFlashdata('errors', ['Article not found']);
+            session()->setFlashdata('errors', ['Partners not found']);
                 return redirect()->back()->withInput();
         }
         // Obtenir la date et l'heure actuelles
@@ -225,9 +233,9 @@ class PartenerController extends BaseController
         $dateHeureFormatMySQL = $dateHeureActuelle->format('Y-m-d H:i:s');
         // dd($dateHeureFormatMySQL);
 
-        $partnerModel->update($id, ['status_id' => 5,'accepted_at'=>$dateHeureFormatMySQL]);
+        $partnerModel->update($id, ['status_id' => 5,'observation' => $observation,'accepted_at'=>$dateHeureFormatMySQL,'updated_at'=>$dateHeureFormatMySQL]);
 
-        session()->setFlashdata('success', ['Partenaire a été activer']);
+        session()->setFlashdata('success', ['La demande de partenariat a été rejeté']);
                 return redirect()->back()->withInput();
     }
 }

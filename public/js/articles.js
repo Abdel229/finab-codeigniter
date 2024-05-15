@@ -58,7 +58,7 @@ function createTableFragment() {
                 <td>${category}</td>
                 <td>${status == 2 ? `
                     <span class="partner__status">Publier</span>`
-                    :`<span class="partner__status warning">Retirer</span>`}
+                    :`<span class="partner__status warning">Non publier</span>`}
                 </td>
                 <td>
                     <div class="fnb-table__actions-btns">
@@ -158,6 +158,33 @@ function createTableFragment() {
             bodyListSchema: schema,
             limit: 5,
             navTopSelector: null,
+            filters: [
+                {
+                    selector: "status_id",
+                    label: "Status",
+                    data: [
+                        
+                        {
+                            value: -1,
+                            label: "Tout",
+                            color: "#363740",
+                            selected: true,
+                        },
+                        {
+                            value: 2,
+                            label: "Publier",
+                            color: "#00aa4d",
+                            selected: false,
+                        },
+                        {
+                            value: 3,
+                            label: "Non publier",
+                            color: "#f0a61c",
+                            selected: false,
+                        },
+                    ],
+                },
+            ],
         });
     })
     .catch(error => {

@@ -36,9 +36,7 @@ $routes->group('/admin', function (RouteCollection $routes) {
     $routes->get('galeries','Admin::galeries');
     $routes->get('categories','ArticlesCategoryController::index');
     $routes->get('categories-gallerie','GalleriesCategoryController::index');
-
-
-
+    $routes->get('home','Admin::home');
 });
 
 /**
@@ -99,6 +97,7 @@ $routes->group('auth', function (RouteCollection $routes) {
  */
 $routes->group('users', function (RouteCollection $routes) {
     $routes->get('/', 'UsersController::index');
+    $routes->get('fetchusers', 'UsersController::fetchusers');
     $routes->match(['GET','POST'],'store', 'UsersController::store');
     $routes->match(['GET','POST'],'update/(:num)', 'UsersController::update/$1');
     $routes->get('delete/(:num)', 'UsersController::delete/$1');
@@ -125,7 +124,7 @@ $routes->group('partner',function (RouteCollection $routes){
     $routes->get('delete/(:num)','PartenerController::delete/$1');
     $routes->get('active/(:num)','PartenerController::Activer/$1');
     $routes->get('accepted/(:num)','PartenerController::Accepted/$1');
-    $routes->get('refused/(:num)','PartenerController::Refused/$1');
+    $routes->post('refused/(:num)','PartenerController::Refused/$1');
 });
 
 

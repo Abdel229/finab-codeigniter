@@ -1,7 +1,6 @@
 <?php
 $session = \Config\Services::session();
-$user_session=$session->get('user_id');
-if (!$user_session) {
+if (!$session->get('user_id')) {
     header("Location:auth/login");
     exit();
 }
@@ -29,7 +28,7 @@ if (!$user_session) {
                     <ul class="dashboard__nav__dropdown" id="dropdownProfil">
                         <li>
                             <a href="<?=base_url('/auth/logout')?>">
-                                <i class="icon icon-user"></i>
+                                <i class="icon icon-logout"></i>
                                 <span>Déconnexion</span>
                             </a>
                         </li>
@@ -37,26 +36,28 @@ if (!$user_session) {
                 </div>
             </nav>
             <div class="dashboard__main">
-            <?= view('sections/error') ?>
+                <?= view('sections/error') ?>
 
                 <div class="dashboard__main__title">
-                    <i class="icon icon-user"></i>
-                    <p>Utilisateurs</p>
-                </div>
-                <div class="dashboard__main__action">
-                    <a href="<?= base_url('users/store')?>" class="btn-action">
-                        <i class="icon icon-plus"></i>
-                        <span>Ajouter</span>
-                    </a>
+                    <i class="icon-home"></i>
+                    <p>Home</p>
                 </div>
                 <div class="dashboard__main__box">
-                    <div id="article__list"></div>
+                    <div class="home">
+                        <div class="home__content">
+                            <h1>BIENVENUE SUR L'ESPACE ADMIN DU FINAB</h1>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-    <?= view('partials/doc_admin_footer'); ?>
-    <script src="<?=base_url('js/users.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
+    <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
+    <script src="<?=base_url('js/articles.js')?>" type="module"></script>
+    <script src="<?=base_url('js/admin.js')?>"></script>
 
 </body>
 </html>

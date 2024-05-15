@@ -4,14 +4,17 @@ namespace App\Controllers;
 
 use App\Models\ArticleLinksModel;
 use App\Models\ArticlesModel;
+use App\Models\PartenairesModel;
 
 class Home extends BaseController
 {
     public function index(): string
     {
         $gallerieController=new GalleriesController();
+        $partnersModel=new PartenairesModel();
         $gallerieData=$gallerieController->category_image();
-            return view('index',['galleries'=>$gallerieData]);
+        $partnersData = $partnersModel->where('status_id',2)->findAll();
+            return view('index',['galleries'=>$gallerieData,'partners'=>$partnersData]);
     }
 
     public function programmation(): string

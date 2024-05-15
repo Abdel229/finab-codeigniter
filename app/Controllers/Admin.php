@@ -14,6 +14,10 @@ class Admin extends BaseController
     {
         return view('dashboard/index');
     }
+    public function home()
+    {
+        return view('dashboard/home');
+    }
     public function fetcharticles()
     {
         $articleModel = new ArticlesModel();

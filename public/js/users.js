@@ -24,37 +24,36 @@ function actions(button){
     }
 }
 function createTableFragment() {
-    fetch(`${baseUrl}/partner/fetchParters`) 
+    fetch(`${baseUrl}/users/fetchusers`) 
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error status: ${response.status}`);
         }
         return response.json();
     })
-    .then(partenaires => {
-       const partnersData = partenaires;
+    .then(users => {
+       const usersData =users;
+       console.log(usersData);
         const thead = [
-            { title: "Images", },{ title: "Noms", },{ title: "Liens", },{ title: "Status", }, { title: "Actions", },
+            { title: "Emails", },{ title: "Rôles", },{ title: "Status", }, { title: "Actions", },
         ];
     
         const schema = (item) => {
             const id = item.id;
-            const title = item.title;
-            const img = item.img;
-            const lien = item.link;
-            const status = item.status_id ;
+            const email = item.email;
+            const role = item.role;
+            const status = item.status_id;
     
             const schema = document.createDocumentFragment();
     
             const TR = document.createElement("tr");
             TR.setAttribute("data-id", id);
             TR.innerHTML = `
-                <td><img src="${baseUrl}/${img}" alt="" style='width: 50px;'></td>
-                <td>${title}</td>
-                <td><a href="${lien}" style="color:blue;">${lien}</a></td>
+                <td>${email}</td>
+                <td>${role}</td>
                 <td>${status == 2 ? `
-                    <span class="partner__status">Actif</span>`
-                    :`<span class="partner__status warning">Non actif</span>`}
+                    <span class="partner__status">Activer</span>`
+                    :`<span class="partner__status warning">Bloquer</span>`}
                 </td>
                 <td>
                     <div class="fnb-table__actions-btns">
@@ -68,21 +67,13 @@ function createTableFragment() {
                 const FinabMenuContent = `
                     <ul class="ui-dropdown__list">
                         <li class="ui-dropdown__list-item">
-                            <button class="ui-dropdown__list-item-btn" >
-                                <i class="icon-edit"></i>
-                                <a href="${baseUrl}/partner/update/${id}" class="" title="Modifier">
-                                    Modifier
-                                </a>
-                            </button>
-                        </li>
-                        <li class="ui-dropdown__list-item">
                             ${status == 2 ? `
                             
                             <button class="ui-dropdown__list-item-btn" data-action="barcode-control">
-                                <i class="icon-disabled"></i>
+                                <i class="icon-cancel"></i>
                                 
-                                <a href="${baseUrl}/partner/delete/${id}" class="btn-delete" title="Désactiver">
-                                    Désactiver
+                                <a href="${baseUrl}/users/block/${id}" class="btn-delete" title="Bloquer">
+                                    Bloquer
                                 </a>
                             </button>
                             `
@@ -91,11 +82,19 @@ function createTableFragment() {
                             <button class="ui-dropdown__list-item-btn" data-action="barcode-control">
                                 <i class="icon-activate"></i>
                                 
-                                <a href="${baseUrl}/partner/active/${id}" class="btn-delete" title="Activer">
-                                    Activer
+                                <a href="${baseUrl}/users/unblock/${id}" class="btn-delete" title="Débloquer">
+                                    Débloquer
                                 </a>
                             </button>
                             `}
+                        </li>
+                        <li class="ui-dropdown__list-item">
+                            <button class="ui-dropdown__list-item-btn" >
+                                <i class="icon-delete"></i>
+                                <a href="${baseUrl}/users/delete/${id}" class="" title="Supprimer">
+                                    Supprimer
+                                </a>
+                            </button>
                         </li>
                     </ul>
                 `;
@@ -111,12 +110,12 @@ function createTableFragment() {
                             const modalBody = document.createElement('div')
                             modalBody.className = 'wdg-modal_body wdg-modal_body--full'
                             modalBody.innerHTML = `<div style="padding:5px;">
-                            <p style="text-align:center;">Voulez vous vraiment ${status == 2 ? `<span class="confirm__disabled">Désactiver</span>`:`<span class="confirm__disabled">Activer</span>`} ?</p>
-                            <div>
-                            </div style="display:flex;gap:10px; justify-content:center;">
-                                <button id="confirmYes">Oui</button>
-                                <button id="confirmNo">Non</button>
-                            </div>`
+                        <p style="text-align:center;">Voulez vous vraiment ${status == 2 ? `<span class="confirm__disabled">Bloquer</span>`:`<span class="confirm__disabled">Débloquer</span>`}?</p>
+                        <div>
+                        </div style="display:flex;gap:10px; justify-content:center;">
+                            <button id="confirmYes">Oui</button>
+                            <button id="confirmNo">Non</button>
+                        </div>`
                             modalContent.appendChild(modalBody)
                             return modalContent
                         }
@@ -149,12 +148,11 @@ function createTableFragment() {
         new PAGINATION({
             targetId: 'article__list',
             className: "pg--product-list",
-            data: partnersData,
+            data: usersData,
             thead,
             bodyListSchema: schema,
-            limit: 10,
+            limit: 5,
             navTopSelector: null,
-            
             filters: [
                 {
                     selector: "status_id",
@@ -174,7 +172,7 @@ function createTableFragment() {
                             selected: false,
                         },
                         {
-                            value: 3,
+                            value: 1,
                             label: "Non actifs",
                             color: "#f0a61c",
                             selected: false,

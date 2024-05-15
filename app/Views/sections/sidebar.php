@@ -5,7 +5,7 @@
     <div class="aside__bottom">
         <ul class="aside__bottom__list ui-dropdown">
             <li class="aside__bottom__item ">
-                <a href="#" class="aside__bottom__item__link">
+            <a href="<?=base_url('/admin/home')?>" class="aside__bottom__item__link <?=(($_SERVER['REQUEST_URI']=="/admin/home" )?"active":"");?>">
                     <i class="icon-home"></i>
                     Accueil
                 </a>

@@ -34,7 +34,7 @@ function createTableFragment() {
     .then(partenaires => {
        const partnersData = partenaires;
         const thead = [
-            { title: "Date de la demande", },{ title: "Partenaires", },{ title: "objet", },{ title: "Description", }, { title: "Actions", },
+            { title: "Date de la demande", },{ title: "Partenaires", },{ title: "objet", },{ title: "Description", },{ title: "Raison du rejet de la demande", },{ title: "Status", }, { title: "Actions", },
         ];
     
         const schema = (item) => {
@@ -46,6 +46,7 @@ function createTableFragment() {
             const phone = item.phone;
             const object = item.object;
             const query = item.query;
+            const observation = item.observation;
             const date_hours = new Date(item.created_at);
             const date = date_hours.toLocaleDateString(); 
             const heure = date_hours.getHours();
@@ -81,6 +82,14 @@ function createTableFragment() {
                 </td>
                 <td style="max-width:400px; font-size:.875rem;">${object}</td>
                 <td style="max-width:400px; font-size:.875rem;">${query}</td>
+                ${status == 5 ?
+                    ` <td style="max-width:400px; font-size:.875rem;">${observation}</td>`
+                    :`<td style="max-width:400px; font-size:.875rem;"></td>`
+                }
+                <td>${status == 1 ? `
+                    <span class="partner__status">En attente</span>`
+                    :`<span class="partner__status warning">Rejeter</span>`}
+                </td>
                 <td>
                     <div class="fnb-table__actions-btns">
                         <button class="menu-fnb-btn" data-dropdown="product-menu-actions" data-action="open-product-menu"><i class="icon-menu-actions-vertical"></i></button>
@@ -96,20 +105,23 @@ function createTableFragment() {
                             <button class="ui-dropdown__list-item-btn" >
                                 <i class="icon-activate"></i>
                                 
-                                <a href="${baseUrl}/partner/accepted/${id}" class="" title="Accpter">
+                                <a href="${baseUrl}/partner/accepted/${id}" class="" title="Accepter">
                                     Accepter
                                 </a>
                             </button>
                         </li>
-                        <li class="ui-dropdown__list-item">
-                            
+                        ${status == 5 ?
+                            ``:
+                            `<li class="ui-dropdown__list-item">
                             <button class="ui-dropdown__list-item-btn" data-action="barcode-control">
                                 <i class="icon-cancel"></i>
-                                <a href="${baseUrl}/partner/refused/${id}" class="btn-delete" title="Rejeter">
+                                <a href="" class="btn-delete" title="Rejeter">
                                     Rejeter
                                 </a>
                             </button>
-                        </li>
+                            </li>`
+                        }
+                        
                     </ul>
                 `;
                 const dropdown = new Dropdown({
@@ -123,30 +135,33 @@ function createTableFragment() {
                             const modalContent = document.createDocumentFragment()
                             const modalBody = document.createElement('div')
                             modalBody.className = 'wdg-modal_body wdg-modal_body--full'
-                            modalBody.innerHTML = `<div style="padding:5px;">
-                            <p style="text-align:center;">Voulez vous vraiment <span class="confirm__disabled">Rejeter </span>la demande ?</p>
-                            <div>
-                            </div style="display:flex;gap:10px; justify-content:center;">
-                                <button id="confirmYes">Oui</button>
-                                <button id="confirmNo">Non</button>
-                            </div>`
+                            modalBody.innerHTML = `<form class="fnb-form " method="post" id="" enctype="multipart/form-data" action="${baseUrl}/partner/refused/${id}">
+                            
+                            <div class="fnb-form__item">
+                                <label for="description">Observation</label>
+                                <textarea id="observation" name="observation" required ></textarea>
+                            </div>
+                            <div class="fnb-form__item fnb-form__item-action">
+                                <button type="submit" class="submit-button">Envoyer</button>
+                            </div>
+                        </form>`
                             modalContent.appendChild(modalBody)
                             return modalContent
                         }
                         let modal
-                            btnDelete.addEventListener('click', function (event) {
-                                event.preventDefault();
-                                modal = new MODAL({
-                                    id: '',
-                                    className: 'wdg-modal--default',
-                                    modalContent: modalContent(),
-                                    width: '500px',
-                                    callBack: (context) => {
-                                        console.log(context)
-                                    }
-                                })
-                                actions(btnDelete)
-                            });
+                        btnDelete.addEventListener('click', function (event) {
+                            event.preventDefault();
+                            modal = new MODAL({
+                                id: '',
+                                className: 'wdg-modal--default',
+                                modalContent: modalContent(),
+                                width: '500px',
+                                callBack: (context) => {
+                                    console.log(context)
+                                }
+                            })
+                            actions(btnDelete)
+                        });
                     },
                 });
     
@@ -171,6 +186,32 @@ function createTableFragment() {
             bodyListSchema: schema,
             limit: 10,
             navTopSelector: null,
+            filters: [
+                {
+                    selector: "status_id",
+                    label: "Status",
+                    data: [
+                        {
+                            value: 1,
+                            label: "En attente",
+                            color: "#00aa4d",
+                            selected: true,
+                        },
+                        {
+                            value: 5,
+                            label: "Rejeter",
+                            color: "#f0a61c",
+                            selected: false,
+                        },
+                        {
+                            value: -1,
+                            label: "Tout",
+                            color: "#363740",
+                            selected: false,
+                        },
+                    ],
+                },
+            ],
         });
     })
     .catch(error => {

@@ -68,11 +68,8 @@ if (!$session->get('user_id')) {
             </div>
         </div>
     </div>
-    <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
-    <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
-    <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
+    <?= view('partials/doc_admin_footer'); ?>
     <script src="<?=base_url('js/articles.js')?>" type="module"></script>
-    <script src="<?=base_url('js/admin.js')?>"></script>
 
 </body>
 </html>
