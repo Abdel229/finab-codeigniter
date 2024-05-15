@@ -45,7 +45,7 @@ if (!$session->get('user_id')) {
                 <ul class="cpn-pg-menu">
                     
                     <li class="cpn-pg-menu__item">
-                        <a href="" class="cpn-pg-menu__item-link "> <span>Liste des Articles</span></a>
+                        <a href="<?=base_url('/admin')?>" class="cpn-pg-menu__item-link "> <span>Liste des Articles</span></a>
                     </li>
                     <li class="cpn-pg-menu__item">
                         <a href="<?=base_url('/create_article_categories')?>" class="cpn-pg-menu__item-link ">
@@ -67,11 +67,8 @@ if (!$session->get('user_id')) {
             </div>
         </div>
     </div>
-    <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
-    <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
-    <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
+    <?= view('partials/doc_admin_footer'); ?>
     <script src="<?=base_url('js/articles.js')?>" type="module"></script>
-    <script src="<?=base_url('js/admin.js')?>"></script>
 
 </body>
 </html>

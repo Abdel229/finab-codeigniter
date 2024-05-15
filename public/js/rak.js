@@ -67,7 +67,7 @@ for (let i = 0; i < alerts.length; i++) {
     setTimeout(function () {
         var element = alerts[i];
         element.classList.add('alert-corner--hide');
-    }, 2500 + i * 250);
+    }, 2500 + i * 25000000);
 }
 
 /**

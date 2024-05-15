@@ -270,6 +270,20 @@ main,.main {
 .header__action:hover {
   background-color: #FF910E;
 }
+.header__action__partner {
+  font-family: "OpenSansCondensed-Bold", sans-serif;
+  display: inline-block;
+  padding: 6px 15px;
+  white-space: nowrap;
+  font-size: 1rem;
+  background-color: #FF910E;
+  color: #fff !important;
+  transition: 0.3s;
+}
+.header__action__partner:hover {
+  background: transparent;
+  border: 1px solid #FF910E;
+}
 
 .header__btnClose {
   display: none;

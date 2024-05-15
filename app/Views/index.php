@@ -205,114 +205,13 @@ if (isset($_SESSION['user_id'])) {
         <div class="partner__content">
           <h2>Nos partenaires</h2>
           <div class="partner__list js-partner">
-            <div class="partner__item">
-              <img src="<?= base_url('images/p1.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p2.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p3.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p4.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p5.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p6.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p7.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p8.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p9.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p10.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p11.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p12.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p13.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p14.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p15.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p16.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p17.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p18.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p19.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p20.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p21.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p22.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p23.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p24.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p25.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p26.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p27.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p28.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p29.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p30.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p31.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p32.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p33.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p34.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p35.svg') ?>" alt="partner">
-            </div>
-            <div class="partner__item">
-              <img src="<?= base_url('images/p36.svg') ?>" alt="partner">
-            </div>
+            <?php foreach ($partners as $partner) : ?>
+              <div class="partner__item">
+                <a href="<?= $partner['link']?>">
+                  <img src="<?= base_url($partner['img']) ?>" alt="partner">
+                </a>
+              </div>
+            <?php endforeach;?>
           </div>
         </div>
       </div>

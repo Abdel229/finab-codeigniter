@@ -191,10 +191,14 @@ input[type="file"].cpn-field + label:hover::before {
   color: #91959a;
   transition: all .5s linear;
 }
-.cpn-pg-menu__item-link.active {
-  color: #5bacb9;
+.cpn-pg-menu__item-link.menu_active span {
+  font-weight: bold;
 }
-.cpn-pg-menu__item-link.active::before {
+.cpn-pg-menu__item-link:hover span {
+  font-weight: bold;
+  color: #ff8800;
+}
+.cpn-pg-menu__item-link.menu_active::before {
   content: "";
   position: absolute;
   display: inline-block;
@@ -204,7 +208,7 @@ input[type="file"].cpn-field + label:hover::before {
   left: 0;
   bottom: -10px;
 }
-.cpn-pg-menu__item-link.active::after {
+.cpn-pg-menu__item-link.menu_active::after {
   content: "";
   position: absolute;
   display: inline-block;
@@ -244,7 +248,7 @@ input[type="file"].cpn-field + label:hover::before {
   background-color: #fff;
 }
 .aside__bottom__item__link:hover{
-  background-color: #ff8800;
+  background-color: #ff880054;
   color:#fff
 }
 .aside__bottom__item__link:hover i{
@@ -332,7 +336,6 @@ input[type="file"].cpn-field + label:hover::before {
   width: max-content;
   gap:5px;
   border-radius:5px 5px 0 0;
-  box-shadow: 0px 7px 4px #0000005e;
 }
 
 .dashboard__main__box{
@@ -1024,4 +1027,69 @@ modal confirmation
 
 .toggle-button.active > .inner-circle {
   margin-left: 40px;
+}
+.partner__status{
+  width: 100px;
+  height: 20px;
+  background-color: #2ce518;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: .875rem;
+}
+.partner__status.warning{
+  background-color: #FF8800;
+}
+
+.confirm__disabled{
+  font-weight: bold;
+}
+.partner__profil{
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  min-width: 200px;
+}
+.partner__log{
+  width: 60px;
+  height: 60px;
+}
+.partner__log img{
+  width: 60px;
+  height: 60px;
+}
+.partner_infos{
+  width: calc(100% - 80px);
+  padding: 5px;
+}
+.partner__name{
+  width: calc(100% - 60px);
+  font-size: 0.83rem;
+  color: #4b4343;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.partner__infos_with_icon{
+  display: flex;
+  align-items: center;
+  width: calc(100% - 60px);
+}
+.value{
+  font-size: 0.7rem;
+  color: #5e5a5a;
+}
+.partner_infos a{
+  font-size: 0.85rem;
+}
+.home{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+.home__content h1{
+  font-size: 2.125rem;
+  font-weight: bold;
 }

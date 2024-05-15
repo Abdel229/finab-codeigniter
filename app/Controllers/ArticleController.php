@@ -287,7 +287,21 @@ class ArticleController extends BaseController
 
         $articleModel->update($id, ['status_id' => 3]);
 
-        session()->setFlashdata('success', ['Article supprimé avec succès']);
+        session()->setFlashdata('success', ['Article Retirer de la publication avec succès']);
+                return redirect()->back()->withInput();
+    }
+    public function publish($id){
+        $articleModel = new ArticlesModel();
+        $article = $articleModel->find($id);
+
+        if (!$article) {
+            session()->setFlashdata('errors', ['Article not found']);
+                return redirect()->back()->withInput();
+        }
+
+        $articleModel->update($id, ['status_id' => 2]);
+
+        session()->setFlashdata('success', ['Article publier avec succès']);
                 return redirect()->back()->withInput();
     }
 }

@@ -36,9 +36,7 @@ $routes->group('/admin', function (RouteCollection $routes) {
     $routes->get('galeries','Admin::galeries');
     $routes->get('categories','ArticlesCategoryController::index');
     $routes->get('categories-gallerie','GalleriesCategoryController::index');
-
-
-
+    $routes->get('home','Admin::home');
 });
 
 /**
@@ -53,6 +51,7 @@ $routes->group('/articles',function(RouteCollection $routes) {
     $routes->get('show/(:num)', 'ArticleController::show/$1');
     $routes->match(['GET','POST'],'update/(:num)', 'ArticleController::update/$1');
     $routes->get('delete/(:num)', 'ArticleController::delete/$1');
+    $routes->get('publish/(:num)', 'ArticleController::publish/$1');
 });
 
 $routes->group('/galleries',function(RouteCollection $routes) {
@@ -98,6 +97,7 @@ $routes->group('auth', function (RouteCollection $routes) {
  */
 $routes->group('users', function (RouteCollection $routes) {
     $routes->get('/', 'UsersController::index');
+    $routes->get('fetchusers', 'UsersController::fetchusers');
     $routes->match(['GET','POST'],'store', 'UsersController::store');
     $routes->match(['GET','POST'],'update/(:num)', 'UsersController::update/$1');
     $routes->get('delete/(:num)', 'UsersController::delete/$1');
@@ -116,10 +116,15 @@ $routes->group('partner',function (RouteCollection $routes){
     $routes->match(['GET','POST'],'/', 'PartenerController::index');
     $routes->get('demande', 'PartenerController::index_demande');
     $routes->get('fetchParters', 'PartenerController::fetchParters');
+    $routes->get('fetchBecomePartners', 'PartenerController::fetchBecomePartners');
     $routes->get('list', 'PartenerController::index_partners');
     $routes->match(['GET','POST'],'store', 'PartenerController::store');
+    $routes->match(['GET','POST'],'become_partner', 'PartenerController::become_partner');
     $routes->match(['GET','POST'],'update/(:num)', 'PartenerController::update/$1');
     $routes->get('delete/(:num)','PartenerController::delete/$1');
+    $routes->get('active/(:num)','PartenerController::Activer/$1');
+    $routes->get('accepted/(:num)','PartenerController::Accepted/$1');
+    $routes->post('refused/(:num)','PartenerController::Refused/$1');
 });
 
 

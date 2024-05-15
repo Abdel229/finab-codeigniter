@@ -19,6 +19,7 @@
   <link rel="stylesheet" href=<?php echo base_url('styles/css/p_style.css')?>>
   <link rel="stylesheet" href=<?php echo base_url('styles/css/r_style.css')?>>
   <link rel="stylesheet" href=<?php echo base_url('styles/css/contact.css')?>>
+  <link rel="stylesheet" href=<?php echo base_url('styles/css/partners.css')?>>
   <title>FESTIVAL INTERNATIONAL DES ARTS DU BENIN (FInAB)</title>
 </head>
 <body>

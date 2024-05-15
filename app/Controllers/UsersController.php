@@ -9,9 +9,12 @@ use CodeIgniter\HTTP\ResponseInterface;
 class UsersController extends BaseController
 {
     public function index(){
+        return view('dashboard/all_users');
+    }
+    public function fetchusers(){
         $userModel=new User();
-        $users=$userModel->where('status_id',2)->orWhere('status_id',1)->findAll();
-        return view('dashboard/all_users',['users'=>$users]);
+        $users=$userModel->where('status_id',2)->orWhere('status_id',1)->orderBy('id', 'DESC')->findAll();
+        return $this->response->setJSON($users);
     }
 
     public function store(){

@@ -8,14 +8,17 @@ use App\Models\ContactModel;
 use App\Models\SocialLinkModel;
 use App\Models\SponsoringPartenariatModel;
 use Config\Services;
+use App\Models\PartenairesModel;
 
 class Home extends BaseController
 {
     public function index(): string
     {
         $gallerieController=new GalleriesController();
+        $partnersModel=new PartenairesModel();
         $gallerieData=$gallerieController->category_image();
-            return view('index',['galleries'=>$gallerieData]);
+        $partnersData = $partnersModel->where('status_id',2)->findAll();
+            return view('index',['galleries'=>$gallerieData,'partners'=>$partnersData]);
     }
 
     public function programmation(): string

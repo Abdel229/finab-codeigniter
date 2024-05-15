@@ -14,10 +14,14 @@ class Admin extends BaseController
     {
         return view('dashboard/index');
     }
+    public function home()
+    {
+        return view('dashboard/home');
+    }
     public function fetcharticles()
     {
         $articleModel = new ArticlesModel();
-        $articles = $articleModel->where('status_id', 2)->findAll();
+        $articles = $articleModel->where('status_id', 2)->orWhere('status_id',3)->orderBy('id','DESC')->findAll();
         $data = [];
         foreach ($articles as $article) {
             $categoriesModel = new ArticlesCategoryModel();

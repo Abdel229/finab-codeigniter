@@ -7,19 +7,17 @@ if (!$session->get('user_id')) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de Bord</title>
+    <title>Tableau de Bord des Articles</title>
     <link rel="stylesheet" href="<?=base_url('styles/css/icons-1.css')?>">
-    <link rel="stylesheet" href="<?= base_url('styles/css/icons.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('styles/css/admin/dashboard.css') ?>">
+    <link rel="stylesheet" href="<?=base_url('styles/css/icons.css')?>">
+    <link rel="stylesheet" href="<?=base_url('styles/css/admin/dashboard.css')?>">
 </head>
-
 <body>
     <div class="dashboard">
-        <?= view('sections/sidebar') ?>
+        <?=view('sections/sidebar')?>
         <div class="dashboard__right">
             <nav class="dashboard__nav">
                 <a href="#"><i class="icon icon-menu"></i></a>
@@ -29,7 +27,7 @@ if (!$session->get('user_id')) {
                     </a>
                     <ul class="dashboard__nav__dropdown" id="dropdownProfil">
                         <li>
-                            <a href="<?= base_url('/auth/logout') ?>">
+                            <a href="<?=base_url('/auth/logout')?>">
                                 <i class="icon icon-logout"></i>
                                 <span>Déconnexion</span>
                             </a>
@@ -38,39 +36,28 @@ if (!$session->get('user_id')) {
                 </div>
             </nav>
             <div class="dashboard__main">
+                <?= view('sections/error') ?>
+
                 <div class="dashboard__main__title">
-                    <i class="icon icon-phone"></i>
-                    <p>Partenariat</p>
-                    
+                    <i class="icon-home"></i>
+                    <p>Home</p>
                 </div>
-                <ul class="cpn-pg-menu">
-                    
-                    <li class="cpn-pg-menu__item">
-                        <a href="<?=base_url('/partner')?>" class="cpn-pg-menu__item-link "> <span>Présentation</span></a>
-                    </li>
-                    <li class="cpn-pg-menu__item">
-                        <a href="<?=base_url('/partner/list')?>" class="cpn-pg-menu__item-link ">
-                            <span>Liste des partenaires</span> 
-                        </a>
-                    </li>
-                    <li class="cpn-pg-menu__item">
-                        <a href="<?=base_url('/partner/demande')?>" class="cpn-pg-menu__item-link ">
-                            <span>Demandes de partenariats</span> 
-                        </a>
-                    </li>
-                </ul>
                 <div class="dashboard__main__box">
-                    <div id="article__list"></div>
+                    <div class="home">
+                        <div class="home__content">
+                            <h1>BIENVENUE SUR L'ESPACE ADMIN DU FINAB</h1>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-        <!-- Le reste du contenu reste inchangé -->
     </div>
     <script src="<?=base_url('js/ui/dropdown.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/modal.js')?>" type="module"></script>
     <script src="<?=base_url('js/ui/pagination.js')?>" type="module"></script>
-    <script src="<?=base_url('js/become_partner.js')?>" type="module"></script>
+    <script src="<?=base_url('js/articles.js')?>" type="module"></script>
     <script src="<?=base_url('js/admin.js')?>"></script>
-</body>
 
+</body>
 </html>

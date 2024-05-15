@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Retirez la classe "active" de tous les liens
     menuLinks.forEach(function(link) {
-        link.classList.remove('active');
+        link.classList.remove('menu_active');
     });
 
     // Parcourez chaque lien et ajoutez un gestionnaire d'événements de clic
@@ -115,9 +115,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const linkURL = link.getAttribute('href');
 
         // Comparez l'URL du lien avec l'URL actuelle
-        if (window.location.href.includes(linkURL)) {
+        if (window.location.href === linkURL) {
             // Si l'URL actuelle contient l'URL du lien, ajoutez la classe active
-            link.classList.add('active');
+            link.classList.add('menu_active');
 
             // Laissez le comportement par défaut s'appliquer uniquement aux liens actifs
         } else {

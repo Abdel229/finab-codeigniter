@@ -22,43 +22,38 @@ function actions(button){
             modal.close();
         });
     }
-    }
+}
 function createTableFragment() {
-    fetch(`${baseUrl}/admin/fetcharticles`) 
+    fetch(`${baseUrl}/users/fetchusers`) 
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error status: ${response.status}`);
         }
         return response.json();
     })
-    .then(allarticles => {
-       const articlesData = allarticles.allarticles;
+    .then(users => {
+       const usersData =users;
+       console.log(usersData);
         const thead = [
-            { title: "Image articles", },{ title: "Titre", },{ title: "Date de publication", },{ title: "categorie", },{ title: "Status", }, { title: "Actions", },
+            { title: "Emails", },{ title: "Rôles", },{ title: "Status", }, { title: "Actions", },
         ];
     
         const schema = (item) => {
-            const id = item.articles.id;
-            const created_at = item.articles.created_at;
-            const title = item.articles.title;
-            const description = item.articles.description;
-            const date_pub = item.articles.date_pub;
-            const img = item.articles.img;
-            const status = item.articles.status_id;
-            const category = item.categories.name;
+            const id = item.id;
+            const email = item.email;
+            const role = item.role;
+            const status = item.status_id;
     
             const schema = document.createDocumentFragment();
     
             const TR = document.createElement("tr");
             TR.setAttribute("data-id", id);
             TR.innerHTML = `
-                <td><img src="${baseUrl}/${img}" alt="" style='width: 50px;'></td>
-                <td>${title}</td>
-                <td>${date_pub}</td>
-                <td>${category}</td>
+                <td>${email}</td>
+                <td>${role}</td>
                 <td>${status == 2 ? `
-                    <span class="partner__status">Publier</span>`
-                    :`<span class="partner__status warning">Non publier</span>`}
+                    <span class="partner__status">Activer</span>`
+                    :`<span class="partner__status warning">Bloquer</span>`}
                 </td>
                 <td>
                     <div class="fnb-table__actions-btns">
@@ -72,21 +67,13 @@ function createTableFragment() {
                 const FinabMenuContent = `
                     <ul class="ui-dropdown__list">
                         <li class="ui-dropdown__list-item">
-                            <button class="ui-dropdown__list-item-btn" >
-                                <i class="icon-edit"></i>
-                                <a href="${baseUrl}/articles/update/${id}" class="" title="Modifier">
-                                    Modifier
-                                </a>
-                            </button>
-                        </li>
-                        <li class="ui-dropdown__list-item">
                             ${status == 2 ? `
                             
                             <button class="ui-dropdown__list-item-btn" data-action="barcode-control">
-                                <i class="icon-disabled"></i>
+                                <i class="icon-cancel"></i>
                                 
-                                <a href="${baseUrl}/articles/delete/${id}" class="btn-delete" title="Retirer">
-                                    Retirer de la publication
+                                <a href="${baseUrl}/users/block/${id}" class="btn-delete" title="Bloquer">
+                                    Bloquer
                                 </a>
                             </button>
                             `
@@ -95,11 +82,19 @@ function createTableFragment() {
                             <button class="ui-dropdown__list-item-btn" data-action="barcode-control">
                                 <i class="icon-activate"></i>
                                 
-                                <a href="${baseUrl}/articles/publish/${id}" class="btn-delete" title="Publier">
-                                    Publier
+                                <a href="${baseUrl}/users/unblock/${id}" class="btn-delete" title="Débloquer">
+                                    Débloquer
                                 </a>
                             </button>
                             `}
+                        </li>
+                        <li class="ui-dropdown__list-item">
+                            <button class="ui-dropdown__list-item-btn" >
+                                <i class="icon-delete"></i>
+                                <a href="${baseUrl}/users/delete/${id}" class="" title="Supprimer">
+                                    Supprimer
+                                </a>
+                            </button>
                         </li>
                     </ul>
                 `;
@@ -115,7 +110,7 @@ function createTableFragment() {
                             const modalBody = document.createElement('div')
                             modalBody.className = 'wdg-modal_body wdg-modal_body--full'
                             modalBody.innerHTML = `<div style="padding:5px;">
-                        <p style="text-align:center;">Voulez vous vraiment ${status == 2 ? `<span class="confirm__disabled">Retirer</span>`:`<span class="confirm__disabled">Publier</span>`}?</p>
+                        <p style="text-align:center;">Voulez vous vraiment ${status == 2 ? `<span class="confirm__disabled">Bloquer</span>`:`<span class="confirm__disabled">Débloquer</span>`}?</p>
                         <div>
                         </div style="display:flex;gap:10px; justify-content:center;">
                             <button id="confirmYes">Oui</button>
@@ -153,7 +148,7 @@ function createTableFragment() {
         new PAGINATION({
             targetId: 'article__list',
             className: "pg--product-list",
-            data: articlesData,
+            data: usersData,
             thead,
             bodyListSchema: schema,
             limit: 5,
@@ -172,13 +167,13 @@ function createTableFragment() {
                         },
                         {
                             value: 2,
-                            label: "Publier",
+                            label: "Actifs",
                             color: "#00aa4d",
                             selected: false,
                         },
                         {
-                            value: 3,
-                            label: "Non publier",
+                            value: 1,
+                            label: "Non actifs",
                             color: "#f0a61c",
                             selected: false,
                         },

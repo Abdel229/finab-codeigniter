@@ -69,6 +69,7 @@ if (!$session->get('user_id')) {
         <!-- Le reste du contenu reste inchangé -->
     </div>
     <?= view('partials/doc_admin_footer'); ?>
+    <script src="<?=base_url('js/galeries.js')?>" type="module"></script>
     
     
 </body>

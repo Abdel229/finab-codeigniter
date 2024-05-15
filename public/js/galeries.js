@@ -22,7 +22,7 @@ function actions(button){
             modal.close();
         });
     }
-    }
+}
 function createTableFragment() {
     fetch(`${baseUrl}/admin/galleries/fetchGalleriesAndCategories`) 
     .then(response => {
