@@ -156,15 +156,15 @@ if (isset($_SESSION['user_id'])) {
           <h2>Découvrez notre gallerie d'images pour le FInAB 2024</h2>
           <p class="gallerie__subText">Les manifestations artistiques empreintes d'exclusivité dévoileront un panorama envoûtant d'artistes, tant locaux qu'internationaux</p>
           <div class="gallerie__images-grid">
-    <?php foreach ($galleries as $gallery) :?>
-        <div class="gallerie__item" data-fancybox="gallery">
-            <a href="<?= base_url($gallery['img_principales'])?>" class="gallerie__link">
-                <img src="<?= base_url($gallery['img_principales'])?>" alt="gallerie_img" style="height: auto;">
-                <div class="image-text"><?=$gallery['name']?></div>
-            </a>
-        </div>
-    <?php endforeach;?>
-</div>
+            <?php foreach ($galleries as $gallery) : ?>
+              <div class="gallerie__item" data-fancybox="gallery">
+                <a href="<?= base_url($gallery['img_principales']) ?>" class="gallerie__link">
+                  <img src="<?= base_url($gallery['img_principales']) ?>" alt="gallerie_img" style="height: auto;">
+                  <div class="image-text"><?= $gallery['name'] ?></div>
+                </a>
+              </div>
+            <?php endforeach; ?>
+          </div>
 
         </div>
       </div>
@@ -205,13 +205,15 @@ if (isset($_SESSION['user_id'])) {
         <div class="partner__content">
           <h2>Nos partenaires</h2>
           <div class="partner__list js-partner">
-            <?php foreach ($partners as $partner) : ?>
-              <div class="partner__item">
-                <a href="<?= $partner['link']?>">
-                  <img src="<?= base_url($partner['img']) ?>" alt="partner">
-                </a>
-              </div>
-            <?php endforeach;?>
+            <?php if (isset($partners)) : ?>
+              <?php foreach ($partners as $partner) : ?>
+                <div class="partner__item">
+                  <a href="<?= $partner['link'] ?>">
+                    <img src="<?= base_url($partner['img']) ?>" alt="partner">
+                  </a>
+                </div>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </div>
         </div>
       </div>
