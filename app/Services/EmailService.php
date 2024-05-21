@@ -1,4 +1,6 @@
-<?php namespace App\Services;
+<?php
+
+namespace App\Services;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -11,21 +13,20 @@ class EmailService
 
         try {
             //Server settings
-            $mail->SMTPDebug = 0;                                 
-            $mail->isSMTP();                                      
-            $mail->Host       = 'smtp.gmail.com';  
-            $mail->SMTPAuth   = true;                               
-            $mail->Username   = 'bertrandorouganni@gmail.com';                 
-            $mail->Password   = 'lycgmtrknindjoid';                           
-            $mail->SMTPSecure = 'tls';                            
-            $mail->Port       = 587;                                   
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();
+            $mail->Host = 'sandbox.smtp.mailtrap.io';
+            $mail->SMTPAuth = true;
+            $mail->Port = 2525;
+            $mail->Username = '85bf5d3579cac2';
+            $mail->Password = 'e703fb23fb2059';
 
             //Recipients
-            $mail->setFrom('bertrandorouganni@gmail.com', 'Mailer');
-            $mail->addAddress($to);              
+            $mail->setFrom('rakibeabdelaboudou@gmail.com', 'Mailer');
+            $mail->addAddress($to);
 
             //Content
-            $mail->isHTML(true);                                  
+            $mail->isHTML(true);
             $mail->Subject = $subject;
             $mail->Body    = $body;
 

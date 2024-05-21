@@ -29,9 +29,13 @@ echo view('partials/header');
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="distinction__list gallerie__list">
+                    <div class="">
                         <?php foreach ($data as $item) : ?>
                             <?php foreach ($item['galleries'] as $gallery) : ?>
+                                <div style="display:flex">
+                                    <p class="gallerie-categorie"><?=$gallery['name']?></p>
+                                </div>
+                                <div class="distinction__list gallerie__list">
                                 <a href="<?= $gallery['img_principales'] ?>" data-fancybox="<?= $gallery['name'] ?>" class="column__gallerie__list" data-title="<?= $gallery['name'] ?>">
                                     <img src="<?= base_url($gallery['img_principales']) ?>" alt="distinction_img">
                                 </a>
@@ -40,6 +44,7 @@ echo view('partials/header');
                                         <img src="<?= base_url($image['img']) ?>" alt="distinction_img">
                                     </a>
                                 <?php endforeach; ?>
+                                </div>
                             <?php endforeach; ?>
                         <?php endforeach; ?>
                     </div>
