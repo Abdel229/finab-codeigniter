@@ -36,6 +36,7 @@ class GalleriesController extends BaseController
             $galleriesInformationForCategory = array_filter($galleriesInformation, function ($gallerieInformation) use ($category) {
                 return $gallerieInformation['category_id'] == $category['id'];
             });
+            dd($galleriesInformationForCategory);
             if (empty($galleriesInformationForCategory)) {
                 continue;
             }

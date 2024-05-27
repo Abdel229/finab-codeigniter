@@ -24,20 +24,16 @@
               <img src="<?= base_url($data['principal_img']) ?>"/>
             </div>
             <div class="partner-section__presentation-content">
-              <h3 class="h3 partner-section__presentation-content-title">4 Bonnes raisons pour devenir partenaire du FINAB</h3>
+              <?php
+              $reasons=json_decode($data['reasons']);
+              ?>
+              <h3 class="h3 partner-section__presentation-content-title"><?=count($reasons)?> Bonne<?= count($reasons)>1?'s':'' ?> raison<?= count($reasons)>1?'s':'' ?> pour devenir partenaire du FINAB</h3>
               <ul class="partner-section__presentation-content-list">
+                <?php foreach($reasons as $reason): ?>
                 <li class="partner-section__presentation-content-list-item">
-                    Le FInAB offre une opportunité unique aux entreprises et aux organisations de devenir <strong>des partenaires de premier plan dans la promotion de la culture et des arts</strong> au Bénin en Afrique.
+                    <?=$reason?>
                 </li>
-                <li class="partner-section__presentation-content-list-item">
-                  En tant que partenaire du FInAB, vous êtes assuré d'un partenariat Win-Win, marquant votre présence en cette période de festivité et vous offrant une visibilité accrue auprès d'un public diversifié.
-                 </li>
-                <li class="partner-section__presentation-content-list-item">
-                  Nos offres de partenariat sont conçues sur mesure pour répondre <strong>à vos objectifs spécifiques, que ce soit en termes de visibilité,</strong> d'image de marque, de notoriété, de mise en avant de produit, d'échantillonnage, de ventes, de relations publiques ou d'opérations événementielles. 
-                </li>
-                <li class="partner-section__presentation-content-list-item">
-                  Nous travaillerons en étroite collaboration avec vous pour développer des solutions personnalisées qui mettent en valeur votre engagement envers la culture et les arts, tout en renforçant votre présence sur le marché.
-                </li>
+                <?php endforeach; ?>
               </ul>
             </div>
           </div>

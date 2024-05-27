@@ -27,50 +27,57 @@ class PartenerController extends BaseController
             $partner_spon = $partnerSponsModel->where('id', 1)->first();
             if ($partner_spon) {
                 // mise à jour
-                $data=[
-                    'title'=> $title,
-                    'subtitle'=>$subtitle,
-                   'mini_text'=>$miniText,
+                $data = [
+                    'title' => $title,
+                    'subtitle' => $subtitle,
+                    'mini_text' => $miniText,
                 ];
                 // principal img
                 if ($principalImg->isValid() && !$principalImg->hasMoved()) {
-                    // Déplacer la nouvelle image vers le dossier de destination
                     $newImageName = $principalImg->getRandomName();
                     $principalImg->move(ROOTPATH . 'public/uploads', $newImageName);
-    
+
                     $data['principal_img'] = 'uploads/' . $newImageName;
                 }
 
                 // update youtube links
                 $links = [];
                 foreach ($_POST as $key => $value) {
-                    // Vérifier si la clé correspond à un lien
                     if (strpos($key, 'lien') === 0 && !empty($value)) {
-                        // Extraire le numéro de lien de la clé
                         $linkNumber = substr($key, 4);
 
-                        // Ajouter le lien au tableau des liens
                         $links[] = $value;
                     }
                 }
-                $data['videos_links']=json_encode($links);
+                $data['videos_links'] = json_encode($links);
 
-                 // enregistrement des images additionnels
+                // Update raisons
+                $raisons = [];
+                foreach ($_POST as $key => $value) {
+                    if (strpos($key, 'raison') === 0 && !empty($value)) {
+                        $raisonNumber = substr($key, 4);
+
+                        $raisons[] = $value;
+                    }
+                }
+                $data['reasons'] = json_encode($raisons);
+                // enregistrement des images additionnels
                 $photos = $this->request->getFiles();
-                 $additionnalImg = [];
-                 foreach ($photos['photos'] as $photo) {
-                     if ($photo->isValid() && !$photo->hasMoved()) {
-                         $newName = $photo->getRandomName();
-                         $photo->move(ROOTPATH . 'public/uploads_galleries', $newName);
-                         $additionnalImg = 'uploads_galleries/' . $newName;
-                     }
-                 }
-                 $data['images']=json_encode($additionnalImg);
+                if (isset($photos['photos'])) {
+                    $additionnalImg = [];
+                    foreach ($photos['photos'] as $photo) {
+                        if ($photo->isValid() && !$photo->hasMoved()) {
+                            $newName = $photo->getRandomName();
+                            $photo->move(ROOTPATH . 'public/uploads_galleries', $newName);
+                            $additionnalImg = 'uploads_galleries/' . $newName;
+                        }
+                    }
+                    $data['images'] = json_encode($additionnalImg);
+                }
 
-                 $partnerSponsModel->update($partner_spon['id'],$data);
-                 $new_partner=$partnerSponsModel->where('id',1)->first();
+                $partnerSponsModel->update($partner_spon['id'], $data);
+                $new_partner = $partnerSponsModel->where('id', 1)->first();
                 return view('/partner/presentation', ['data' => $new_partner]);
-
             } else {
                 // Création
                 // enregistrement de l'image principale
@@ -107,17 +114,15 @@ class PartenerController extends BaseController
                 }
 
                 // enregistrement des données
-                $new_partner=$partnerSponsModel->insert([
-                    'title'=> $title,
-                    'subtitle'=>$subtitle,
-                    'principal_img'=>$imgPath,
-                   'mini_text'=>$miniText,
-                   'images'=>json_encode($additionnalImg),
-                   'video_links'=>json_encode($links)
+                $new_partner = $partnerSponsModel->insert([
+                    'title' => $title,
+                    'subtitle' => $subtitle,
+                    'principal_img' => $imgPath,
+                    'mini_text' => $miniText,
+                    'images' => json_encode($additionnalImg),
+                    'video_links' => json_encode($links)
                 ]);
                 return view('/partner/presentation', ['data' => $new_partner]);
-
-
             }
         }
     }
@@ -133,7 +138,7 @@ class PartenerController extends BaseController
     public function fetchParters()
     {
         $partenairesModel = new PartenairesModel();
-        $partenaires = $partenairesModel->where('status_id',2)->orWhere('status_id',3)->orderBy('id', 'DESC')->findAll();
+        $partenaires = $partenairesModel->where('status_id', 2)->orWhere('status_id', 3)->orderBy('id', 'DESC')->findAll();
         return $this->response->setJSON($partenaires);
     }
     public function store()
@@ -187,7 +192,7 @@ class PartenerController extends BaseController
             }
             $titre = $this->request->getPost('titre');
             $lien = $this->request->getPost('lien');
-            $partnerData=[
+            $partnerData = [
                 'title' => $titre,
                 'link' => $lien,
             ];
@@ -218,19 +223,20 @@ class PartenerController extends BaseController
         session()->setFlashdata('success', ['Partenaire supprimé avec succès']);
         return redirect()->back()->withInput();
     }
-    public function Activer($id){
+    public function Activer($id)
+    {
         $partnerModel = new PartenairesModel();
         $partner = $partnerModel->find($id);
 
         if (!$partner) {
             session()->setFlashdata('errors', ['Article not found']);
-                return redirect()->back()->withInput();
+            return redirect()->back()->withInput();
         }
 
         $partnerModel->update($id, ['status_id' => 2]);
 
         session()->setFlashdata('success', ['Partenaire a été activer']);
-                return redirect()->back()->withInput();
+        return redirect()->back()->withInput();
     }
     public function become_partner()
     {
@@ -295,15 +301,15 @@ class PartenerController extends BaseController
 
             $to = 'bertrandorouganni@gmail.com';
             $subject = 'Demande de partenariat pour Finab';
-            $body = '<h1>'.$titre.'</h1><span>Vient d\'envoyer leur 
-            demande de partenariat par le biais de <strong>'.$user_name.'</strong>.</span>';
-    
+            $body = '<h1>' . $titre . '</h1><span>Vient d\'envoyer leur 
+            demande de partenariat par le biais de <strong>' . $user_name . '</strong>.</span>';
+
             if ($emailService->sendMail($to, $subject, $body)) {
                 echo "Email has been sent successfully.";
             } else {
                 echo "Failed to send email.";
             }
-    
+
             session()->setFlashdata('success', ['Votre demande a été envoyée avec succès']);
             return redirect()->to('/partner/become_partner')->withInput();
         }
@@ -311,16 +317,17 @@ class PartenerController extends BaseController
     public function fetchBecomePartners()
     {
         $partenairesModel = new PartenairesModel();
-        $partenaires = $partenairesModel->where('status_id',1)->orWhere('status_id',5)->orderBy('id', 'DESC')->findAll();
+        $partenaires = $partenairesModel->where('status_id', 1)->orWhere('status_id', 5)->orderBy('id', 'DESC')->findAll();
         return $this->response->setJSON($partenaires);
     }
-    public function Accepted($id){
+    public function Accepted($id)
+    {
         $partnerModel = new PartenairesModel();
         $partner = $partnerModel->find($id);
 
         if (!$partner) {
             session()->setFlashdata('errors', ['Article not found']);
-                return redirect()->back()->withInput();
+            return redirect()->back()->withInput();
         }
         // Obtenir la date et l'heure actuelles
         $dateHeureActuelle = new \DateTime();
@@ -328,12 +335,13 @@ class PartenerController extends BaseController
         // Formater la date et l'heure pour MySQL (optionnel)
         $dateHeureFormatMySQL = $dateHeureActuelle->format('Y-m-d H:i:s');
 
-        $partnerModel->update($id, ['status_id' => 3,'accepted_at'=>$dateHeureFormatMySQL,'updated_at'=>$dateHeureFormatMySQL]);
+        $partnerModel->update($id, ['status_id' => 3, 'accepted_at' => $dateHeureFormatMySQL, 'updated_at' => $dateHeureFormatMySQL]);
 
         session()->setFlashdata('success', ['La demande de partenariat a été accepté avec succès']);
-                return redirect()->back()->withInput();
+        return redirect()->back()->withInput();
     }
-    public function Refused($id){
+    public function Refused($id)
+    {
         $rules = [
             'observation' => 'required|max_length[1000]'
         ];
@@ -347,7 +355,7 @@ class PartenerController extends BaseController
 
         if (!$partner) {
             session()->setFlashdata('errors', ['Partners not found']);
-                return redirect()->back()->withInput();
+            return redirect()->back()->withInput();
         }
         // Obtenir la date et l'heure actuelles
         $dateHeureActuelle = new \DateTime();
@@ -356,9 +364,9 @@ class PartenerController extends BaseController
         $dateHeureFormatMySQL = $dateHeureActuelle->format('Y-m-d H:i:s');
         // dd($dateHeureFormatMySQL);
 
-        $partnerModel->update($id, ['status_id' => 5,'observation' => $observation,'accepted_at'=>$dateHeureFormatMySQL,'updated_at'=>$dateHeureFormatMySQL]);
+        $partnerModel->update($id, ['status_id' => 5, 'observation' => $observation, 'accepted_at' => $dateHeureFormatMySQL, 'updated_at' => $dateHeureFormatMySQL]);
 
         session()->setFlashdata('success', ['La demande de partenariat a été rejeté']);
-                return redirect()->back()->withInput();
+        return redirect()->back()->withInput();
     }
 }

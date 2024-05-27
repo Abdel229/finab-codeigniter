@@ -1,3 +1,7 @@
+/**
+ * Add Links
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
     const linksContainer = document.getElementById('links-container');
 
@@ -43,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addLinkButton.appendChild(textNode);
 
     addLinkButton.addEventListener('click', addLink);
-    linksContainer.appendChild(addLinkButton);
+    document.querySelector('#add-links-btn').appendChild(addLinkButton);
 });
 
 
@@ -183,4 +187,58 @@ document.addEventListener('DOMContentLoaded', () => {
             loader.style.display = 'none';
         }, 250);
     }
+});
+
+
+/**
+ * Add Raisons
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
+    const raisonsContainer = document.getElementById('raisons-container');
+
+    let linkCounter = 1;
+
+    function addLink() {
+        // conteneur du lien et du bouton delete
+        const divContainer=document.createElement('div');
+        divContainer.style="display:flex;"
+        const newInput = document.createElement('input');
+        newInput.type = 'textarea';
+        newInput.name = 'raison' + linkCounter;
+        newInput.id = 'raison' + linkCounter;
+        const newLabel = document.createElement('label');
+        newLabel.htmlFor = 'lien' + linkCounter;
+        newLabel.textContent = 'Raison ' + linkCounter;
+
+        const removeLinkButton = document.createElement('i');
+        removeLinkButton.classList.add('icon', 'icon-delete');
+        removeLinkButton.style='margin-left:10px;cursor:pointer;background-color:red;'
+        removeLinkButton.addEventListener('click', function() {
+        raisonsContainer.removeChild(newLabel);
+            raisonsContainer.removeChild(divContainer);
+        });
+        
+        raisonsContainer.appendChild(newLabel);
+        divContainer.appendChild(newInput);
+        divContainer.appendChild(removeLinkButton);
+        raisonsContainer.appendChild(divContainer);
+        linkCounter++;
+    }
+    const addLinkButton = document.createElement('button');
+    addLinkButton.type = 'button';
+    addLinkButton.style='display:flex;align-items:center;justify-content:center;background-color:#D67608;border:none;padding:6px 20px;border-radius:8px;color:#fff;cursor:pointer;'
+
+    const icon = document.createElement('i');
+    icon.classList.add('icon');
+    icon.classList.add('icon-plus');
+    icon.style='margin-right:8px;background-color:#fff;'
+    addLinkButton.appendChild(icon);
+
+    const textNode = document.createTextNode('Ajouter une raison');
+    addLinkButton.appendChild(textNode);
+
+    addLinkButton.addEventListener('click', addLink);
+    
+    document.querySelector('#add-reasons-btn').appendChild(addLinkButton);
 });

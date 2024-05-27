@@ -33,15 +33,17 @@ echo view('partials/header');
                         <?php foreach ($data as $item) : ?>
                             <?php foreach ($item['galleries'] as $gallery) : ?>
                                 <div style="display:flex">
-                                    <p class="gallerie-categorie"><?=$gallery['name']?></p>
+                                    <p class="gallerie-categorie"><?=$item['category']['name']?></p>
                                 </div>
-                                <div class="distinction__list gallerie__list">
+                                <div class="gallerie__list">
                                 <a href="<?= $gallery['img_principales'] ?>" data-fancybox="<?= $gallery['name'] ?>" class="column__gallerie__list" data-title="<?= $gallery['name'] ?>">
                                     <img src="<?= base_url($gallery['img_principales']) ?>" alt="distinction_img">
+                                    <p class="img-title"><?=$gallery['name']?></p>
                                 </a>
                                 <?php foreach ($item['images'] as $image) : ?>
-                                    <a href="<?= $gallery['img_principales'] ?>" data-fancybox="<?= $gallery['name'] ?>" class="column__gallerie__list" data-title="<?= $gallery['name'] ?>">
+                                    <a href="<?= $image['img'] ?>" data-fancybox="<?= $gallery['name'] ?>" class="column__gallerie__list" data-title="<?= $gallery['name'] ?>">
                                         <img src="<?= base_url($image['img']) ?>" alt="distinction_img">
+                                        <p class="img-title"><?=$gallery['name']?></p>
                                     </a>
                                 <?php endforeach; ?>
                                 </div>

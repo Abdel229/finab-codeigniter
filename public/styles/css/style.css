@@ -1314,9 +1314,24 @@ a.banner__programme-btn {
 }
 .column__gallerie__list {
   border: 1px #000 solid;
-    padding: 5px; /* Padding pour améliorer l'apparence */
     box-sizing: border-box;  /* Pour inclure les marges dans le calcul de la largeur */
     height: 250px;
+}
+.column__gallerie__list img{
+  width: 100%;
+  height:100%;
+}
+.img-title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position:absolute;
+  width: 100%;
+  bottom:0;
+  height:40px;
+  color:#fff;
+  font-family: "Shojumaru-regular", sans-serif;
+  background: linear-gradient(to bottom,#0000006b,#000000dc);
 }
 @media (max-width: 768px) {
   .gallerie__list {

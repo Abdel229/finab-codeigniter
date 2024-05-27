@@ -83,19 +83,36 @@ if (!$session->get('user_id')) {
                                 <label for="productImgFiled" class="cpn-form__label"></label>
                             </div>
                         </div>
+                        <!-- Raions -->
+                        <div class="form-group">
+                            <div id="raisons-container">
+                            <?php
+                                if(isset($data['reasons'])):
+                                    $id=1;
+                                foreach(json_decode($data['reasons']) as $reason): ?>
+                                <label>Raison <?=$id?></label>
+                                    <input type="text" name="raison<?=$id ?>" value="<?= $reason ?>" required><br>
+                                <?php $id++; endforeach;
+                                endif;
+                                ?>
+                            </div>
+                            <div id="add-reasons-btn"></div>
+                        </div>
                         <!--  Youtube link  -->
                         <div class="form-group">
                             <div id="links-container">
                                 <!-- Les champs d'entrée pour les liens seront ajoutés ici -->
                                 <?php
-                                if(isset($data['links'])):
+                                if(isset($data['videos_links'])):
                                     $id=1;
-                                foreach($data['links'] as $link): ?>
-                                    <input type="text" name="lien<?=$id ?>" value="<?= $link['link'] ?>" required><br>
+                                foreach(json_decode($data['videos_links']) as $link): ?>
+                                <label>Lien <?=$id?></label>
+                                    <input type="text" name="lien<?=$id ?>" value="<?= $link ?>"><br>
                                 <?php $id++; endforeach;
                                 endif;
                                 ?>
                             </div>
+                            <div id="add-links-btn"></div>
                         </div>
                         <!-- Aditionnal image -->
                         <!--
